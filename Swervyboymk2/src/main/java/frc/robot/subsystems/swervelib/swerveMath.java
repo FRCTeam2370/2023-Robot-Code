@@ -5,7 +5,7 @@
 package frc.robot.subsystems.swervelib;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.RobotState;
 
@@ -17,12 +17,12 @@ public class swerveMath {
     public static double falcontickstodegrees = 0.01373;
     public static boolean reversed;
     private boolean fieldOriented = false;
-    private AHRS gyro;
-    public swerveMath(double positionX, double positionY, WPI_TalonFX anglemoter, AHRS gyro){
+    //private AHRS gyro;
+    public swerveMath(double positionX, double positionY, WPI_TalonFX anglemoter){
         this.positionX=positionX;
         this.positionY=positionY;    
         this.anglemoter=anglemoter;
-        this.gyro = gyro;
+      //  this.gyro = gyro;
     }
 
 
@@ -75,10 +75,10 @@ public double speedset(double x, double y, double z){
 //tells robot if to use offset or not
 public double getgyroangle(){
     if(RobotState.isTeleop()){
-        return (gyro.getAngle()+Drivetrain.gyroOffSet+90)%360;}
+        return 0;}//(gyro.getAngle()+Drivetrain.gyroOffSet+90)%360;}
 
     else{ 
-        return gyro.getAngle();
+        return 0;//gyro.getAngle();
     }
 }
 public void setdtivemode(boolean setfieldoriented){
@@ -90,7 +90,7 @@ public double numbersafterfieldoriented(double x, double y, double z, String wha
     double zFinal;
 
     if(fieldOriented){
-        double radians = getgyroangle() * Math.PI / 180;
+        double radians = 0/*getgyroangle()*/ * Math.PI / 180;
         //current x
         double cos = Math.cos(radians);
         //current y

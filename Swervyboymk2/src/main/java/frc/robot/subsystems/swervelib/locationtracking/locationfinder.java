@@ -8,11 +8,11 @@ package frc.robot.subsystems.swervelib.locationtracking;
 import java.util.ArrayList;
 
 
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 
 /** Add your docs here. */
 public class locationfinder {
-
+/*
 public ArrayList<Double> xacceleration = new ArrayList<Double>();
 public ArrayList<Double> yacceleration = new ArrayList<Double>();
 public ArrayList<Double> xvelocity = new ArrayList<Double>();
@@ -86,5 +86,5 @@ public double Currentylocation(){
     else{
         return 0;
 }
-}
+}*/
 }

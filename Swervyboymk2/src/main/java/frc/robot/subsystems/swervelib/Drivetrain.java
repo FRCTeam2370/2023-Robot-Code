@@ -14,8 +14,10 @@ import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.CANCoderStatusFrame;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -25,7 +27,7 @@ public class Drivetrain extends SubsystemBase {
   public static double drivespeedmax = .5;
   public static double rotationspeedmax = .35;
   public static double gyroOffSet;
-  public static AHRS gyro = new AHRS();
+ // public static AHRS gyro = new AHRS();
   public static double falcontickstodegrees = 0.01373;
 //  public static locationfinder location = new locationfinder(gyro);
   //front left swerve 
@@ -35,7 +37,7 @@ public class Drivetrain extends SubsystemBase {
   //encoder 
   public static CANCoder Frontleftencoder = new CANCoder(Constants.Frontleftencoder);
   //math for each side
-  public static swerveMath leftfront = new swerveMath(Constants.Frontleftx, Constants.Frontlefty, Frontleftturn, gyro);
+  public static swerveMath leftfront = new swerveMath(Constants.Frontleftx, Constants.Frontlefty, Frontleftturn);
 
   //front right swerve 
   // motors for driving
@@ -44,7 +46,7 @@ public class Drivetrain extends SubsystemBase {
   //encoder
   public static CANCoder frontrightencoder = new CANCoder(Constants.FrontRightencoder);
   //math for each side
-  public static swerveMath rightfront = new swerveMath(Constants.Frontrightx, Constants.Frontrighty, Frontrightturn,gyro);
+  public static swerveMath rightfront = new swerveMath(Constants.Frontrightx, Constants.Frontrighty, Frontrightturn);
 
   //back left swerve
   // motors for driving
@@ -53,7 +55,7 @@ public class Drivetrain extends SubsystemBase {
   //encoder
   public static CANCoder Backleftencoder = new CANCoder(Constants.BackLeftencoder);
   //math for each side
-  public static swerveMath leftback = new swerveMath(Constants.BackLeftx, Constants.BackLefty, Backleftturn, gyro);
+  public static swerveMath leftback = new swerveMath(Constants.BackLeftx, Constants.BackLefty, Backleftturn);
 
   //back right swerve 
   // motors for driving
@@ -62,7 +64,7 @@ public class Drivetrain extends SubsystemBase {
   //encoder
   public static CANCoder Backrightencoder = new CANCoder(Constants.Backrightencoder);
   //math for each side
-  public static swerveMath rightback = new swerveMath(Constants.Backrightx, Constants.Backrighty, Backrightturn, gyro);
+  public static swerveMath rightback = new swerveMath(Constants.Backrightx, Constants.Backrighty, Backrightturn);
 
 
   // set control of swerve modula 
@@ -96,7 +98,7 @@ public class Drivetrain extends SubsystemBase {
 }
 // resets gyro
 public static void resetgyro(){
-  gyro.reset();
+  //gyro.reset();
 }
 // resets one falcons 
 public static void resetfalcons(WPI_TalonFX motor){
@@ -173,21 +175,26 @@ public static void drivemotersetup(WPI_TalonFX motor){
     setupalldrivemotors();
   } 
  
-  public Drivetrain() {}
+  public Drivetrain() {
+    LiveWindow.enableAllTelemetry();
+    Shuffleboard.disableActuatorWidgets();
+  }
 
   @Override
   public void periodic(
-  ) {
-    SmartDashboard.putNumber("Left front encoder", Frontleftencoder.getAbsolutePosition());
-    SmartDashboard.putNumber("Left back encoder", Backleftencoder.getAbsolutePosition());
-    SmartDashboard.putNumber("Right Front encoder", frontrightencoder.getAbsolutePosition());
-    SmartDashboard.putNumber("Right Back encoder", Backrightencoder.getAbsolutePosition());
-    SmartDashboard.putNumber("y axis", RobotContainer.deadband(1, .05, RobotContainer.controller));
-    SmartDashboard.putNumber("x axis", RobotContainer.deadband(0, .05, RobotContainer.controller));
-    SmartDashboard.putNumber("z axis", RobotContainer.deadband(4, .05, RobotContainer.controller));
+  ) 
+  {   
+    
+   // SmartDashboard.putNumber("Left front encoder", Frontleftencoder.getAbsolutePosition());
+    //SmartDashboard.putNumber("Left back encoder", Backleftencoder.getAbsolutePosition());
+    //SmartDashboard.putNumber("Right Front encoder", frontrightencoder.getAbsolutePosition());
+    //SmartDashboard.putNumber("Right Back encoder", Backrightencoder.getAbsolutePosition());
+    //SmartDashboard.putNumber("y axis", RobotContainer.deadband(1, .05, RobotContainer.controller));
+    //SmartDashboard.putNumber("x axis", RobotContainer.deadband(0, .05, RobotContainer.controller));
+    //SmartDashboard.putNumber("z axis", RobotContainer.deadband(4, .05, RobotContainer.controller));
    // SmartDashboard.putNumber("x location", location.Currentxlocation());
    // SmartDashboard.putNumber("y location", location.Currentylocation());
-    SmartDashboard.putNumber("angle", gyro.getAngle());
+   // SmartDashboard.putNumber("angle", gyro.getAngle());
     // This method will be called once per scheduler run
   }
 }

@@ -7,12 +7,17 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+
+import frc.robot.commands.balance;
 import frc.robot.commands.driving;
+import frc.robot.commands.fullReset;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -25,8 +30,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain m_Drivetrain = new Drivetrain();
-  
-  
+
+
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 public static GenericHID controller = new GenericHID(0);
 public static double deadband(int axis, double deadband, GenericHID controler){
@@ -42,6 +47,8 @@ public static double deadband(int axis, double deadband, GenericHID controler){
    return truezone*(controler.getRawAxis(axis)-deadband);}
  }
 }
+public static JoystickButton select = new JoystickButton(controller, 7);
+public static JoystickButton A = new JoystickButton(controller, 1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -67,6 +74,8 @@ public static double deadband(int axis, double deadband, GenericHID controler){
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
     m_Drivetrain.setDefaultCommand(new driving(m_Drivetrain));
+    select.whileTrue(new fullReset(m_Drivetrain));
+    A.whileTrue(new balance(m_Drivetrain));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.

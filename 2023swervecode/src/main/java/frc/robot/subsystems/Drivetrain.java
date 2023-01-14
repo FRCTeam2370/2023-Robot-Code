@@ -15,6 +15,8 @@ import com.ctre.phoenix.sensors.CANCoderStatusFrame;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -26,8 +28,9 @@ public class Drivetrain extends SubsystemBase {
   public static double drivespeedmax = .5;
   public static double rotationspeedmax = .35;
   public static double gyroOffSet;
-  public static AHRS gyro = new AHRS();
+  public static AHRS gyro = new AHRS(SerialPort.Port.kUSB);
   public static double falcontickstodegrees = 0.01373;
+  public static double autobalancespeed = 0;
 
   //front left swerve 
   // motors for driving
@@ -93,7 +96,7 @@ public static double froffset = 0;
    Backrightdrive.stopMotor(); 
   }else{
     swervecontrol(Frontleftdrive, Frontleftturn, leftfront, x , y, z);
-   swervecontrol(Frontrightdrive, Frontrightturn, rightfront, x, y, z);
+   swervecontrol(Frontrightdrive, Frontrightturn, rightfront, x, y, -z);
    swervecontrol(Backleftdrive, Backleftturn, leftback, x, y, z);
    swervecontrol(Backrightdrive, Backrightturn, rightback, x, y, z); 
   }
@@ -154,10 +157,10 @@ public static void setSwerveRotation(WPI_TalonFX motor, CANCoder encoder, double
 }
 //sets all turn motors to needed settings 
 public static void setallswerverotation(){
-  setSwerveRotation(Frontleftturn, Frontleftencoder, Constants.Frontleftencoderoffset+floffset);
-  setSwerveRotation(Frontrightturn, frontrightencoder, Constants.FrontRightencoderoffset+froffset);
-  setSwerveRotation(Backleftturn, Backleftencoder, Constants.BackLeftencoderoffset+rloffset);
-  setSwerveRotation(Backrightturn, Backrightencoder, Constants.Backrightencoderoffset+rroffset);
+  setSwerveRotation(Frontleftturn, Frontleftencoder, Constants.Frontleftencoderoffset);
+  setSwerveRotation(Frontrightturn, frontrightencoder, Constants.FrontRightencoderoffset);
+  setSwerveRotation(Backleftturn, Backleftencoder, Constants.BackLeftencoderoffset);
+  setSwerveRotation(Backrightturn, Backrightencoder, Constants.Backrightencoderoffset);
 }
 // set up drive motor
 public static void drivemotersetup(WPI_TalonFX motor){
@@ -175,40 +178,19 @@ public static void drivemotersetup(WPI_TalonFX motor){
     setallmotorsdefultstate();
     setallswerverotation();
     setupalldrivemotors();
+    gyro.reset();
   } 
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.getBoolean("using dashboard", false);
-    double floffsetm;
-    double froffsetm;
-    double rloffsetm;
-    double rroffsetm;
-    boolean usedashbroadoffsets = false;
-    if(usedashbroadoffsets == true){
-      floffsetm = SmartDashboard.getNumber("front left offset", 0);
-      froffsetm = SmartDashboard.getNumber("front right offset", 0);
-      rloffsetm = SmartDashboard.getNumber("back left offset", 0);
-      rroffsetm = SmartDashboard.getNumber("back right offset", 0);
-    }
-    else{
-      floffsetm = 0;
-      froffsetm = 0;
-      rloffsetm = 0;
-      rroffsetm = 0;
-    }
-  floffset = floffsetm;
-  froffset = froffsetm;
-  rloffset = rloffsetm;
-  rroffset = rroffsetm;
+
     SmartDashboard.putNumber("Left front encoder", Frontleftencoder.getAbsolutePosition());
     SmartDashboard.putNumber("Left back encoder", Backleftencoder.getAbsolutePosition());
     SmartDashboard.putNumber("Right Front encoder", frontrightencoder.getAbsolutePosition());
     SmartDashboard.putNumber("Right Back encoder", Backrightencoder.getAbsolutePosition());
-    SmartDashboard.putNumber("y axis", RobotContainer.deadband(1, .05, RobotContainer.controller));
-    SmartDashboard.putNumber("x axis", RobotContainer.deadband(0, .05, RobotContainer.controller));
-    SmartDashboard.putNumber("z axis", RobotContainer.deadband(4, .05, RobotContainer.controller));
     SmartDashboard.putNumber("angle", gyro.getAngle());
+    SmartDashboard.putNumber("pitch", gyro.getPitch());
+    
   }
 }

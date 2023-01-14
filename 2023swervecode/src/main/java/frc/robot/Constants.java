@@ -21,28 +21,28 @@ public final class Constants {
     public static int Frontleftdrive = 28;
     public static int Frontleftturn = 27;
     public static int Frontleftencoder = 26;
-    public static double Frontleftencoderoffset = 0; //1.2; //174.6;
+    public static double Frontleftencoderoffset = 186.56-180; //1.2; //174.6;
     public static double Frontleftx = 1;
     public static double Frontlefty = 1;
   
     public static int FrontRightdrive = 25;
     public static int FrontRightturn = 24;
     public static int FrontRightencoder = 23;
-    public static double FrontRightencoderoffset = 0; //356;//280; //6; //93.1;
+    public static double FrontRightencoderoffset = 85.41; //356;//280; //6; //93.1;
     public static double Frontrightx = -1;
     public static double Frontrighty = 1;
     
     public static int BackLeftdrive = 22;
     public static int BackLeftturn = 21;
     public static int BackLeftencoder = 20;
-    public static double BackLeftencoderoffset = 0;//231; //260; //309.6;
+    public static double BackLeftencoderoffset = 230;//231; //260; //309.6;
     public static double BackLeftx = -1;
     public static double BackLefty = 1;
   
     public static int BackRightdrive = 31;
     public static int BackRightturn = 30;
     public static int Backrightencoder = 29;
-    public static double Backrightencoderoffset = 0;//160-180; //58;//200.9;
+    public static double Backrightencoderoffset = -22;//160-180; //58;//200.9;
     public static double Backrightx = -1;
     public static double Backrighty = -1;
 }

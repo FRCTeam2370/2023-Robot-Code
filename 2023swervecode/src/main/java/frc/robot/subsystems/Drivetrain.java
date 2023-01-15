@@ -15,9 +15,11 @@ import com.ctre.phoenix.sensors.CANCoderStatusFrame;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -31,6 +33,11 @@ public class Drivetrain extends SubsystemBase {
   public static AHRS gyro = new AHRS(SerialPort.Port.kUSB);
   public static double falcontickstodegrees = 0.01373;
   public static double autobalancespeed = 0;
+  public static double tilt(){
+    return gyro.getPitch();
+  }
+  public static boolean firststart = false;
+  public static PIDController autobalancepid = new PIDController(.1, 0, 0);
 
   //front left swerve 
   // motors for driving
@@ -184,7 +191,7 @@ public static void drivemotersetup(WPI_TalonFX motor){
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
+  
     SmartDashboard.putNumber("Left front encoder", Frontleftencoder.getAbsolutePosition());
     SmartDashboard.putNumber("Left back encoder", Backleftencoder.getAbsolutePosition());
     SmartDashboard.putNumber("Right Front encoder", frontrightencoder.getAbsolutePosition());

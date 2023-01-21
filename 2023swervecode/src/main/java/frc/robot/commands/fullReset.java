@@ -27,6 +27,8 @@ public class fullReset extends CommandBase {
   public void execute() {
     
     Drivetrain.gyro.reset();
+    Drivetrain.x = 0;
+    Drivetrain.y = 0;
   }
   
 

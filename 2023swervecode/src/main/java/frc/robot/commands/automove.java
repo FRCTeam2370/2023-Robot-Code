@@ -7,14 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
-public class pidautobalance extends CommandBase {
-  /** Creates a new pidautobalance. */
-  public pidautobalance(Drivetrain m_Drivetrain) {
+public class automove extends CommandBase {
+  /** Creates a new automove. */
+  public automove(Drivetrain m_Drivetrain) {
     addRequirements(m_Drivetrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
-
-
 
   // Called when the command is initially scheduled.
   @Override
@@ -23,10 +21,9 @@ public class pidautobalance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   
-    Drivetrain.fullswervecontrol(0, Drivetrain.autobalancepid.calculate(Drivetrain.gyro.getPitch(), 0), 0);
- 
+    Drivetrain.fullswervecontrol(Drivetrain.automovePID.calculate(Drivetrain.x, 0), Drivetrain.automovePID.calculate(Drivetrain.y, 0), Drivetrain.autoturn.calculate(Drivetrain.gyro.getAngle(), 0));
   }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}

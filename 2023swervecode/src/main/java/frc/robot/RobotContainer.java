@@ -8,6 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.autobalancepid;
+import frc.robot.commands.automove;
 import frc.robot.commands.balance;
 import frc.robot.commands.driving;
 import frc.robot.commands.fullReset;
@@ -53,6 +54,7 @@ public static double deadband(int axis, double deadband, GenericHID controler){
 public static JoystickButton select = new JoystickButton(controller, 7);
 public static JoystickButton A = new JoystickButton(controller, 1);
 public static JoystickButton B = new JoystickButton(controller, 2);
+public static JoystickButton X = new JoystickButton(controller, 3);
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -81,8 +83,10 @@ public static JoystickButton B = new JoystickButton(controller, 2);
     select.whileTrue(new fullReset(m_Drivetrain));
     A.whileTrue(new balance(m_Drivetrain));
     B.whileTrue(new pidautobalance(m_Drivetrain));
+    X.whileTrue(new automove(m_Drivetrain));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
+    
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 

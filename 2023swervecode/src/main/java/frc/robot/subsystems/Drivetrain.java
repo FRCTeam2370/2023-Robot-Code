@@ -18,6 +18,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -26,19 +27,24 @@ import frc.robot.RobotContainer;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
-  public Drivetrain() {}
-  public static double drivespeedmax = .5;
+  public Drivetrain() {
+    x = 0;
+    y = 0;
+    autobalancepid.setTolerance(.5);
+  }
+  
+  public static double drivespeedmax = .25;
   public static double rotationspeedmax = .35;
   public static double gyroOffSet;
   public static AHRS gyro = new AHRS(SerialPort.Port.kUSB);
   public static double falcontickstodegrees = 0.01373;
   public static double autobalancespeed = 0;
-  public static double tilt(){
-    return gyro.getPitch();
-  }
+ 
   public static boolean firststart = false;
-  public static PIDController autobalancepid = new PIDController(.1, 0, 0);
-
+  public static PIDController autobalancepid = new PIDController(.02, .0, 0.00);
+  public static PIDController automovePID = new PIDController(.025, 0, 0);
+  public static PIDController autoturn = new PIDController(.004, .00, 0.00);
+  public static double xyangle;
   //front left swerve 
   // motors for driving
   public static WPI_TalonFX Frontleftdrive = new WPI_TalonFX(Constants.Frontleftdrive);
@@ -89,8 +95,9 @@ public static double froffset = 0;
   turnmoter.set(ControlMode.Position,whatspot.rotationAngle(truex, truey ,truez));
    drivemoter.set(ControlMode.PercentOutput, whatspot.speedset(truex, truey ,truez)); 
   } 
-//full control of all swerves 
-  public static void fullswervecontrol(double x, double y, double z){
+//full control of all swerves
+public static void fullswervecontrol(double x, double y, double z){
+    xyangle =(Math.atan2(y, x));
     if(x== 0 && y== 0 && z== 0 )
   {
    leftfront.rotationAngle(1, 1, 0);
@@ -187,17 +194,35 @@ public static void drivemotersetup(WPI_TalonFX motor){
     setupalldrivemotors();
     gyro.reset();
   } 
-
+  // used in auto vars
+public static double frontrightencodervalue;
+public static double frontleftencodervalue;
+public static double backrightencodervalue;
+public static double backleftencodervalue;
+public static double distencetravel;
+public static double currentavarge;
+public static double pastavarge = 0;
+public static double x = 0;
+public static double y = 0;
   @Override
   public void periodic() {
+   // collects distence
+  frontleftencodervalue = Frontleftdrive.getSensorCollection().getIntegratedSensorPosition();
+  frontrightencodervalue = Frontrightdrive.getSensorCollection().getIntegratedSensorPosition();
+  backrightencodervalue = Backrightdrive.getSensorCollection().getIntegratedSensorPosition();
+  backleftencodervalue = Backleftdrive.getSensorCollection().getIntegratedSensorPosition();
+  //avarge them
+  currentavarge = (frontleftencodervalue+frontrightencodervalue+backleftencodervalue+backrightencodervalue)/4;
+ //find how far we went in inches
+  distencetravel =Math.abs(currentavarge - pastavarge)/1101;
+  pastavarge = currentavarge;
+  //finds how far we went on the x and y axis
+    x = x+distencetravel*Math.cos(xyangle);
+    y = y+distencetravel*Math.sin(xyangle);
     // This method will be called once per scheduler run
-  
-    SmartDashboard.putNumber("Left front encoder", Frontleftencoder.getAbsolutePosition());
-    SmartDashboard.putNumber("Left back encoder", Backleftencoder.getAbsolutePosition());
-    SmartDashboard.putNumber("Right Front encoder", frontrightencoder.getAbsolutePosition());
-    SmartDashboard.putNumber("Right Back encoder", Backrightencoder.getAbsolutePosition());
+    SmartDashboard.putNumber("deseried ang;e", Math.toDegrees(xyangle));
+  SmartDashboard.putNumber("y", y);
+  SmartDashboard.putNumber("x", x);
     SmartDashboard.putNumber("angle", gyro.getAngle());
-    SmartDashboard.putNumber("pitch", gyro.getPitch());
-    
   }
 }

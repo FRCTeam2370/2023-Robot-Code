@@ -33,7 +33,6 @@ public class Vision extends SubsystemBase {
     double y = ty.getDouble(0.0);
     double area = ta.getDouble(0.0);
     double num = tid.getInteger(0);
-    double targetOffsetAngle_Vertical = ty.getDouble(0.0);
 
 
 

@@ -16,4 +16,34 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+    public static int Frontleftdrive = 21;
+    public static int Frontleftturn = 22;
+    public static int Frontleftencoder = 23;
+    public static double Frontleftencoderoffset = 186.56-180; //1.2; //174.6;
+    public static double Frontleftx = 24;
+    public static double Frontlefty = 28;
+  
+    public static int FrontRightdrive = 24;
+    public static int FrontRightturn = 25;
+    public static int FrontRightencoder = 26;
+    public static double FrontRightencoderoffset = 85.41; //356;//280; //6; //93.1;
+    public static double Frontrightx = -24;
+    public static double Frontrighty = 28;
+    
+    public static int BackLeftdrive = 27;
+    public static int BackLeftturn = 28;
+    public static int BackLeftencoder = 29;
+    public static double BackLeftencoderoffset = 230;//231; //260; //309.6;
+    public static double BackLeftx = 24;
+    public static double BackLefty = -28;
+  
+    public static int BackRightdrive = 30;
+    public static int BackRightturn = 31;
+    public static int Backrightencoder = 32;
+    public static double Backrightencoderoffset = -22;//160-180; //58;//200.9;
+    public static double Backrightx = -24;
+    public static double Backrighty = -28;
+  
+
+ 
 }

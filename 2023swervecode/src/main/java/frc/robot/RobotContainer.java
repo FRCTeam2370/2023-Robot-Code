@@ -13,11 +13,14 @@ import frc.robot.commands.balance;
 import frc.robot.commands.driving;
 import frc.robot.commands.fullReset;
 import frc.robot.commands.pidautobalance;
+import frc.robot.commands.test_auto;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -35,6 +38,12 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain m_Drivetrain = new Drivetrain();
 
+  private final test_auto mTest_auto = new test_auto(m_Drivetrain);
+public static SendableChooser<Command> autoChooser = new SendableChooser<>();
+public void addoptions(){
+  autoChooser.setDefaultOption("test", mTest_auto);
+  SmartDashboard.putData("auto",autoChooser);
+}
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 public static GenericHID controller = new GenericHID(0);
@@ -83,7 +92,7 @@ public static JoystickButton X = new JoystickButton(controller, 3);
     select.whileTrue(new fullReset(m_Drivetrain));
     A.whileTrue(new balance(m_Drivetrain));
     B.whileTrue(new pidautobalance(m_Drivetrain));
-    X.whileTrue(new automove(m_Drivetrain));
+  
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     
@@ -97,6 +106,6 @@ public static JoystickButton X = new JoystickButton(controller, 3);
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return mTest_auto;
   }
 }

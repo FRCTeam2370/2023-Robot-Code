@@ -17,13 +17,10 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.I2C.Port;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
+
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
@@ -31,9 +28,8 @@ public class Drivetrain extends SubsystemBase {
     x = 0;
     y = 0;
     autobalancepid.setTolerance(.5);
-    automovePID.setTolerance(1);
   }
-  
+
   public static double drivespeedmax = .25;
   public static double rotationspeedmax = .35;
   public static double gyroOffSet;
@@ -205,9 +201,10 @@ public static double currentavarge;
 public static double pastavarge = 0;
 public static double x = 0;
 public static double y = 0;
+
   @Override
   public void periodic() {
-   // collects distence
+     // collects distence
   frontleftencodervalue = Frontleftdrive.getSensorCollection().getIntegratedSensorPosition();
   frontrightencodervalue = Frontrightdrive.getSensorCollection().getIntegratedSensorPosition();
   backrightencodervalue = Backrightdrive.getSensorCollection().getIntegratedSensorPosition();
@@ -221,14 +218,10 @@ public static double y = 0;
     x = x+distencetravel*Math.cos(xyangle);
     y = y+distencetravel*Math.sin(xyangle);
     // This method will be called once per scheduler run
-
-    SmartDashboard.putNumber("left encoder", Frontleftencoder.getAbsolutePosition());
-    SmartDashboard.putNumber("right front encoder", frontrightencoder.getAbsolutePosition());
-    SmartDashboard.putNumber("back left", Backleftencoder.getAbsolutePosition());
-    SmartDashboard.putNumber("back right encoder", Backrightencoder.getAbsolutePosition());
     SmartDashboard.putNumber("deseried ang;e", Math.toDegrees(xyangle));
   SmartDashboard.putNumber("y", y);
   SmartDashboard.putNumber("x", x);
     SmartDashboard.putNumber("angle", gyro.getAngle());
+    // This method will be called once per scheduler run
   }
 }

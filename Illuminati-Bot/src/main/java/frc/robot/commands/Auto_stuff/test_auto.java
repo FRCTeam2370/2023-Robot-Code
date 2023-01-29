@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Auto_stuff;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Drivetrain;
@@ -12,12 +12,10 @@ import frc.robot.subsystems.Drivetrain;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class test_auto extends SequentialCommandGroup {
   /** Creates a new test_auto. */
-  public test_auto(Drivetrain m_Drivetrain) {
+  public test_auto(Drivetrain m_Drivetrain, double x, double y, double z) {
+    super(new auto_move(m_Drivetrain, x, y, z));
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-      new automove(m_Drivetrain, 10, 0, 0),
-      new automove(m_Drivetrain, 0, 0, 0)
-    );
+    addCommands();
   }
 }

@@ -44,6 +44,6 @@ public final class Constants {
     public static double Backrightx = -24;
     public static double Backrighty = -28;
   
-
+  public static int Leftarm = 0;
  
 }

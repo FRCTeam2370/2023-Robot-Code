@@ -31,7 +31,8 @@ public class Drivetrain extends SubsystemBase {
     x = 0;
     y = 0;
     autobalancepid.setTolerance(.5);
-    automovePID.setTolerance(1);
+    automovePIDx.setTolerance(1);
+    automovePIDy.setTolerance(1);
   }
   
   public static double drivespeedmax = .25;
@@ -43,7 +44,8 @@ public class Drivetrain extends SubsystemBase {
  
   public static boolean firststart = false;
   public static PIDController autobalancepid = new PIDController(.02, .0, 0.00);
-  public static PIDController automovePID = new PIDController(.025, 0, 0);
+  public static PIDController automovePIDx = new PIDController(.025, 0, 0);
+  public static PIDController automovePIDy = new PIDController(.025, 0, 0);
   public static PIDController autoturn = new PIDController(.004, .00, 0.00);
   public static double xyangle;
   //front left swerve 

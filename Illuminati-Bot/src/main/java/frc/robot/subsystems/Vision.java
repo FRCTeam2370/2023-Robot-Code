@@ -40,7 +40,7 @@ public class Vision extends SubsystemBase {
     SmartDashboard.putNumber("TargetY", y);
     SmartDashboard.putNumber("LimelightArea", area);
     SmartDashboard.putNumber("AprilTagNum", num);
-    SmartDashboard.putNumber("Target Dist", dist);
+  
 
   }
 }

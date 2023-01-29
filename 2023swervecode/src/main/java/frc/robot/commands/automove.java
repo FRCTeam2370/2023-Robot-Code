@@ -28,7 +28,7 @@ public class automove extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Drivetrain.fullswervecontrol(Drivetrain.automovePID.calculate(Drivetrain.x, x), Drivetrain.automovePID.calculate(Drivetrain.y, y), Drivetrain.autoturn.calculate(Drivetrain.gyro.getAngle(), z));
+    Drivetrain.fullswervecontrol(Drivetrain.automovePIDx.calculate(Drivetrain.x, x), Drivetrain.automovePIDy.calculate(Drivetrain.y, y), Drivetrain.autoturn.calculate(Drivetrain.gyro.getAngle(), z));
   }
 
   // Called once the command ends or is interrupted.
@@ -38,6 +38,11 @@ public class automove extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(Drivetrain.automovePIDx.atSetpoint() == true && Drivetrain.automovePIDy.atSetpoint() == true && Drivetrain.autoturn.atSetpoint() == true){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }

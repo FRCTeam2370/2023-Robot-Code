@@ -44,7 +44,7 @@ public final class Constants {
     public static double Backrightx = -24;
     public static double Backrighty = -28;
   
-
+  public static int Leftarm = 0;
  
 =======
     public static int LED_Strip_Length = 144;

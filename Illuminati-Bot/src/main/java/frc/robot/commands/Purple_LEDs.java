@@ -4,38 +4,34 @@
 
 package frc.robot.commands;
 
-import com.revrobotics.ColorSensorV3;
-
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Sensors;
+import frc.robot.Constants;
+import frc.robot.subsystems.sub_LEDs;
 
+public class Purple_LEDs extends CommandBase {
+  /** Creates a new Green_LEDs. */
+  //public static AddressableLED m_LED_Strip1 = new AddressableLED(9);
+  public static AddressableLEDBuffer m_LED_Buffer1 = new AddressableLEDBuffer(Constants.LED_Strip_Length);
+  //public static ShuffleboardTab myTab = Shuffleboard.getTab("LEDs");
+  //public static GenericEntry SelectedLEDColor = myTab.add("LED Color", 2).getEntry();
 
-
-
-
-public class Get_Color extends CommandBase {
-  /** Creates a new Get_Color. */
-  
-  private  I2C.Port i2cPort = I2C.Port.kOnboard;
-  public ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
-  
-  public Get_Color(Sensors s) {
+  public Purple_LEDs(sub_LEDs m_LEDs) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(s);
+    addRequirements(m_LEDs);
+    
   }
-
+ 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    sub_LEDs.LEDs_Purple();  
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    Color detectedColor = m_colorSensor.getColor();
-
+    
   }
 
   // Called once the command ends or is interrupted.
@@ -45,6 +41,7 @@ public class Get_Color extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+  
     return false;
   }
 }

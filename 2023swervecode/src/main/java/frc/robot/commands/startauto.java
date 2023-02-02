@@ -5,26 +5,37 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.sub_LEDs;
+import frc.robot.subsystems.Drivetrain;
 
-public class Orange_LEDs extends CommandBase {
-  /** Creates a new Orange_LEDs. */
-  public Orange_LEDs(sub_LEDs m_LEDs) {
+public class startauto extends CommandBase {
+  /** Creates a new startauto. */
+  private double x,y,z;
+  public startauto(Drivetrain m_Drivetrain, double x, double y, double z) {
+    addRequirements(m_Drivetrain);
+    this.x = x;
+    this.y = y;
+    this.z = z;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_LEDs);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    sub_LEDs.LEDs_Orange();
+   Drivetrain.x = x;
+   Drivetrain.y = y;
+  Drivetrain.angleoffset = z;
+  if(Drivetrain.firststart == false){
+    Drivetrain.leftback.setdtivemode(true);
+    Drivetrain.leftfront.setdtivemode(true);
+    Drivetrain.rightback.setdtivemode(true);
+    Drivetrain.rightfront.setdtivemode(true);
+    Drivetrain.fullreset();
+      Drivetrain.firststart = true;
   }
-
+  }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -33,6 +44,6 @@ public class Orange_LEDs extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

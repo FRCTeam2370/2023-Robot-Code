@@ -14,8 +14,7 @@ package frc.robot;
  */
 public final class Constants {
     public static final int kDriverControllerPort = 0;
-<<<<<<< Updated upstream
-  }
+  
     public static int Frontleftdrive = 21;
     public static int Frontleftturn = 22;
     public static int Frontleftencoder = 23;
@@ -46,7 +45,5 @@ public final class Constants {
   
   public static int Leftarm = 10;
  
-=======
     public static int LED_Strip_Length = 144;
->>>>>>> Stashed changes
 }

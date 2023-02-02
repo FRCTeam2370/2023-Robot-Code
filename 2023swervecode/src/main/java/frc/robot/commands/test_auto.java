@@ -16,7 +16,13 @@ public class test_auto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new startauto(m_Drivetrain, 0, 0, 0),
       new automove(m_Drivetrain, 10, 0, 0),
+      new automove(m_Drivetrain, 0, 0, 0),
+      new automove(m_Drivetrain, 0, 10, 0),
+      new automove(m_Drivetrain, 0, 0, 0),
+      new automove(m_Drivetrain, 0, 0, 180),
+      new automove(m_Drivetrain, 10, 10, 0),
       new automove(m_Drivetrain, 0, 0, 0)
     );
   }

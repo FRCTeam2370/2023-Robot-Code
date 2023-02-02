@@ -17,12 +17,15 @@ import org.opencv.ml.StatModel;
 import com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder;
 
 
+
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Autos;
+
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Game_Piece_Detector;
 import frc.robot.commands.LEDS.Blue_LEDs;
@@ -91,26 +94,6 @@ public static GenericHID operater = new GenericHID(1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(Constants.kDriverControllerPort);
-
-public static GenericHID Controler = new GenericHID(1);
-public static JoystickButton A_Controller = new JoystickButton(Controler, 1);
-public static JoystickButton B_Controller = new JoystickButton(Controler, 2);
-public static JoystickButton X_Controller = new JoystickButton(Controler, 3);
-public static JoystickButton Y_Controller = new JoystickButton(Controler, 4);
-public static JoystickButton LB_Controller = new JoystickButton(Controler, 5);
-public static JoystickButton RB_Controller = new JoystickButton(Controler, 6);
-public static JoystickButton Select_Controller = new JoystickButton(Controler, 7);
-public static JoystickButton Start_Controller = new JoystickButton(Controler, 8);
-
-public static GenericHID Operator = new GenericHID(2);
-public static JoystickButton A_Operator = new JoystickButton(Operator, 1);
-public static JoystickButton B_Operator = new JoystickButton(Operator, 2);
-public static JoystickButton X_Operator = new JoystickButton(Operator, 3);
-public static JoystickButton Y_Operator = new JoystickButton(Operator, 4);
-public static JoystickButton LB_Operator = new JoystickButton(Operator, 5);
-public static JoystickButton RB_Operator = new JoystickButton(Operator, 6);
-public static JoystickButton Select_Operator = new JoystickButton(Operator, 7);
-public static JoystickButton Start_Operator = new JoystickButton(Operator, 8);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */

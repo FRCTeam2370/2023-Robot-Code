@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import java.security.PublicKey;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.CANCoder;
@@ -20,22 +21,34 @@ public class Arm extends SubsystemBase {
   public Arm() {}
 public static boolean arminplace = false;
 public static WPI_TalonFX leftshouldMoter = new WPI_TalonFX(Constants.Leftarm);
-public static DigitalInput magneticsensor = new DigitalInput(0);
+public static DigitalInput leftshouldmagneticsensor = new DigitalInput(0);
 public static CANCoder Leftarmencoder = new CANCoder(0);
-public static WPI_TalonFX leftelbowmotor = new WPI_TalonFX(0);
-public static boolean getmagneticsonsor(){
- return magneticsensor.get();
+
+public static WPI_TalonFX leftelbowMoter = new WPI_TalonFX(Constants.Leftarm);
+public static DigitalInput leftelbowmagneticsensor = new DigitalInput(0);
+public static CANCoder Leftelbowcoder = new CANCoder(0);
+public static boolean getshouldmagneticsonsor(){
+ return leftshouldmagneticsensor.get();
+}
+public static boolean getelbowmagneticsonsor(){
+  return leftelbowmagneticsensor.get();
+ }
+public static void shoulderstartstuff(WPI_TalonFX motor, CANCoder encoder){
+  motor.configFactoryDefault();
+  motor.configPeakOutputForward(.3);
+  motor.configPeakOutputReverse(.3);
+  motor.configFactoryDefault();
+  
+  encoder.configMagnetOffset(encoder.getAbsolutePosition());
 }
 
-public static void armstartstuff(){
-  leftshouldMoter.configFactoryDefault();
-  leftshouldMoter.configPeakOutputForward(.3);
-  leftshouldMoter.configPeakOutputReverse(.3);
-  Leftarmencoder.configFactoryDefault();
-  Leftarmencoder.configMagnetOffset(Leftarmencoder.getAbsolutePosition());
+
+public static void moveelbowslow(WPI_TalonFX motor){
+  motor.set(-.1);
 }
-
-
+public static void movearmmotor(WPI_TalonFX motor, double setpoint){
+  motor.set(ControlMode.Position, setpoint);
+}
 
   @Override
   public void periodic() {

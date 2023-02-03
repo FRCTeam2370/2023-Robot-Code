@@ -32,7 +32,7 @@ public class Driving extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Drivetrain.fullswervecontrol(RobotContainer.Deadband( RobotContainer.Controler, 0.5, 0), RobotContainer.Deadband(RobotContainer.Controler, 0.5, 1), RobotContainer.Deadband(RobotContainer.Controler, 0.5, 4));
+    Drivetrain.fullswervecontrol(RobotContainer.Deadband( 0, 0.5, RobotContainer.driver), RobotContainer.Deadband(1, 0.5, RobotContainer.driver), RobotContainer.Deadband(4, 0.5, RobotContainer.driver));
   }
 
   // Called once the command ends or is interrupted.

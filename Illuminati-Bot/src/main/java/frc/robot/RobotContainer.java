@@ -53,7 +53,7 @@ public class RobotContainer {
 public static GenericHID driver = new GenericHID(0);
 public static GenericHID operater = new GenericHID(1);
 
-      public static double deadband(int axis, double deadband, GenericHID controler){
+      public static double Deadband(int axis, double deadband, GenericHID controler){
         double truezone = 1/(1-deadband);
         if(Math.abs(controler.getRawAxis(axis))< deadband){
           return 0;

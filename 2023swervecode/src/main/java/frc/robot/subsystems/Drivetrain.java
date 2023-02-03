@@ -31,10 +31,11 @@ public class Drivetrain extends SubsystemBase {
     x = 0;
     y = 0;
     autobalancepid.setTolerance(.5);
-    automovePIDx.setTolerance(1);
-    automovePIDy.setTolerance(1);
+    automovePIDx.setTolerance(2);
+    automovePIDy.setTolerance(2);
+    autoturn.setTolerance(5);
   }
-  
+  public static double angleoffset = 0;
   public static double drivespeedmax = .25;
   public static double rotationspeedmax = .35;
   public static double gyroOffSet;

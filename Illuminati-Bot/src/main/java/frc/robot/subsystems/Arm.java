@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import java.security.PublicKey;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.CANCoder;
@@ -17,40 +20,39 @@ public class Arm extends SubsystemBase {
   /** Creates a new Arm. */
   public Arm() {}
 public static boolean arminplace = false;
-public static WPI_TalonFX leftarmMoter = new WPI_TalonFX(Constants.Leftarm);
-public static DigitalInput magneticswitch = new DigitalInput(0);
-public static CANCoder Leftarmencodr = new CANCoder(0);
-public static boolean getmagneticswitch(){
-  return magneticswitch.get();
+public static WPI_TalonFX leftshouldMoter = new WPI_TalonFX(Constants.Leftarm);
+public static DigitalInput leftshouldmagneticsensor = new DigitalInput(0);
+public static CANCoder Leftarmencoder = new CANCoder(0);
+
+public static WPI_TalonFX leftelbowMoter = new WPI_TalonFX(Constants.Leftarm);
+public static DigitalInput leftelbowmagneticsensor = new DigitalInput(0);
+public static CANCoder Leftelbowcoder = new CANCoder(0);
+public static boolean getshouldmagneticsonsor(){
+ return leftshouldmagneticsensor.get();
+}
+public static boolean getelbowmagneticsonsor(){
+  return leftelbowmagneticsensor.get();
+ }
+public static void shoulderstartstuff(WPI_TalonFX motor, CANCoder encoder){
+  motor.configFactoryDefault();
+  motor.configPeakOutputForward(.3);
+  motor.configPeakOutputReverse(.3);
+  motor.configFactoryDefault();
+  
+  encoder.configMagnetOffset(encoder.getAbsolutePosition());
 }
 
 
-public static void setmotersettings(){
-  if(arminplace == false){
-  if(getmagneticswitch() == false){
-    leftarmMoter.set(-.1);
-  }
-  else{
-    leftarmMoter.getSensorCollection().setIntegratedSensorPosition(0, 0);
-    leftarmMoter.configFactoryDefault();
-  leftarmMoter.configPeakOutputForward(.75);
-  leftarmMoter.configPeakOutputReverse(-.075);
-  leftarmMoter.configReverseSoftLimitThreshold(100000);
-  leftarmMoter.configForwardSoftLimitThreshold(0);
-  leftarmMoter.configForwardSoftLimitEnable(true);
-  leftarmMoter.configReverseSoftLimitEnable(true);
-  leftarmMoter.setNeutralMode(NeutralMode.Brake);
-  leftarmMoter.config_kP(0, .05);
-  leftarmMoter.config_kI(0, 0);
-  leftarmMoter.config_kD(0, 0);
-  arminplace = true;
-  }
+public static void moveelbowslow(WPI_TalonFX motor){
+  motor.set(-.1);
 }
+public static void movearmmotor(WPI_TalonFX motor, double setpoint){
+  motor.set(ControlMode.Position, setpoint);
 }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putBoolean("magnet", getmagneticswitch());
+   
   }
 }

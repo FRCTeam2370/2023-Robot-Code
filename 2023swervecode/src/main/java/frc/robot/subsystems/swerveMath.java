@@ -41,14 +41,14 @@ public double rotationAngle(double x, double y, double z){
     double distancetoangle = (wantedangle - encoderAngle360);
 
     // finds the shortest path for the wheel
-    if(Math.abs(distancetoangle)>180){
+    if(Math.abs(distancetoangle)>=180){
         distancetoangle = distancetoangle>0? -360+distancetoangle:distancetoangle+360; 
     }
     //then finds a even short path by making wheel move backwards
-    if(Math.abs(distancetoangle)>90){
+     if(Math.abs(distancetoangle)>=90){
         distancetoangle = distancetoangle<0? distancetoangle+180%360: distancetoangle-180%360;
         reversed = true;
-    }
+    } 
     else{
         reversed = false;
     }
@@ -74,7 +74,7 @@ public double speedset(double x, double y, double z){
 //tells robot if to use offset or not
 public double getgyroangle(){
     if(RobotState.isTeleop()){
-        return (gyro.getAngle()+Drivetrain.gyroOffSet+90)%360;}
+        return (gyro.getAngle()+Drivetrain.gyroOffSet)%360;}
 
     else{ 
         return gyro.getAngle();

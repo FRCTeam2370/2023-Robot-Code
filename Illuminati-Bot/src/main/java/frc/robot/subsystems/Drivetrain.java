@@ -157,10 +157,10 @@ public static void setallmotorsdefultstate(){
   motordefultstate(Backrightturn);
 }
 //sets turn motors to needed settings 
-public static void setSwerveRotation(WPI_TalonFX motor, CANCoder encoder, double offset, boolean encoderInverted){
+public static void setSwerveRotation(WPI_TalonFX motor, CANCoder encoder, double offset, boolean encoderupsidedown){
   motor.configPeakOutputForward(0.5);
   motor.configPeakOutputReverse(-0.5);
-  if(encoderInverted){motor.getSensorCollection().setIntegratedSensorPosition(-encoder.getAbsolutePosition()/falcontickstodegrees, 0);}
+  if(encoderupsidedown){motor.getSensorCollection().setIntegratedSensorPosition(-encoder.getAbsolutePosition()/falcontickstodegrees, 0);}
   else{motor.getSensorCollection().setIntegratedSensorPosition(encoder.getAbsolutePosition()/falcontickstodegrees, 0);}
   encoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
   encoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
@@ -171,9 +171,9 @@ public static void setSwerveRotation(WPI_TalonFX motor, CANCoder encoder, double
 //sets all turn motors to needed settings 
 public static void setallswerverotation(){
   setSwerveRotation(Frontleftturn, Frontleftencoder, Constants.Frontleftencoderoffset,false);
-  setSwerveRotation(Frontrightturn, frontrightencoder, Constants.FrontRightencoderoffset,true);
+  setSwerveRotation(Frontrightturn, frontrightencoder, Constants.FrontRightencoderoffset,false);
   setSwerveRotation(Backleftturn, Backleftencoder, Constants.BackLeftencoderoffset,false);
-  setSwerveRotation(Backrightturn, Backrightencoder, Constants.Backrightencoderoffset,false);
+  setSwerveRotation(Backrightturn, Backrightencoder, Constants.Backrightencoderoffset,true);
 }
 // set up drive motor
 public static void drivemotersetup(WPI_TalonFX motor){

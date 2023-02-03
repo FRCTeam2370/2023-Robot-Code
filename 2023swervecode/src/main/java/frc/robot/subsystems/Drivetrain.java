@@ -210,6 +210,7 @@ public static double y = 0;
   @Override
   public void periodic() {
    // collects distence
+   SmartDashboard.putNumber("encoder value",Backrightencoder.getAbsolutePosition());
   frontleftencodervalue = Frontleftdrive.getSensorCollection().getIntegratedSensorPosition();
   frontrightencodervalue = Frontrightdrive.getSensorCollection().getIntegratedSensorPosition();
   backrightencodervalue = Backrightdrive.getSensorCollection().getIntegratedSensorPosition();

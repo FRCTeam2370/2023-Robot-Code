@@ -41,7 +41,7 @@ public class RobotContainer {
 
       public final Drivetrain m_Drivetrain = new Drivetrain();
 
-public static GenericHID Controler = new GenericHID(1);
+public static GenericHID Controler = new GenericHID(0);
 public static JoystickButton A_Controller = new JoystickButton(Controler, 1);
 public static JoystickButton B_Controller = new JoystickButton(Controler, 2);
 public static JoystickButton X_Controller = new JoystickButton(Controler, 3);
@@ -51,7 +51,7 @@ public static JoystickButton RB_Controller = new JoystickButton(Controler, 6);
 public static JoystickButton Select_Controller = new JoystickButton(Controler, 7);
 public static JoystickButton Start_Controller = new JoystickButton(Controler, 8);
 
-public static GenericHID Operator = new GenericHID(2);
+public static GenericHID Operator = new GenericHID(1);
 public static JoystickButton A_Operator = new JoystickButton(Operator, 1);
 public static JoystickButton B_Operator = new JoystickButton(Operator, 2);
 public static JoystickButton X_Operator = new JoystickButton(Operator, 3);

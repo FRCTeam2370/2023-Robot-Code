@@ -47,9 +47,4 @@ public final class Constants {
   public static int Leftarm = 10;
  
     public static int LED_Strip_Length = 144;
-
 }
-
-
-
-

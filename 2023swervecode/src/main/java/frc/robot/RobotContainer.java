@@ -47,7 +47,7 @@ public void addoptions(){
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 public static GenericHID controller = new GenericHID(0);
-public static double deadband(int axis, double deadband, GenericHID controler){
+public static double deadband(int axis, double deadband, GenericsHID controler){
  double truezone = 1/(1-deadband);
  if(Math.abs(controler.getRawAxis(axis))< deadband){
    return 0;

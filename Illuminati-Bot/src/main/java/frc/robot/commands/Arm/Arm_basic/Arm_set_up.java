@@ -4,18 +4,12 @@
 
 package frc.robot.commands.Arm.Arm_basic;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Arm;
 
-public class shoulder_movement extends CommandBase {
-  /** Creates a new shoulder_movement. */
-private double postiontogoto;
-  public shoulder_movement(Arm m_arm, double postiontogoto) {
+public class Arm_set_up extends CommandBase {
+  /** Creates a new Arm_set_up. */
+  public Arm_set_up() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_arm);
-    this.postiontogoto = postiontogoto;
   }
 
   // Called when the command is initially scheduled.
@@ -24,7 +18,7 @@ private double postiontogoto;
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {Arm.leftshouldMoter.set(ControlMode.PercentOutput, Arm.leftshouldpid.calculate(Arm.Leftshouldercoder.getPosition(), postiontogoto));}
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -33,6 +27,6 @@ private double postiontogoto;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Arm.leftshouldpid.atSetpoint();
+    return false;
   }
 }

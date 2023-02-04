@@ -4,17 +4,11 @@
 
 package frc.robot.commands.Arm.Arm_basic;
 
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Arm;
 
-public class eblow_movement extends CommandBase {
-  /** Creates a new eblow_movement. */
-  double postiontogoto;
-  public eblow_movement(Arm m_arm, double postiontogoto) {
-    addRequirements();
-    this.postiontogoto = postiontogoto;
+public class Arm_movment extends CommandBase {
+  /** Creates a new Arm_movment. */
+  public Arm_movment() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -24,9 +18,7 @@ public class eblow_movement extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    Arm.leftelbowMoter.set(TalonFXControlMode.PercentOutput, Arm.leftelbowpid.calculate(Arm.Leftelbowcoder.getPosition(), postiontogoto));
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -35,7 +27,6 @@ public class eblow_movement extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   return Arm.leftelbowpid.atSetpoint();
-    
+    return false;
   }
 }

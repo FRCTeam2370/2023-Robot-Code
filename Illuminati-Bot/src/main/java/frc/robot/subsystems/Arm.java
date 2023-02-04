@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.CANCoder;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,11 +23,14 @@ public class Arm extends SubsystemBase {
 public static boolean arminplace = false;
 public static WPI_TalonFX leftshouldMoter = new WPI_TalonFX(Constants.Leftarm);
 public static DigitalInput leftshouldmagneticsensor = new DigitalInput(0);
-public static CANCoder Leftarmencoder = new CANCoder(0);
+public static CANCoder Leftshouldercoder = new CANCoder(0);
 
 public static WPI_TalonFX leftelbowMoter = new WPI_TalonFX(Constants.Leftarm);
 public static DigitalInput leftelbowmagneticsensor = new DigitalInput(0);
 public static CANCoder Leftelbowcoder = new CANCoder(0);
+
+public static PIDController leftshouldpid = new PIDController(0, 0, 0);
+public static PIDController leftelbowpid = new PIDController(0, 0, 0);
 public static boolean getshouldmagneticsonsor(){
  return leftshouldmagneticsensor.get();
 }
@@ -37,8 +41,7 @@ public static void shoulderstartstuff(WPI_TalonFX motor, CANCoder encoder){
   motor.configFactoryDefault();
   motor.configPeakOutputForward(.3);
   motor.configPeakOutputReverse(.3);
-  motor.configFactoryDefault();
-  
+  encoder.configFactoryDefault();
   encoder.configMagnetOffset(encoder.getAbsolutePosition());
 }
 

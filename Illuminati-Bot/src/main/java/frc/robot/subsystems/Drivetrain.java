@@ -172,8 +172,8 @@ public static void setSwerveRotation(WPI_TalonFX motor, CANCoder encoder, double
 public static void setallswerverotation(){
   setSwerveRotation(Frontleftturn, Frontleftencoder, Constants.Frontleftencoderoffset,false);
   setSwerveRotation(Frontrightturn, frontrightencoder, Constants.FrontRightencoderoffset,false);
-  setSwerveRotation(Backleftturn, Backleftencoder, Constants.BackLeftencoderoffset,false);
-  setSwerveRotation(Backrightturn, Backrightencoder, Constants.Backrightencoderoffset,true);
+  setSwerveRotation(Backleftturn, Backleftencoder, Constants.BackLeftencoderoffset,true);
+  setSwerveRotation(Backrightturn, Backrightencoder, Constants.Backrightencoderoffset,false);
 }
 // set up drive motor
 public static void drivemotersetup(WPI_TalonFX motor){

@@ -19,7 +19,7 @@ public final class Constants {
     public static int Frontleftdrive = 21;
     public static int Frontleftturn = 25;
     public static int Frontleftencoder = 26;
-    public static double Frontleftencoderoffset = -220; //1.2; //174.6;
+    public static double Frontleftencoderoffset = -40; //1.2; //174.6;
     public static double Frontleftx = 24;
     public static double Frontlefty = 28;
   
@@ -33,12 +33,12 @@ public final class Constants {
     public static int BackLeftdrive = 30;
     public static int BackLeftturn = 31;
     public static int BackLeftencoder = 32;
-    public static double BackLeftencoderoffset = -188;//231; //260; //309.6;
+    public static double BackLeftencoderoffset = -0;//231; //260; //309.6;
     public static double BackLeftx = 24;
     public static double BackLefty = -28;
    
-    public static int BackRightdrive = 27;
-    public static int BackRightturn = 28;
+    public static int BackRightdrive = 28;
+    public static int BackRightturn = 27;
     public static int Backrightencoder = 29;
     public static double Backrightencoderoffset = 0;//160-180; //58;//200.9;
     public static double Backrightx = -24;
@@ -69,9 +69,4 @@ public final class Constants {
     public static int LEDPort = 9; 
 
     public static int LED_Strip_Length = 144;
-
 }
-
-
-
-

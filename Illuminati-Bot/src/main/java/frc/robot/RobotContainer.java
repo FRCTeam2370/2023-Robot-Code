@@ -5,8 +5,7 @@
 package frc.robot;
 
 
-<<<<<<< HEAD
-=======
+
 import frc.robot.commands.Driving;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.balnce;
@@ -22,17 +21,13 @@ import com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder;
 
 
 
->>>>>>> 1bad82ef4174a4bf43adda4aebdd130a211c40e8
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-<<<<<<< HEAD
-import frc.robot.commands.Autos;
-=======
-import frc.robot.commands.ExampleCommand;
->>>>>>> 1bad82ef4174a4bf43adda4aebdd130a211c40e8
+
 import frc.robot.commands.Game_Piece_Detector;
 import frc.robot.commands.balnce;
 import frc.robot.subsystems.Drivetrain;

@@ -54,6 +54,9 @@ public double rotationAngle(double x, double y, double z){
         reversed = false;
     }
     SmartDashboard.putNumber("dis", distancetoangle);
+    SmartDashboard.putNumber("encoderAngle360", encoderAngle360);
+    SmartDashboard.putNumber("wantedangle", wantedangle);
+    SmartDashboard.putNumber("encoder angle", encoderAngle);
     double newtarget = distancetoangle+encoderAngle360;
 
     return newtarget/falcontickstodegrees;

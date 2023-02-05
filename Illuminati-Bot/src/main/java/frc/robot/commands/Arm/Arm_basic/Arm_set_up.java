@@ -23,10 +23,9 @@ public class Arm_set_up extends CommandBase {
   /*   if(Arm.getelbowmagneticsonsor()){
       Arm.moveelbowslow(Arm.leftelbowMoter);
     } */
-  if(Arm.getshouldmagneticsonsor()){
-    Arm.moveelbowslow(Arm.leftshouldMoter);
+
   }
-  }
+  
 
   // Called once the command ends or is interrupted.
   @Override
@@ -44,3 +43,4 @@ public class Arm_set_up extends CommandBase {
   else{return false;}
   }
 }
+

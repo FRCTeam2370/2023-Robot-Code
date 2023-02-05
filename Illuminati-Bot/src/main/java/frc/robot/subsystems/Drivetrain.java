@@ -28,6 +28,13 @@ public class Drivetrain extends SubsystemBase {
     x = 0;
     y = 0;
     autobalancepid.setTolerance(.5);
+ 
+      leftback.setdtivemode(true);
+      leftfront.setdtivemode(true);
+      rightback.setdtivemode(true);
+      rightfront.setdtivemode(true);
+      fullreset();
+      firststart = true; 
   
   }
 
@@ -107,7 +114,7 @@ public static void fullswervecontrol(double x, double y, double z){
    Backleftdrive.stopMotor();
    Backrightdrive.stopMotor(); 
   }else{
-    swervecontrol(Frontleftdrive, Frontleftturn, leftfront, x*drivespeedmax , y*drivespeedmax, -z*rotationspeedmax);
+   swervecontrol(Frontleftdrive, Frontleftturn, leftfront, x*drivespeedmax , y*drivespeedmax, -z*rotationspeedmax);
    swervecontrol(Frontrightdrive, Frontrightturn, rightfront, x*drivespeedmax, y*drivespeedmax, z*rotationspeedmax);
    swervecontrol(Backleftdrive, Backleftturn, leftback, x*drivespeedmax, y*drivespeedmax, -z*rotationspeedmax);
    swervecontrol(Backrightdrive, Backrightturn, rightback, x*drivespeedmax, y*drivespeedmax, z*rotationspeedmax); 
@@ -206,6 +213,8 @@ public static double y = 0;
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("encoder angle", Frontleftturn.getSensorCollection().getIntegratedSensorPosition());
+    SmartDashboard.putNumber("encoder angle", Frontleftturn.getSensorCollection().getIntegratedSensorPosition());
      // collects distence
   frontleftencodervalue = Frontleftdrive.getSensorCollection().getIntegratedSensorPosition();
   frontrightencodervalue = Frontrightdrive.getSensorCollection().getIntegratedSensorPosition();
@@ -225,5 +234,6 @@ public static double y = 0;
   SmartDashboard.putNumber("x", x);
     SmartDashboard.putNumber("angle", gyro.getAngle());
     // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("test", true);
   }
 }

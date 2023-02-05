@@ -41,17 +41,15 @@ public final class Constants {
     public static int BackRightdrive = 28;
     public static int BackRightturn = 27;
     public static int Backrightencoder = 29;
-<<<<<<< HEAD
+
     public static double Backrightencoderoffset = 0+180;//160-180; //58;//200.9;
     public static double Backrightx = x;
     public static double Backrighty = -y;
-=======
-    public static double Backrightencoderoffset = 0;//160-180; //58;//200.9;
-    public static double Backrightx = -24;
-    public static double Backrighty = -28;
+
+
 
     public static int IntakeMotor = 0; 
->>>>>>> d7fd5564319c1008b7f79fb86ef3a1a769840ffa
+
   
     public static int LShoulderMotor = 10;
     public static int LElebowMotor = 0; 

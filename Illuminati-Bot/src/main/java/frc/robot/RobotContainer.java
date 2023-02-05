@@ -10,6 +10,7 @@ import frc.robot.commands.Driving;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.balnce;
 import frc.robot.commands.Arm.Arm_basic.Arm_set_up;
+import frc.robot.commands.Arm.Arm_postions.test_move;
 import frc.robot.commands.Auto_stuff.test_auto;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
@@ -119,7 +120,8 @@ public static GenericHID operater = new GenericHID(1);
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
     A_driver.whileTrue(new balnce(m_Drivetrain));
-    select_operater.onTrue(new Arm_set_up(m_arm));
+    B_driver.whileTrue(new Arm_set_up(m_arm));
+    Y_driver.whileTrue(new test_move(m_arm));
   }
 
    //m_sub_LEDs.setDefaultCommand(new com_SelectLEDColor(m_sub_LEDs));

@@ -4,7 +4,10 @@
 
 package frc.robot.commands.Arm.Arm_basic;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Arm;
 
 public class Arm_set_up extends CommandBase {
@@ -21,9 +24,9 @@ public class Arm_set_up extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Arm.getshouldermagneticsonsor()){
-      Arm.movearmslow(Arm.leftshouldMoter);
-    } 
+          
+    if(Arm.leftshouldmagneticsensor.get() == true){Arm.leftshouldMoter.set(ControlMode.PercentOutput,-.1);}
+    
 
   }
   
@@ -31,17 +34,21 @@ public class Arm_set_up extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Arm.shoulderstartstuff(Arm.leftshouldMoter, Arm.Leftshouldercoder); 
-    
+ Arm.leftshouldMoter.stopMotor();
+  Arm.shoulderstartstuff(Arm.leftshouldMoter, Arm.Leftshouldercoder);
   }
 
   // Returns true when the command should end.
+  /* (non-Javadoc)
+   * @see edu.wpi.first.wpilibj2.command.Command#isFinished()
+   */
   @Override
   public boolean isFinished() {
-  if(/*Arm.getelbowmagneticsonsor() == false && */ Arm.getshouldermagneticsonsor() == false){
-    return true;
-  }
-  else{return false;}
+ if(Arm.leftshouldmagneticsensor.get() == true){
+  return false;
+ }
+ else{
+  return true;}
   }
 }
 

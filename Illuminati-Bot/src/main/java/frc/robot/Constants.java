@@ -55,9 +55,9 @@ public final class Constants {
     public static int LElebowMotor = 0; 
  
     public static int LElbowCANCoder = 0; 
-    public static int LShoulderCANCoder = 0; 
+    public static int LShoulderCANCoder = 11; 
 
-    public static int LElbowMagneticSensor = 0; 
+    public static int LElbowMagneticSensor = 1; 
     public static int LShoulderMagneticSensor = 0; 
 
     public static int Sol1ForwardChannel = 0; 

@@ -19,7 +19,12 @@ import frc.robot.Constants;
 
 public class Arm extends SubsystemBase {
   /** Creates a new Arm. */
-  public Arm() {}
+  public Arm() {
+    leftshouldMoter.configFactoryDefault();
+    leftshouldMoter.configPeakOutputForward(.3);
+    leftshouldMoter.configPeakOutputReverse(-.3);
+   
+  }
 public static boolean arminplace = false;
 
 public static WPI_TalonFX leftshouldMoter = new WPI_TalonFX(Constants.LShoulderMotor);
@@ -33,18 +38,15 @@ public static CANCoder Leftelbowcoder = new CANCoder(Constants.LElbowCANCoder); 
 
 public static PIDController leftshouldpid = new PIDController(Constants.LShoulder_kp, Constants.LShoulder_ki, Constants.LShoulder_kd);
 public static PIDController leftelbowpid = new PIDController(Constants.LElbow_kp, Constants.LElbow_ki, Constants.LElbow_kd);
-public static boolean getshouldermagneticsonsor(){
- return leftshouldmagneticsensor.get();
-}
 /*public static boolean getelbowmagneticsonsor(){
   return true;
  } */
 public static void shoulderstartstuff(WPI_TalonFX motor, CANCoder encoder){
   motor.configFactoryDefault();
   motor.configPeakOutputForward(.3);
-  motor.configPeakOutputReverse(.3);
+  motor.configPeakOutputReverse(-.3);
   encoder.configFactoryDefault();
-  encoder.configMagnetOffset(encoder.getAbsolutePosition());
+  encoder.configMagnetOffset(encoder.getPosition());
 }
 
 
@@ -56,6 +58,7 @@ public static void movearmslow(WPI_TalonFX motor){
   @Override
   public void periodic() {
    
-   
+   SmartDashboard.putNumber("shoulder postion", Leftshouldercoder.getPosition());
+   SmartDashboard.putBoolean("magnectic switch", leftshouldmagneticsensor.get());
   }
 }

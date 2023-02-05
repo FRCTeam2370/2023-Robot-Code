@@ -26,7 +26,7 @@ double elbowpostion;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //Arm.leftshouldMoter.set(ControlMode.PercentOutput,Arm.leftshouldpid.calculate(Arm.Leftshouldercoder.getPosition(), shoulderpostion) );
+    Arm.leftshouldMoter.set(ControlMode.PercentOutput,Arm.leftshouldpid.calculate(Arm.Leftshouldercoder.getPosition(), shoulderpostion) );
     //Arm.leftelbowMoter.set(ControlMode.PercentOutput, Arm.leftelbowpid.calculate(Arm.Leftelbowcoder.getPosition(), elbowpostion));
   }
 
@@ -40,6 +40,6 @@ double elbowpostion;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   return Arm.leftelbowpid.atSetpoint() && Arm.leftshouldpid.atSetpoint() ? true : false;
+   return /* Arm.leftelbowpid.atSetpoint() &&*/ Arm.leftshouldpid.atSetpoint() ? true : false;
   }
 }

@@ -22,15 +22,23 @@ public class Arm extends SubsystemBase {
   public Arm() {}
 public static boolean arminplace = false;
 
+public static WPI_TalonFX leftshouldMoter = new WPI_TalonFX(Constants.LShoulderMotor);
+public static DigitalInput leftshouldmagneticsensor = new DigitalInput(Constants.LShoulderMagneticSensor);
+public static CANCoder Leftshouldercoder = new CANCoder(Constants.LShoulderCANCoder);
+/*
+public static WPI_TalonFX leftelbowMoter = new WPI_TalonFX(Constants.LElebowMotor);
+public static DigitalInput leftelbowmagneticsensor = new DigitalInput(Constants.LElbowMagneticSensor);
+public static CANCoder Leftelbowcoder = new CANCoder(Constants.LElbowCANCoder); */
+
 
 public static PIDController leftshouldpid = new PIDController(Constants.LShoulder_kp, Constants.LShoulder_ki, Constants.LShoulder_kd);
 public static PIDController leftelbowpid = new PIDController(Constants.LElbow_kp, Constants.LElbow_ki, Constants.LElbow_kd);
-public static boolean getshouldmagneticsonsor(){
- return true;
+public static boolean getshouldermagneticsonsor(){
+ return leftshouldmagneticsensor.get();
 }
-public static boolean getelbowmagneticsonsor(){
+/*public static boolean getelbowmagneticsonsor(){
   return true;
- }
+ } */
 public static void shoulderstartstuff(WPI_TalonFX motor, CANCoder encoder){
   motor.configFactoryDefault();
   motor.configPeakOutputForward(.3);
@@ -40,16 +48,14 @@ public static void shoulderstartstuff(WPI_TalonFX motor, CANCoder encoder){
 }
 
 
-public static void moveelbowslow(WPI_TalonFX motor){
+public static void movearmslow(WPI_TalonFX motor){
   motor.set(-.1);
 }
-public static void movearmmotor(WPI_TalonFX motor, double setpoint){
-  motor.set(ControlMode.Position, setpoint);
-}
+
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+   
    
   }
 }

@@ -9,7 +9,8 @@ import frc.robot.subsystems.Arm;
 
 public class Arm_set_up extends CommandBase {
   /** Creates a new Arm_set_up. */
-  public Arm_set_up() {
+  public Arm_set_up(Arm m_Arm) {
+    addRequirements(m_Arm);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -20,9 +21,9 @@ public class Arm_set_up extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-  /*   if(Arm.getelbowmagneticsonsor()){
-      Arm.moveelbowslow(Arm.leftelbowMoter);
-    } */
+    if(Arm.getshouldermagneticsonsor()){
+      Arm.movearmslow(Arm.leftshouldMoter);
+    } 
 
   }
   
@@ -30,14 +31,14 @@ public class Arm_set_up extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-   /* Arm.shoulderstartstuff(Arm.leftelbowMoter, Arm.Leftelbowcoder); */
+    Arm.shoulderstartstuff(Arm.leftshouldMoter, Arm.Leftshouldercoder); 
     
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-  if(/*Arm.getelbowmagneticsonsor() == false && */ Arm.getshouldmagneticsonsor() == false){
+  if(/*Arm.getelbowmagneticsonsor() == false && */ Arm.getshouldermagneticsonsor() == false){
     return true;
   }
   else{return false;}

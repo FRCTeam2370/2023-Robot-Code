@@ -114,8 +114,8 @@ public static void fullswervecontrol(double x, double y, double z){
    Backleftdrive.stopMotor();
    Backrightdrive.stopMotor(); 
   }else{
-   swervecontrol(Frontleftdrive, Frontleftturn, leftfront, x*drivespeedmax , y*drivespeedmax, -z*rotationspeedmax);
-   swervecontrol(Frontrightdrive, Frontrightturn, rightfront, x*drivespeedmax, y*drivespeedmax, z*rotationspeedmax);
+   swervecontrol(Frontleftdrive, Frontleftturn, leftfront, x*drivespeedmax , y*drivespeedmax, z*rotationspeedmax);
+   swervecontrol(Frontrightdrive, Frontrightturn, rightfront, x*drivespeedmax, y*drivespeedmax, -z*rotationspeedmax);
    swervecontrol(Backleftdrive, Backleftturn, leftback, x*drivespeedmax, y*drivespeedmax, -z*rotationspeedmax);
    swervecontrol(Backrightdrive, Backrightturn, rightback, x*drivespeedmax, y*drivespeedmax, z*rotationspeedmax); 
   }
@@ -173,7 +173,7 @@ public static void setSwerveRotation(WPI_TalonFX motor, CANCoder encoder, double
   encoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
   encoder.configMagnetOffset(offset);
   encoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
-  encoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 100);
+  encoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 20);
 }
 //sets all turn motors to needed settings 
 public static void setallswerverotation(){
@@ -213,8 +213,7 @@ public static double y = 0;
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("encoder angle", Frontleftturn.getSensorCollection().getIntegratedSensorPosition());
-    SmartDashboard.putNumber("encoder angle", Frontleftturn.getSensorCollection().getIntegratedSensorPosition());
+    SmartDashboard.putNumber("encoder angle1", Frontrightturn.getSensorCollection().getIntegratedSensorPosition()*falcontickstodegrees);
      // collects distence
   frontleftencodervalue = Frontleftdrive.getSensorCollection().getIntegratedSensorPosition();
   frontrightencodervalue = Frontrightdrive.getSensorCollection().getIntegratedSensorPosition();

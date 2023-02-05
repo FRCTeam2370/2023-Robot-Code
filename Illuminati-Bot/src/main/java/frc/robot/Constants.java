@@ -41,11 +41,39 @@ public final class Constants {
     public static int BackRightdrive = 28;
     public static int BackRightturn = 27;
     public static int Backrightencoder = 29;
+<<<<<<< HEAD
     public static double Backrightencoderoffset = 0+180;//160-180; //58;//200.9;
     public static double Backrightx = x;
     public static double Backrighty = -y;
+=======
+    public static double Backrightencoderoffset = 0;//160-180; //58;//200.9;
+    public static double Backrightx = -24;
+    public static double Backrighty = -28;
+
+    public static int IntakeMotor = 0; 
+>>>>>>> d7fd5564319c1008b7f79fb86ef3a1a769840ffa
   
-  public static int Leftarm = 10;
+    public static int LShoulderMotor = 10;
+    public static int LElebowMotor = 0; 
  
+    public static int LElbowCANCoder = 0; 
+    public static int LShoulderCANCoder = 0; 
+
+    public static int LElbowMagneticSensor = 0; 
+    public static int LShoulderMagneticSensor = 0; 
+
+    public static int Sol1ForwardChannel = 0; 
+    public static int Sol1ReverseChannel = 1; 
+
+    public static int LShoulder_kp = 0; 
+    public static int LShoulder_ki = 0; 
+    public static int LShoulder_kd = 0;
+
+    public static int LElbow_kp = 0; 
+    public static int LElbow_ki = 0; 
+    public static int LElbow_kd = 0;
+
+    public static int LEDPort = 9; 
+
     public static int LED_Strip_Length = 144;
 }

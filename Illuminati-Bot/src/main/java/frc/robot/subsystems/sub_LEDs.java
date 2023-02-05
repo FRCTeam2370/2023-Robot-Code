@@ -19,7 +19,7 @@ public class sub_LEDs extends SubsystemBase {
 
 
 
-  public static AddressableLED m_LED_Strip1 = new AddressableLED(9);
+  public static AddressableLED m_LED_Strip1 = new AddressableLED(Constants.LEDPort); 
   public static AddressableLEDBuffer m_LED_Buffer1 = new AddressableLEDBuffer(Constants.LED_Strip_Length);
   public static ShuffleboardTab myTab = Shuffleboard.getTab("LEDs");
   public static GenericEntry SelectedLEDColor = myTab.add("LED Color", 0).getEntry();

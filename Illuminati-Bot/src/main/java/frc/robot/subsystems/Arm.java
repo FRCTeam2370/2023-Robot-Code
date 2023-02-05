@@ -21,16 +21,16 @@ public class Arm extends SubsystemBase {
   /** Creates a new Arm. */
   public Arm() {}
 public static boolean arminplace = false;
-public static WPI_TalonFX leftshouldMoter = new WPI_TalonFX(Constants.Leftarm);
-public static DigitalInput leftshouldmagneticsensor = new DigitalInput(0);
-public static CANCoder Leftshouldercoder = new CANCoder(0);
+public static WPI_TalonFX leftshouldMoter = new WPI_TalonFX(Constants.LShoulderMotor);
+public static DigitalInput leftshouldmagneticsensor = new DigitalInput(Constants.LShoulderMagneticSensor);
+public static CANCoder Leftshouldercoder = new CANCoder(Constants.LShoulderCANCoder);
 
-public static WPI_TalonFX leftelbowMoter = new WPI_TalonFX(Constants.Leftarm);
-public static DigitalInput leftelbowmagneticsensor = new DigitalInput(0);
-public static CANCoder Leftelbowcoder = new CANCoder(0);
+public static WPI_TalonFX leftelbowMoter = new WPI_TalonFX(Constants.LElebowMotor);
+public static DigitalInput leftelbowmagneticsensor = new DigitalInput(Constants.LElbowMagneticSensor);
+public static CANCoder Leftelbowcoder = new CANCoder(Constants.LElbowCANCoder);
 
-public static PIDController leftshouldpid = new PIDController(0, 0, 0);
-public static PIDController leftelbowpid = new PIDController(0, 0, 0);
+public static PIDController leftshouldpid = new PIDController(Constants.LShoulder_kp, Constants.LShoulder_ki, Constants.LShoulder_kd);
+public static PIDController leftelbowpid = new PIDController(Constants.LElbow_kp, Constants.LElbow_ki, Constants.LElbow_kd);
 public static boolean getshouldmagneticsonsor(){
  return leftshouldmagneticsensor.get();
 }

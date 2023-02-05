@@ -9,6 +9,7 @@ import frc.robot.commands.Driving;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.balnce;
 import frc.robot.commands.Auto_stuff.test_auto;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 
@@ -47,6 +48,7 @@ public class RobotContainer {
   
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain m_Drivetrain = new Drivetrain();
+  private final Arm m_arm = new Arm();
   // Replace with CommandPS4Controller or CommandJoystick if needed
 public static GenericHID driver = new GenericHID(0);
 public static GenericHID operater = new GenericHID(1);

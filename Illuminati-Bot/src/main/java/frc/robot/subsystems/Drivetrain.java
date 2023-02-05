@@ -32,9 +32,9 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public static double drivespeedmax = .25;
-  public static double rotationspeedmax = .35;
-  public static double gyroOffSet;
-  public static AHRS gyro = new AHRS();
+  public static double rotationspeedmax = .30;
+  public static double gyroOffSet = 0;
+  public static AHRS gyro = new AHRS(SerialPort.Port.kMXP);
   public static double falcontickstodegrees = 0.01373;
   public static double autobalancespeed = 0;
  
@@ -107,9 +107,9 @@ public static void fullswervecontrol(double x, double y, double z){
    Backleftdrive.stopMotor();
    Backrightdrive.stopMotor(); 
   }else{
-    swervecontrol(Frontleftdrive, Frontleftturn, leftfront, x*drivespeedmax , y*drivespeedmax, z*rotationspeedmax);
-   swervecontrol(Frontrightdrive, Frontrightturn, rightfront, x*drivespeedmax, y*drivespeedmax, -z*rotationspeedmax);
-   swervecontrol(Backleftdrive, Backleftturn, leftback, x*drivespeedmax, y*drivespeedmax, z*rotationspeedmax);
+    swervecontrol(Frontleftdrive, Frontleftturn, leftfront, x*drivespeedmax , y*drivespeedmax, -z*rotationspeedmax);
+   swervecontrol(Frontrightdrive, Frontrightturn, rightfront, x*drivespeedmax, y*drivespeedmax, z*rotationspeedmax);
+   swervecontrol(Backleftdrive, Backleftturn, leftback, x*drivespeedmax, y*drivespeedmax, -z*rotationspeedmax);
    swervecontrol(Backrightdrive, Backrightturn, rightback, x*drivespeedmax, y*drivespeedmax, z*rotationspeedmax); 
   }
 }
@@ -172,7 +172,7 @@ public static void setSwerveRotation(WPI_TalonFX motor, CANCoder encoder, double
 public static void setallswerverotation(){
   setSwerveRotation(Frontleftturn, Frontleftencoder, Constants.Frontleftencoderoffset,false);
   setSwerveRotation(Frontrightturn, frontrightencoder, Constants.FrontRightencoderoffset,false);
-  setSwerveRotation(Backleftturn, Backleftencoder, Constants.BackLeftencoderoffset,true);
+  setSwerveRotation(Backleftturn, Backleftencoder, Constants.BackLeftencoderoffset,false);
   setSwerveRotation(Backrightturn, Backrightencoder, Constants.Backrightencoderoffset,false);
 }
 // set up drive motor

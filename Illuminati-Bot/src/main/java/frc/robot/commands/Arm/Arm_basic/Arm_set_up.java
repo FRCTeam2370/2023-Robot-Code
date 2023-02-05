@@ -5,6 +5,7 @@
 package frc.robot.commands.Arm.Arm_basic;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Arm;
 
 public class Arm_set_up extends CommandBase {
   /** Creates a new Arm_set_up. */
@@ -18,15 +19,28 @@ public class Arm_set_up extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+  /*   if(Arm.getelbowmagneticsonsor()){
+      Arm.moveelbowslow(Arm.leftelbowMoter);
+    } */
+  if(Arm.getshouldmagneticsonsor()){
+    Arm.moveelbowslow(Arm.leftshouldMoter);
+  }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+   /* Arm.shoulderstartstuff(Arm.leftelbowMoter, Arm.Leftelbowcoder); */
+    
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+  if(/*Arm.getelbowmagneticsonsor() == false && */ Arm.getshouldmagneticsonsor() == false){
+    return true;
+  }
+  else{return false;}
   }
 }

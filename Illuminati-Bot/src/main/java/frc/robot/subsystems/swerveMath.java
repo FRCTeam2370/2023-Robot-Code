@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.RobotState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /** Add your docs here. */
 public class swerveMath {
@@ -52,6 +53,7 @@ public double rotationAngle(double x, double y, double z){
     else{
         reversed = false;
     }
+    SmartDashboard.putNumber("dis", distancetoangle);
     double newtarget = distancetoangle+encoderAngle360;
 
     return newtarget/falcontickstodegrees;
@@ -73,13 +75,8 @@ public double speedset(double x, double y, double z){
     // gives gyro off set 
 //tells robot if to use offset or not
 public double getgyroangle(){
-    if(RobotState.isTeleop()){
         return (gyro.getAngle()+Drivetrain.gyroOffSet+90)%360;}
 
-    else{ 
-        return gyro.getAngle();
-    }
-}
 public void setdtivemode(boolean setfieldoriented){
     fieldOriented=setfieldoriented;
 }
@@ -88,7 +85,6 @@ public double numbersafterfieldoriented(double x, double y, double z, String wha
     double yFinal;
     double zFinal;
 
-    if(fieldOriented){
         double radians = getgyroangle() * Math.PI / 180;
         //current x
         double cos = Math.cos(radians);
@@ -99,11 +95,7 @@ public double numbersafterfieldoriented(double x, double y, double z, String wha
         xFinal=fieldX;
         yFinal=fieldY;
         zFinal=z;
-    } else{
-        xFinal = x;
-        yFinal = y;
-        zFinal = z;
-    }
+   
     // returns the need axis 
 if(whataxis == "x" || whataxis == "X"){
     return xFinal;

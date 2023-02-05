@@ -22,20 +22,17 @@ public class Arm extends SubsystemBase {
   public Arm() {}
 public static boolean arminplace = false;
 public static WPI_TalonFX leftshouldMoter = new WPI_TalonFX(Constants.Leftarm);
-public static DigitalInput leftshouldmagneticsensor = new DigitalInput(0);
-public static CANCoder Leftshouldercoder = new CANCoder(0);
 
-public static WPI_TalonFX leftelbowMoter = new WPI_TalonFX(Constants.Leftarm);
-public static DigitalInput leftelbowmagneticsensor = new DigitalInput(0);
-public static CANCoder Leftelbowcoder = new CANCoder(0);
+
+
 
 public static PIDController leftshouldpid = new PIDController(0, 0, 0);
 public static PIDController leftelbowpid = new PIDController(0, 0, 0);
 public static boolean getshouldmagneticsonsor(){
- return leftshouldmagneticsensor.get();
+ return true;
 }
 public static boolean getelbowmagneticsonsor(){
-  return leftelbowmagneticsensor.get();
+  return true;
  }
 public static void shoulderstartstuff(WPI_TalonFX motor, CANCoder encoder){
   motor.configFactoryDefault();

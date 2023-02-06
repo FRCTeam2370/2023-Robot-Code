@@ -21,12 +21,13 @@ public class Arm extends SubsystemBase {
   /** Creates a new Arm. */
   public Arm() {
     leftshouldMoter.configFactoryDefault();
-    leftshouldMoter.configPeakOutputForward(.3);
-    leftshouldMoter.configPeakOutputReverse(-.3);
+    leftshouldMoter.configPeakOutputForward(.1);
+    leftshouldMoter.configPeakOutputReverse(-.1);
    
   }
 public static boolean arminplace = false;
-
+public static boolean pickupattempted = false;
+public static boolean pickupworked = false;
 public static WPI_TalonFX leftshouldMoter = new WPI_TalonFX(Constants.LShoulderMotor);
 public static DigitalInput leftshouldmagneticsensor = new DigitalInput(Constants.LShoulderMagneticSensor);
 public static CANCoder Leftshouldercoder = new CANCoder(Constants.LShoulderCANCoder);

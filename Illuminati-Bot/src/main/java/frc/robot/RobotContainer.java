@@ -12,6 +12,7 @@ import frc.robot.commands.balnce;
 import frc.robot.commands.Arm.Arm_basic.Arm_set_up;
 import frc.robot.commands.Arm.Arm_postions.test_move;
 import frc.robot.commands.Auto_stuff.test_auto;
+import frc.robot.commands.LEDS.LED;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -49,6 +50,7 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain m_Drivetrain = new Drivetrain();
   private final Arm m_arm = new Arm();
+  private final sub_LEDs mSub_LEDs = new sub_LEDs();
   // Replace with CommandPS4Controller or CommandJoystick if needed
 public static GenericHID driver = new GenericHID(0);
 public static GenericHID operater = new GenericHID(1);
@@ -89,7 +91,7 @@ public static GenericHID operater = new GenericHID(1);
   public static JoystickButton leftstickbutton_operater = new JoystickButton(operater, 9);
   public static JoystickButton rightstickbutton_operater = new JoystickButton(operater, 10);
 
-  private final sub_LEDs m_sub_LEDs = new sub_LEDs();
+
   private final Sensors m_Sensors = new Sensors();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -114,7 +116,8 @@ public static GenericHID operater = new GenericHID(1);
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     m_Drivetrain.setDefaultCommand(new Driving(m_Drivetrain));
-    m_sub_LEDs.setDefaultCommand(new Game_Piece_Detector(m_Sensors, m_sub_LEDs));
+    mSub_LEDs.setDefaultCommand(new Game_Piece_Detector(m_Sensors, mSub_LEDs));
+    mSub_LEDs.setDefaultCommand(new LED(mSub_LEDs));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());

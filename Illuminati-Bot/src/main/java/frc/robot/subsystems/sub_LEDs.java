@@ -43,7 +43,11 @@ public class sub_LEDs extends SubsystemBase {
    
   }
 
-
+  public static void LEDs_controller(int red, int green, int blue){
+    for(var i=0; i< m_LED_Buffer1.getLength(); i++){
+      m_LED_Buffer1.setRGB(i,red, green, blue);
+    }
+  }
  
   public static void LEDs_Purple(){
    

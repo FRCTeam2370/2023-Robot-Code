@@ -17,7 +17,6 @@ public class test_move extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new Arm_movment(m_Arm, 10, 0)
-    );
+        new Arm_movment(m_Arm, 10, 0));
   }
 }

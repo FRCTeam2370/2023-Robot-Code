@@ -19,36 +19,38 @@ public class Arm_set_up extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-          
-    if(Arm.leftshouldmagneticsensor.get() == true){Arm.leftshouldMoter.set(ControlMode.PercentOutput,-.1);}
-    
+
+    if (Arm.leftshouldmagneticsensor.get() == true) {
+      Arm.leftshouldMoter.set(ControlMode.PercentOutput, -.1);
+    }
 
   }
-  
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
- Arm.leftshouldMoter.stopMotor();
-  Arm.shoulderstartstuff(Arm.leftshouldMoter, Arm.Leftshouldercoder);
+    Arm.leftshouldMoter.stopMotor();
+    Arm.shoulderstartstuff(Arm.leftshouldMoter, Arm.Leftshouldercoder);
   }
 
   // Returns true when the command should end.
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see edu.wpi.first.wpilibj2.command.Command#isFinished()
    */
   @Override
   public boolean isFinished() {
- if(Arm.leftshouldmagneticsensor.get() == true){
-  return false;
- }
- else{
-  return true;}
+    if (Arm.leftshouldmagneticsensor.get() == true) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
-

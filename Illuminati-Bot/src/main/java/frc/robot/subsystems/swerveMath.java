@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.RobotState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /** Add your docs here. */
 public class swerveMath {
@@ -23,7 +24,7 @@ public class swerveMath {
         this.anglemoter=anglemoter;
         this.gyro = gyro;
     }
-
+public static double encoderwheelangle;
 
 // tells rotation angle
 public double rotationAngle(double x, double y, double z){
@@ -34,6 +35,7 @@ public double rotationAngle(double x, double y, double z){
     //gets us encoder angle by take it from the falcon 
     double encoderAngle = (anglemoter.getSensorCollection().getIntegratedSensorAbsolutePosition()*falcontickstodegrees);
     //make sures encoder angle is between 0 and 360
+    encoderwheelangle = encoderAngle;
     double encoderAngle360 = encoderAngle>0? encoderAngle%360:(encoderAngle%360)+360;
     // wanted angle from joystick
     double wantedangle = ((180/Math.PI)*Math.atan2(Wyi, Wxi)+180);
@@ -41,18 +43,18 @@ public double rotationAngle(double x, double y, double z){
     double distancetoangle = (wantedangle - encoderAngle360);
 
     // finds the shortest path for the wheel
-    if(Math.abs(distancetoangle)>180){
-        distancetoangle = distancetoangle>0? -360+distancetoangle:distancetoangle+360; 
-    }
-    //then finds a even short path by making wheel move backwards
-    if(Math.abs(distancetoangle)>90){
-        distancetoangle = distancetoangle<0? distancetoangle+180%360: distancetoangle-180%360;
-        reversed = true;
-    }
-    else{
-        reversed = false;
-    }
-    double newtarget = distancetoangle+encoderAngle360;
+if(Math.abs(distancetoangle)>180){
+    distancetoangle = distancetoangle>0? distancetoangle-180 : distancetoangle+180;
+    reversed = true;
+}
+else{reversed = false;}
+   
+    
+    SmartDashboard.putNumber("dis", distancetoangle);
+    SmartDashboard.putNumber("encoderAngle360", encoderAngle360);
+    SmartDashboard.putNumber("wantedangle", wantedangle);
+    SmartDashboard.putNumber("encoder angle", encoderAngle);
+    double newtarget = distancetoangle+encoderAngle;
 
     return newtarget/falcontickstodegrees;
 }
@@ -73,13 +75,8 @@ public double speedset(double x, double y, double z){
     // gives gyro off set 
 //tells robot if to use offset or not
 public double getgyroangle(){
-    if(RobotState.isTeleop()){
-        return (gyro.getAngle()+Drivetrain.gyroOffSet+90)%360;}
+        return (gyro.getAngle()+Drivetrain.gyroOffSet-90)%360;}
 
-    else{ 
-        return gyro.getAngle();
-    }
-}
 public void setdtivemode(boolean setfieldoriented){
     fieldOriented=setfieldoriented;
 }
@@ -88,7 +85,6 @@ public double numbersafterfieldoriented(double x, double y, double z, String wha
     double yFinal;
     double zFinal;
 
-    if(fieldOriented){
         double radians = getgyroangle() * Math.PI / 180;
         //current x
         double cos = Math.cos(radians);
@@ -99,11 +95,7 @@ public double numbersafterfieldoriented(double x, double y, double z, String wha
         xFinal=fieldX;
         yFinal=fieldY;
         zFinal=z;
-    } else{
-        xFinal = x;
-        yFinal = y;
-        zFinal = z;
-    }
+   
     // returns the need axis 
 if(whataxis == "x" || whataxis == "X"){
     return xFinal;

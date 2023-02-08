@@ -19,20 +19,14 @@ public class Driving extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(Drivetrain.firststart == false){
-      Drivetrain.leftback.setdtivemode(true);
-      Drivetrain.leftfront.setdtivemode(true);
-      Drivetrain.rightback.setdtivemode(true);
-      Drivetrain.rightfront.setdtivemode(true);
-      Drivetrain.fullreset();
-      Drivetrain.firststart = true; 
+
     }
-  }
+  
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Drivetrain.fullswervecontrol(RobotContainer.Deadband( 0, 0.5, RobotContainer.driver), RobotContainer.Deadband(1, 0.5, RobotContainer.driver), RobotContainer.Deadband(4, 0.5, RobotContainer.driver));
+    Drivetrain.fullswervecontrol(RobotContainer.Deadband( 0, 0.5, RobotContainer.driver), -RobotContainer.Deadband(1, 0.5, RobotContainer.driver), RobotContainer.Deadband(4, 0.5, RobotContainer.driver));
   }
 
   // Called once the command ends or is interrupted.

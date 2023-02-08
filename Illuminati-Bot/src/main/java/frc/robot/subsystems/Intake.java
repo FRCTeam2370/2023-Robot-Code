@@ -13,26 +13,29 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+/*waiting for intake to be finished
+ * 1.link with arm movements 
+ */
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
 
-  public static DoubleSolenoid Solenoid1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.Sol1ForwardChannel, Constants.Sol1ReverseChannel);
-  public static PneumaticsControlModule PCM1 = new PneumaticsControlModule(); 
+  public static DoubleSolenoid Solenoid1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
+      Constants.Sol1ForwardChannel, Constants.Sol1ReverseChannel);
+  public static PneumaticsControlModule PCM1 = new PneumaticsControlModule();
 
-  public static WPI_TalonFX IntakeMotor = new WPI_TalonFX(Constants.IntakeMotor); 
+  public static WPI_TalonFX IntakeMotor = new WPI_TalonFX(Constants.IntakeMotor);
+
   public Intake() {
 
   }
 
-  public static void OpenSolenoid(){
-    Solenoid1.set(Value.kForward); 
+  public static void OpenSolenoid() {
+    Solenoid1.set(Value.kForward);
   }
 
-  public static void CloseSolenoid(){
-    Solenoid1.set(Value.kReverse); 
+  public static void CloseSolenoid() {
+    Solenoid1.set(Value.kReverse);
   }
-
-
 
   @Override
   public void periodic() {

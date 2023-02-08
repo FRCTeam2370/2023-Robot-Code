@@ -68,5 +68,15 @@ public final class Constants {
 
     public static int LEDPort = 9; 
 
-    public static int LED_Strip_Length = 144;
+    public static int LogoStartLength = 38; 
+    public static int LogoEndLength = 48; 
+    public static int ColorStartLength = 0;
+    public static int ColorEndLength = 38;
+    public static int LogoStartLength2 = 48;
+    public static int LogoEndLength2 = 58; 
+    public static int ColorStartLength2 = 58;
+    public static int ColorEndLength2 = 96; 
+    public static int LED_Strip_Length = 96;
+    
+    
 }

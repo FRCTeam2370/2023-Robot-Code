@@ -5,35 +5,19 @@
 package frc.robot;
 
 
-<<<<<<< HEAD
-=======
-import frc.robot.commands.Driving;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.balnce;
-import frc.robot.commands.Auto_stuff.test_auto;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.ExampleSubsystem;
-
-import org.opencv.ml.StatModel;
-
-import com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder;
-
-
-
-
->>>>>>> 1bad82ef4174a4bf43adda4aebdd130a211c40e8
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-<<<<<<< HEAD
-import frc.robot.commands.Autos;
-=======
-import frc.robot.commands.ExampleCommand;
->>>>>>> 1bad82ef4174a4bf43adda4aebdd130a211c40e8
+import frc.robot.commands.Driving;
 import frc.robot.commands.Game_Piece_Detector;
 import frc.robot.commands.balnce;
+import frc.robot.commands.LEDS.Blue_LEDs;
+import frc.robot.commands.LEDS.Green_LEDs;
+import frc.robot.commands.LEDS.LEDs_Off;
+import frc.robot.commands.LEDS.Orange_LEDs;
+import frc.robot.commands.LEDS.Purple_LEDs;
+import frc.robot.commands.LEDS.Yellow_LEDs;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Sensors;
@@ -121,6 +105,15 @@ public static GenericHID operater = new GenericHID(1);
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
     A_driver.whileTrue(new balnce(m_Drivetrain));
+
+    m_sub_LEDs.setDefaultCommand(new LEDs_Off(m_sub_LEDs)); 
+    A_operater.toggleOnTrue(new Green_LEDs(m_sub_LEDs));
+    B_operater.toggleOnTrue(new Orange_LEDs(m_sub_LEDs));
+    Y_operater.toggleOnTrue(new Yellow_LEDs(m_sub_LEDs));
+    X_operater.toggleOnTrue(new Blue_LEDs(m_sub_LEDs)); 
+    righbumper_operater.toggleOnTrue(new Purple_LEDs(m_sub_LEDs));
+
+
   }
 
    //m_sub_LEDs.setDefaultCommand(new com_SelectLEDColor(m_sub_LEDs));

@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-<<<<<<< Updated upstream
-=======
 import frc.robot.commands.Driving;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.balnce;
@@ -22,7 +20,6 @@ import frc.robot.subsystems.ExampleSubsystem;
 import org.opencv.ml.StatModel;
 
 import com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder;
->>>>>>> Stashed changes
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -52,7 +49,7 @@ public class RobotContainer {
   public static GenericHID driver = new GenericHID(0);
   public static GenericHID operater = new GenericHID(1);
   public static Intake m_Intake = new Intake(); 
-
+  public static Arm m_Arm = new Arm();
       public static double Deadband(int axis, double deadband, GenericHID controler){
         double truezone = 1/(1-deadband);
         if(Math.abs(controler.getRawAxis(axis))< deadband){
@@ -119,18 +116,10 @@ public class RobotContainer {
     // cancelling on release.
    // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-<<<<<<< Updated upstream
-    A_driver.whileTrue(new balnce(m_Drivetrain));
-
-    m_sub_LEDs.setDefaultCommand(new LED(m_sub_LEDs));
-
     
-=======
-    
-    B_driver.whileTrue(new Arm_set_up(m_arm));
-    Y_driver.whileTrue(new Arm_back(m_arm));
-    X_driver.whileTrue(new Arm_forward(m_arm));
->>>>>>> Stashed changes
+    B_driver.whileTrue(new Arm_set_up(m_Arm));
+    Y_driver.whileTrue(new Arm_back(m_Arm));
+    X_driver.whileTrue(new Arm_forward(m_Arm));
   }
 
    //m_sub_LEDs.setDefaultCommand(new com_SelectLEDColor(m_sub_LEDs));

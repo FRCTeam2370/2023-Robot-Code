@@ -4,6 +4,25 @@
 
 package frc.robot;
 
+<<<<<<< Updated upstream
+=======
+import frc.robot.commands.Driving;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.balnce;
+import frc.robot.commands.Arm.Arm_basic.Arm_set_up;
+import frc.robot.commands.Arm.Arm_postions.Arm_back;
+import frc.robot.commands.Arm.Arm_postions.Arm_forward;
+import frc.robot.commands.Arm.Arm_postions.test_move;
+import frc.robot.commands.Auto_stuff.test_auto;
+import frc.robot.commands.LEDS.LED;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.ExampleSubsystem;
+
+import org.opencv.ml.StatModel;
+
+import com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder;
+>>>>>>> Stashed changes
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -100,11 +119,18 @@ public class RobotContainer {
     // cancelling on release.
    // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
+<<<<<<< Updated upstream
     A_driver.whileTrue(new balnce(m_Drivetrain));
 
     m_sub_LEDs.setDefaultCommand(new LED(m_sub_LEDs));
 
     
+=======
+    
+    B_driver.whileTrue(new Arm_set_up(m_arm));
+    Y_driver.whileTrue(new Arm_back(m_arm));
+    X_driver.whileTrue(new Arm_forward(m_arm));
+>>>>>>> Stashed changes
   }
 
    //m_sub_LEDs.setDefaultCommand(new com_SelectLEDColor(m_sub_LEDs));

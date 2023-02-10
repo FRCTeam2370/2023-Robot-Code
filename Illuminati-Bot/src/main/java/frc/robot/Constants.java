@@ -63,16 +63,22 @@ public final class Constants {
     public static int Sol1ForwardChannel = 0; 
     public static int Sol1ReverseChannel = 1; 
 
+<<<<<<< Updated upstream
     public static int Sol0FowardChannel = 0;
     public static int Sol0ReverseChannel = 1; 
 
     public static int LShoulder_kp = 0; 
     public static int LShoulder_ki = 0; 
     public static int LShoulder_kd = 0;
+=======
+    public static double LShoulder_kp = .01; 
+    public static double LShoulder_ki = .002; 
+    public static double LShoulder_kd = 0;
+>>>>>>> Stashed changes
 
-    public static int LElbow_kp = 0; 
-    public static int LElbow_ki = 0; 
-    public static int LElbow_kd = 0;
+    public static double LElbow_kp = 0; 
+    public static double LElbow_ki = 0; 
+    public static double LElbow_kd = 0;
 
     public static int LEDPort = 9; 
 

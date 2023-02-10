@@ -188,11 +188,13 @@ public class Drivetrain extends SubsystemBase {
     } else {
       motor.getSensorCollection().setIntegratedSensorPosition(encoder.getAbsolutePosition() / falcontickstodegrees, 0);
     }
+  motor.configIntegratedSensorAbsoluteRange(AbsoluteSensorRange.Unsigned_0_to_360);
     encoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
     encoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
     encoder.configMagnetOffset(offset);
     encoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
     encoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 20);
+
   }
 
   // sets all turn motors to needed settings

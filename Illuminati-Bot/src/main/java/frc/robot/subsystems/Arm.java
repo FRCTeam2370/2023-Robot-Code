@@ -13,10 +13,14 @@ import com.ctre.phoenix.sensors.CANCoder;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
+<<<<<<< Updated upstream
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsControlModule;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+=======
+import edu.wpi.first.wpilibj.RobotState;
+>>>>>>> Stashed changes
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -37,9 +41,10 @@ public class Arm extends SubsystemBase {
   /** Creates a new Arm. */
   public Arm() {
     leftshouldMoter.configFactoryDefault();
-    leftshouldMoter.configPeakOutputForward(.1);
+    leftshouldMoter.configPeakOutputForward(.05);
     leftshouldMoter.configPeakOutputReverse(-.1);
-
+    leftelbowpid.setTolerance(1);    
+    leftshouldMoter.setNeutralMode(NeutralMode.Brake);
   }
 
   public static boolean arminplace = false;
@@ -92,8 +97,9 @@ public class Arm extends SubsystemBase {
   }
   @Override
   public void periodic() {
-
+  
     SmartDashboard.putNumber("shoulder postion", Leftshouldercoder.getPosition());
     SmartDashboard.putBoolean("magnectic switch", leftshouldmagneticsensor.get());
+    SmartDashboard.putNumber("shoulder power usage", leftshouldMoter.getMotorOutputVoltage());
   }
 }

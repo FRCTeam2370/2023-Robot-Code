@@ -28,45 +28,50 @@ public class LED extends CommandBase {
   public void execute() {
     if (Arm.pickupattempted) {
       if (Arm.pickupworked == true) {
-        sub_LEDs.LEDs_controller(151, 215, 0);
+       sub_LEDs.LEDs_Green();
+        // sub_LEDs.LEDs_controller(151, 215, 0);
       } else {
-        sub_LEDs.LEDs_controller(232, 118, 19);
+        sub_LEDs.LEDs_Off();
+        //sub_LEDs.LEDs_controller(232, 118, 19);
       }
     } else if (RobotContainer.leftbumper_operater.getAsBoolean() == true) {
-      sub_LEDs.LEDs_controller(212, 245, 2);
+      sub_LEDs.LEDs_Yellow();
+      //sub_LEDs.LEDs_controller(212, 245, 2);
     } else if (RobotContainer.righbumper_operater.getAsBoolean() == true) {
-      sub_LEDs.LEDs_controller(69, 5, 115);
+      sub_LEDs.LEDs_Purple();
+      //sub_LEDs.LEDs_controller(69, 5, 115);
     } else if (DriverStation.getMatchTime() <= 30) {
       if (DriverStation.getAlliance() == Alliance.Red) {
         if (DriverStation.getMatchTime() % 2 == 0) {
-          sub_LEDs.LEDs_controller(207, 12, 12);
+          sub_LEDs.LEDs_Aliance_Red();
         } else {
-          sub_LEDs.LEDs_controller(0, 0, 0);
+          sub_LEDs.LEDs_Off();
         }
       } else if (DriverStation.getAlliance() == Alliance.Blue) {
         if (DriverStation.getMatchTime() % 2 == 0) {
-          sub_LEDs.LEDs_controller(12, 25, 207);
+          sub_LEDs.LEDs_Aliance_Blue();
+          //sub_LEDs.LEDs_controller(12, 25, 207);
         } else {
-          sub_LEDs.LEDs_controller(0, 0, 0);
+          sub_LEDs.LEDs_Off();;
         }
       } else {
         if (DriverStation.getMatchTime() % 2 == 0) {
-          sub_LEDs.LEDs_controller(2, 3, 3);
+          sub_LEDs.LEDs_Off();;
         } else {
-          sub_LEDs.LEDs_controller(0, 0, 0);
+          sub_LEDs.LEDs_Off();;
         }
       }
     } else if (DriverStation.isTeleop()) {
       if (DriverStation.getAlliance() == Alliance.Red) {
-        sub_LEDs.LEDs_controller(207, 12, 12);
+        sub_LEDs.LEDs_Aliance_Red();
       } else if (DriverStation.getAlliance() == Alliance.Blue) {
-        sub_LEDs.LEDs_controller(12, 25, 207);
+        sub_LEDs.LEDs_Aliance_Blue();
       } else {
-        sub_LEDs.LEDs_controller(2, 3, 3);
+        sub_LEDs.LEDs_Off();
       }
 
     } else {
-      sub_LEDs.LEDs_controller(0, 0, 0);
+      sub_LEDs.LEDs_Off();;
     }
   }
 

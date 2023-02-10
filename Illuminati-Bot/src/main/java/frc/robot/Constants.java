@@ -63,6 +63,9 @@ public final class Constants {
     public static int Sol1ForwardChannel = 0; 
     public static int Sol1ReverseChannel = 1; 
 
+    public static int Sol0FowardChannel = 0;
+    public static int Sol0ReverseChannel = 1; 
+
     public static int LShoulder_kp = 0; 
     public static int LShoulder_ki = 0; 
     public static int LShoulder_kd = 0;

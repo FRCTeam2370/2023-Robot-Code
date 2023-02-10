@@ -13,6 +13,10 @@ import com.ctre.phoenix.sensors.CANCoder;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsControlModule;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -44,6 +48,9 @@ public class Arm extends SubsystemBase {
   public static WPI_TalonFX leftshouldMoter = new WPI_TalonFX(Constants.LShoulderMotor);
   public static DigitalInput leftshouldmagneticsensor = new DigitalInput(Constants.LShoulderMagneticSensor);
   public static CANCoder Leftshouldercoder = new CANCoder(Constants.LShoulderCANCoder);
+  public static DoubleSolenoid Solenoid0 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 
+  Constants.Sol0FowardChannel, Constants.Sol0ReverseChannel);
+  public static PneumaticsControlModule PCM0 = new PneumaticsControlModule();
   /*
    * public static WPI_TalonFX leftelbowMoter = new
    * WPI_TalonFX(Constants.LElebowMotor);
@@ -75,6 +82,14 @@ public class Arm extends SubsystemBase {
     motor.set(-.1);
   }
 
+
+  public static void OpenGripper(){
+    Solenoid0.set(Value.kForward);
+  }
+
+  public static void CloseGripper(){
+    Solenoid0.set(Value.kReverse);
+  }
   @Override
   public void periodic() {
 

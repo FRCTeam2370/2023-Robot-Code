@@ -31,6 +31,17 @@ public class Sensors extends SubsystemBase {
   public static NetworkTableEntry ta = table.getEntry("ta");
   public static NetworkTableEntry tid = table.getEntry("tid");
 
+
+
+  public static void SwitchPipline0(){
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
+  }
+
+  public static void SwitchPipline1(){
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(1);
+  }
+
+
   /** Creates a new Sensors. */
   public Sensors() {
   }
@@ -92,5 +103,18 @@ public class Sensors extends SubsystemBase {
   @Override
   public void periodic() {
 
+
+    if(GamePiece == "Cube"){
+      SwitchPipline0();
+    }
+
+    if(GamePiece == "Cone"){
+      SwitchPipline1();
+    }
   }
+
+
+  
+
+
 }

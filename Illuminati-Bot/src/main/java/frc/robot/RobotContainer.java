@@ -12,17 +12,12 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Driving;
 import frc.robot.commands.Game_Piece_Detector;
 import frc.robot.commands.balnce;
-import frc.robot.commands.LEDS.Blue_LEDs;
-import frc.robot.commands.LEDS.Green_LEDs;
-import frc.robot.commands.LEDS.LEDs_Off;
-import frc.robot.commands.LEDS.Orange_LEDs;
-import frc.robot.commands.LEDS.Purple_LEDs;
-import frc.robot.commands.LEDS.Yellow_LEDs;
+import frc.robot.commands.LEDS.LED;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Sensors;
 import frc.robot.subsystems.sub_LEDs;
-
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -31,26 +26,27 @@ import frc.robot.subsystems.sub_LEDs;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  
+
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain m_Drivetrain = new Drivetrain();
   // Replace with CommandPS4Controller or CommandJoystick if needed
-public static GenericHID driver = new GenericHID(0);
-public static GenericHID operater = new GenericHID(1);
+  public static GenericHID driver = new GenericHID(0);
+  public static GenericHID operater = new GenericHID(1);
+  public static Intake m_Intake = new Intake(); 
 
       public static double Deadband(int axis, double deadband, GenericHID controler){
         double truezone = 1/(1-deadband);
         if(Math.abs(controler.getRawAxis(axis))< deadband){
-          return 0;
-        } 
+      return 0;
+      }
         else{
           if(controler.getRawAxis(axis) < 0){
            return truezone*(controler.getRawAxis(axis)+deadband);
           } 
           else{
           return truezone*(controler.getRawAxis(axis)-deadband);}
-        }
-       }
+    }
+  }
 
   public static JoystickButton A_driver = new JoystickButton(driver, 1);
   public static JoystickButton B_driver = new JoystickButton(driver, 2);
@@ -102,18 +98,13 @@ public static GenericHID operater = new GenericHID(1);
     m_sub_LEDs.setDefaultCommand(new Game_Piece_Detector(m_Sensors, m_sub_LEDs));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+   // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
     A_driver.whileTrue(new balnce(m_Drivetrain));
 
-    m_sub_LEDs.setDefaultCommand(new LEDs_Off(m_sub_LEDs)); 
-    A_operater.toggleOnTrue(new Green_LEDs(m_sub_LEDs));
-    B_operater.toggleOnTrue(new Orange_LEDs(m_sub_LEDs));
-    Y_operater.toggleOnTrue(new Yellow_LEDs(m_sub_LEDs));
-    X_operater.toggleOnTrue(new Blue_LEDs(m_sub_LEDs)); 
-    righbumper_operater.toggleOnTrue(new Purple_LEDs(m_sub_LEDs));
+    m_sub_LEDs.setDefaultCommand(new LED(m_sub_LEDs));
 
-
+    
   }
 
    //m_sub_LEDs.setDefaultCommand(new com_SelectLEDColor(m_sub_LEDs));

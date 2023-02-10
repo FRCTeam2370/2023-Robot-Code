@@ -34,8 +34,7 @@ public class Vision extends SubsystemBase {
     double area = ta.getDouble(0.0);
     double num = tid.getInteger(0);
 
-
-
+    
     SmartDashboard.putNumber("TargetX", x);
     SmartDashboard.putNumber("TargetY", y);
     SmartDashboard.putNumber("LimelightArea", area);

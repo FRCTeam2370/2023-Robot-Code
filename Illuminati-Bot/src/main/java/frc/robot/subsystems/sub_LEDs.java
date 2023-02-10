@@ -55,12 +55,12 @@ public class sub_LEDs extends SubsystemBase {
     for(var i=Constants.ColorStartLength2; i<Constants.ColorEndLength2; i++){
       m_LED_Buffer1.setRGB(i, 100, 90, 0);
     }
-    for(var i=Constants.LogoStartLength; i<Constants.LogoEndLength; i++){
-      m_LED_Buffer1.setRGB(i, 0, 128, 0);
+  /*for(var i=Constants.LogoStartLength; i<Constants.LogoEndLength; i++){
+      m_LED_Buffer1.setRGB(i, 151, 215, 0);
     }
     for(var i=Constants.LogoStartLength2; i<Constants.LogoEndLength2; i++){
-      m_LED_Buffer1.setRGB(i, 0, 128, 0);
-    }
+      m_LED_Buffer1.setRGB(i, 151, 215, 0);
+    }*/
     m_LED_Strip1.setData(m_LED_Buffer1);
   }
  
@@ -75,39 +75,49 @@ public class sub_LEDs extends SubsystemBase {
     m_LED_Buffer1.setRGB(i, 0, 0, 0);
   }
 
-  for(var i=Constants.LogoStartLength; i<Constants.LogoEndLength; i++){
-    m_LED_Buffer1.setRGB(i, 0, 50, 0);
+ /* for(var i=Constants.LogoStartLength; i<Constants.LogoEndLength; i++){
+    m_LED_Buffer1.setRGB(i, 151, 215, 0);
   }
   for(var i=Constants.LogoStartLength2; i<Constants.LogoEndLength2; i++){
-    m_LED_Buffer1.setRGB(i, 0, 50, 0);
-  }
+    m_LED_Buffer1.setRGB(i, 151, 215, 0);
+  }*/
   m_LED_Strip1.setData(m_LED_Buffer1);
  }
 
 
 
  public static void LEDs_endgame(){
-  for(var i=0; i<m_LED_Buffer1.getLength(); i++){
- m_LED_Buffer1.setRGB(i, 255, 0, 0);
+  for(var i=Constants.ColorStartLength; i<Constants.ColorEndLength; i++){
+ m_LED_Buffer1.setRGB(i, 125, 12, 12);
   }
+  for(var i=Constants.ColorStartLength2; i<Constants.ColorEndLength2; i++){
+    m_LED_Buffer1.setRGB(i, 125, 12, 12);
+     }
+    /* for(var i=Constants.LogoStartLength; i<Constants.LogoEndLength; i++){
+      m_LED_Buffer1.setRGB(i, 151, 215, 0);
+    }
+    for(var i=Constants.LogoStartLength2; i<Constants.LogoEndLength2; i++){
+      m_LED_Buffer1.setRGB(i, 151, 215, 0);
+    }*/
+  
   m_LED_Strip1.setData(m_LED_Buffer1);
  }
 
 
 
  public static void LEDs_Green(){
-  for(var i=Constants.LogoStartLength; i<Constants.LogoEndLength; i++){
-    m_LED_Buffer1.setRGB(i, 0, 128, 0);
+  /*for(var i=Constants.LogoStartLength; i<Constants.LogoEndLength; i++){
+    m_LED_Buffer1.setRGB(i, 151, 215, 0);
   }
   for(var i=Constants.LogoStartLength2; i<Constants.LogoEndLength2; i++){
-    m_LED_Buffer1.setRGB(i, 0, 128, 0);
-  }
+    m_LED_Buffer1.setRGB(i, 151, 215, 0);
+  }*/
 
   for(var i=Constants.ColorStartLength; i< Constants.ColorEndLength; i++){
-    m_LED_Buffer1.setRGB(i, 0, 128, 0);
+    m_LED_Buffer1.setRGB(i, 151, 215, 0);
   }
   for(var i=Constants.ColorStartLength2; i< Constants.ColorEndLength2; i++){
-    m_LED_Buffer1.setRGB(i, 0, 128, 0);
+    m_LED_Buffer1.setRGB(i, 151, 215, 0);
   }
   m_LED_Strip1.setData(m_LED_Buffer1);
  }
@@ -122,12 +132,12 @@ public class sub_LEDs extends SubsystemBase {
     m_LED_Buffer1.setRGB(i, 100, 25, 0);
   }
 
-  for(var i=Constants.LogoStartLength; i<Constants.LogoEndLength; i++){
-    m_LED_Buffer1.setRGB(i, 0, 128, 0);
+ /*  for(var i=Constants.LogoStartLength; i<Constants.LogoEndLength; i++){
+    m_LED_Buffer1.setRGB(i, 151, 215, 0);
   }
   for(var i=Constants.LogoStartLength2; i<Constants.LogoEndLength2; i++){
-    m_LED_Buffer1.setRGB(i, 0, 128, 0);
-  }
+    m_LED_Buffer1.setRGB(i, 151, 215, 0);
+  }*/
   m_LED_Strip1.setData(m_LED_Buffer1);
  }
 
@@ -136,18 +146,18 @@ public class sub_LEDs extends SubsystemBase {
 
  public static void LEDs_Blue(){
   for(var i=Constants.ColorStartLength; i<Constants.ColorEndLength; i++){
-    m_LED_Buffer1.setRGB(i, 0, 0, 128);
+    m_LED_Buffer1.setRGB(i, 12, 25, 207);
   }
   for(var i=Constants.ColorStartLength2; i<Constants.ColorEndLength2; i++){
-    m_LED_Buffer1.setRGB(i, 0, 0, 128);
-  }
+    m_LED_Buffer1.setRGB(i, 12, 25, 207);
+  } 
 
-  for(var i=Constants.LogoStartLength; i<Constants.LogoEndLength; i++){
-    m_LED_Buffer1.setRGB(i, 0, 128, 0);
+  /*for(var i=Constants.LogoStartLength; i<Constants.LogoEndLength; i++){
+    m_LED_Buffer1.setRGB(i, 151, 215, 0);
   }
   for(var i=Constants.LogoStartLength2; i<Constants.LogoEndLength2; i++){
-    m_LED_Buffer1.setRGB(i, 0, 128, 0);
-  }
+    m_LED_Buffer1.setRGB(i, 151, 215, 0);
+  }*/
   m_LED_Strip1.setData(m_LED_Buffer1);
  }
 
@@ -162,15 +172,37 @@ public class sub_LEDs extends SubsystemBase {
     m_LED_Buffer1.setRGB(i, 128, 0, 128);
   }
 
-  for(var i=Constants.LogoStartLength; i<Constants.LogoEndLength; i++){
-    m_LED_Buffer1.setRGB(i, 0, 128, 0);
+  /*for(var i=Constants.LogoStartLength; i<Constants.LogoEndLength; i++){
+    m_LED_Buffer1.setRGB(i, 151, 215, 0);
   }
   for(var i=Constants.LogoStartLength2; i<Constants.LogoEndLength2; i++){
-    m_LED_Buffer1.setRGB(i, 0, 128, 0);
-  }
+    m_LED_Buffer1.setRGB(i, 151, 215, 0);
+  }*/
   m_LED_Strip1.setData(m_LED_Buffer1); 
 
   
+ }
+
+
+
+ public static void LEDs_Aliance_Blue(){
+  for(var i=Constants.LogoStartLength; i<Constants.LogoEndLength; i++){
+    m_LED_Buffer1.setRGB(i, 0, 0, 128);
+  }
+  for(var i=Constants.LogoStartLength2; i<Constants.LogoEndLength2; i++){
+    m_LED_Buffer1.setRGB(i, 0, 0, 128);
+  }
+  m_LED_Strip1.setData(m_LED_Buffer1);
+ }
+
+ public static void LEDs_Aliance_Red(){
+  for(var i=Constants.LogoStartLength; i<Constants.LogoEndLength; i++){
+    m_LED_Buffer1.setRGB(i, 128, 0, 0);
+  }
+  for(var i=Constants.LogoStartLength2; i<Constants.LogoEndLength2; i++){
+    m_LED_Buffer1.setRGB(i, 128, 0, 0);
+  }
+  m_LED_Strip1.setData(m_LED_Buffer1);
  }
 
 }

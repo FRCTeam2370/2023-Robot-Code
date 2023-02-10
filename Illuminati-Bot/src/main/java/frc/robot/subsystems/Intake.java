@@ -19,8 +19,7 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
 
-  public static DoubleSolenoid Solenoid1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
-      Constants.Sol1ForwardChannel, Constants.Sol1ReverseChannel);
+  public static DoubleSolenoid Solenoid1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
   public static PneumaticsControlModule PCM1 = new PneumaticsControlModule();
 
   public static WPI_TalonFX IntakeMotor = new WPI_TalonFX(Constants.IntakeMotor);

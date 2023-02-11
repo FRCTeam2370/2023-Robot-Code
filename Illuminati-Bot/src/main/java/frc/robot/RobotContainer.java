@@ -33,11 +33,17 @@ public class RobotContainer {
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain m_Drivetrain = new Drivetrain();
+  public static Intake m_Intake = new Intake(); 
+  public static Arm m_Arm = new Arm();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static GenericHID driver = new GenericHID(0);
   public static GenericHID operater = new GenericHID(1);
+<<<<<<< Updated upstream
   public static Intake m_Intake = new Intake(); 
   public static Arm m_Arm = new Arm();
+=======
+;
+>>>>>>> Stashed changes
 
       public static double Deadband(int axis, double deadband, GenericHID controler){
         double truezone = 1/(1-deadband);

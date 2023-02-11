@@ -73,7 +73,15 @@ public class Arm extends SubsystemBase {
     motor.configPeakOutputForward(.3);
     motor.configPeakOutputReverse(-.3);
     encoder.configFactoryDefault();
-    encoder.configMagnetOffset(encoder.getPosition());
+    encoder.configMagnetOffset(encoder.getAbsolutePosition());
+  }
+
+  public static void ElbowStartStuff(WPI_TalonFX motor1, CANCoder encoder1){
+    motor1.configFactoryDefault();
+    motor1.configPeakOutputForward(0.3); 
+    motor1.configPeakOutputReverse(-0.3);
+    encoder1.configFactoryDefault();
+    encoder1.configMagnetOffset(encoder1.getPosition()); 
   }
 
   public static void ElbowStartStuff(WPI_TalonFX motor1, CANCoder encoder1){

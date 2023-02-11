@@ -29,6 +29,7 @@ public class Arm_movment extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
     Arm.leftshouldMoter.set(ControlMode.PercentOutput,
         Arm.leftshouldpid.calculate(Arm.Leftshouldercoder.getPosition(), shoulderpostion));
 
@@ -44,13 +45,14 @@ public class Arm_movment extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Arm.leftelbowMoter.set(ControlMode.PercentOutput, 0);
+    Arm.leftshouldMoter.set(ControlMode.PercentOutput, 0);
     // Arm.leftelbowMoter.set(ControlMode.PercentOutput, 0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+   
     return /* Arm.leftelbowpid.atSetpoint() && */ Arm.leftshouldpid.atSetpoint() ? true : false;
   }
 }

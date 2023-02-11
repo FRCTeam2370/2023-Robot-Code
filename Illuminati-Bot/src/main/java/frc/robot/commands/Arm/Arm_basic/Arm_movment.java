@@ -31,6 +31,12 @@ public class Arm_movment extends CommandBase {
   public void execute() {
     Arm.leftshouldMoter.set(ControlMode.PercentOutput,
         Arm.leftshouldpid.calculate(Arm.Leftshouldercoder.getPosition(), shoulderpostion));
+
+    
+
+    Arm.leftelbowMoter.set(ControlMode.PercentOutput, 
+     Arm.leftelbowpid.calculate(Arm.ElbowCanCoder.getPosition(), elbowpostion)); 
+
     // Arm.leftelbowMoter.set(ControlMode.PercentOutput,
     // Arm.leftelbowpid.calculate(Arm.Leftelbowcoder.getPosition(), elbowpostion));
   }

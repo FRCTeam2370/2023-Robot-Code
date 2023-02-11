@@ -4,31 +4,19 @@
 
 package frc.robot;
 
-import frc.robot.commands.Driving;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.balnce;
-import frc.robot.commands.Arm.Arm_basic.Arm_set_up;
-import frc.robot.commands.Arm.Arm_postions.Arm_back;
-import frc.robot.commands.Arm.Arm_postions.Arm_forward;
-import frc.robot.commands.Arm.Arm_postions.test_move;
-import frc.robot.commands.Auto_stuff.test_auto;
-import frc.robot.commands.LEDS.LED;
-import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.ExampleSubsystem;
-
-import org.opencv.ml.StatModel;
-
-import com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Driving;
 import frc.robot.commands.Game_Piece_Detector;
-import frc.robot.commands.balnce;
+import frc.robot.commands.Arm.Arm_basic.Arm_set_up;
+import frc.robot.commands.Arm.Arm_basic.Dissable_Compressor;
+import frc.robot.commands.Arm.Arm_basic.Enable_Compressor;
+import frc.robot.commands.Arm.Arm_basic.Gripper_Test;
+import frc.robot.commands.Arm.Arm_postions.Arm_back;
 import frc.robot.commands.LEDS.LED;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
@@ -50,6 +38,7 @@ public class RobotContainer {
   public static GenericHID operater = new GenericHID(1);
   public static Intake m_Intake = new Intake(); 
   public static Arm m_Arm = new Arm();
+
       public static double Deadband(int axis, double deadband, GenericHID controler){
         double truezone = 1/(1-deadband);
         if(Math.abs(controler.getRawAxis(axis))< deadband){
@@ -116,10 +105,14 @@ public class RobotContainer {
     // cancelling on release.
    // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
+   m_sub_LEDs.setDefaultCommand(new LED(m_sub_LEDs));
     
-    B_driver.whileTrue(new Arm_set_up(m_Arm));
-    Y_driver.whileTrue(new Arm_back(m_Arm));
-    X_driver.whileTrue(new Arm_forward(m_Arm));
+   //B_driver.whileTrue(new Arm_set_up(m_Arm));
+   Y_driver.whileTrue(new Arm_back(m_Arm));
+
+   start_driver.onTrue(new Enable_Compressor(m_Arm));
+   select_driver.onTrue(new Dissable_Compressor(m_Arm)); 
+    m_Arm.setDefaultCommand(new Gripper_Test(m_Arm));
   }
 
    //m_sub_LEDs.setDefaultCommand(new com_SelectLEDColor(m_sub_LEDs));

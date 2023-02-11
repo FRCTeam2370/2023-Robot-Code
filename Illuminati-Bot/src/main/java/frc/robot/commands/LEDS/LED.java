@@ -44,37 +44,28 @@ public class LED extends CommandBase {
       if (DriverStation.getAlliance() == Alliance.Red) {
         if (DriverStation.getMatchTime() % 2 == 0) {
           sub_LEDs.LEDs_Aliance_Red();
+        } else if(DriverStation.getAlliance() == Alliance.Blue){
+          sub_LEDs.LEDs_Aliance_Blue();
         } else {
           sub_LEDs.LEDs_Off();
         }
-      } else if (DriverStation.getAlliance() == Alliance.Blue) {
-        if (DriverStation.getMatchTime() % 2 == 0) {
+      }
+  
+      } else {
+        sub_LEDs.LEDs_Off();;
+      }
+       if (DriverStation.isTeleop()) {
+        if (DriverStation.getAlliance() == Alliance.Red) {
+          sub_LEDs.LEDs_Aliance_Red();
+        } else if (DriverStation.getAlliance() == Alliance.Blue) {
           sub_LEDs.LEDs_Aliance_Blue();
-          //sub_LEDs.LEDs_controller(12, 25, 207);
+          sub_LEDs.LEDs_Off();
         } else {
-          sub_LEDs.LEDs_Off();;
+          sub_LEDs.LEDs_Off();
         }
-      } else {
-        if (DriverStation.getMatchTime() % 2 == 0) {
-          sub_LEDs.LEDs_Off();;
-        } else {
-          sub_LEDs.LEDs_Off();;
-        }
-      }
-    } else if (DriverStation.isTeleop()) {
-      if (DriverStation.getAlliance() == Alliance.Red) {
-        sub_LEDs.LEDs_Aliance_Red();
-      } else if (DriverStation.getAlliance() == Alliance.Blue) {
-        sub_LEDs.LEDs_Aliance_Blue();
-      } else {
-        sub_LEDs.LEDs_Off();
-      }
-
-    } else {
-      sub_LEDs.LEDs_Off();;
     }
+    
   }
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {

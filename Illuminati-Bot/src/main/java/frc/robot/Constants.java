@@ -13,6 +13,11 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static class Shoulder{
+        public static int LShoulderMotor = 10;
+        public static int LShoulderCANCoder = 11; 
+        public static int LShoulderMagneticSensor = 0; 
+    }
     public static final int kDriverControllerPort = 0;
     public static double x = 1;
     public static double y = 1+(1/6);
@@ -50,35 +55,20 @@ public final class Constants {
 
     public static int IntakeMotor = 0; 
 
-  
-    public static int LShoulderMotor = 10;
-    public static int LElebowMotor = 0; 
- 
-    public static int LElbowCANCoder = 0; 
-    public static int LShoulderCANCoder = 11; 
-
-    public static int LElbowMagneticSensor = 1; 
-    public static int LShoulderMagneticSensor = 0; 
-
-    public static int Sol1ForwardChannel = 0; 
-    public static int Sol1ReverseChannel = 1; 
-
-<<<<<<< Updated upstream
-    public static int Sol0FowardChannel = 0;
-    public static int Sol0ReverseChannel = 1; 
-
-    public static int LShoulder_kp = 0; 
+    public static class Elbow{
+        public static int LElebowMotor = 12; 
+        public static int LElbowCANCoder = 13;
+        public static int LElbowMagneticSensor = 1; 
+    }
+   
+   
+     public static int LShoulder_kp = 0; 
     public static int LShoulder_ki = 0; 
     public static int LShoulder_kd = 0;
-=======
-    public static double LShoulder_kp = .01; 
-    public static double LShoulder_ki = .002; 
-    public static double LShoulder_kd = 0;
->>>>>>> Stashed changes
 
-    public static double LElbow_kp = 0; 
-    public static double LElbow_ki = 0; 
-    public static double LElbow_kd = 0;
+    public static int LElbow_kp = 0; 
+    public static int LElbow_ki = 0; 
+    public static int LElbow_kd = 0;
 
     public static int LEDPort = 9; 
 
@@ -92,5 +82,5 @@ public final class Constants {
     public static int ColorEndLength2 = 96; 
     public static int LED_Strip_Length = 96;
     
-    
+    public static int PCMCANID = 1;
 }

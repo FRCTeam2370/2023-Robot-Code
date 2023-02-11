@@ -4,23 +4,15 @@
 
 package frc.robot.subsystems;
 
-import java.security.PublicKey;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.CANCoder;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
-<<<<<<< Updated upstream
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticsControlModule;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-=======
-import edu.wpi.first.wpilibj.RobotState;
->>>>>>> Stashed changes
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -41,21 +33,22 @@ public class Arm extends SubsystemBase {
   /** Creates a new Arm. */
   public Arm() {
     leftshouldMoter.configFactoryDefault();
-    leftshouldMoter.configPeakOutputForward(.05);
+    leftshouldMoter.configPeakOutputForward(.1);
     leftshouldMoter.configPeakOutputReverse(-.1);
-    leftelbowpid.setTolerance(1);    
-    leftshouldMoter.setNeutralMode(NeutralMode.Brake);
+
   }
 
   public static boolean arminplace = false;
   public static boolean pickupattempted = false;
   public static boolean pickupworked = false;
-  public static WPI_TalonFX leftshouldMoter = new WPI_TalonFX(Constants.LShoulderMotor);
-  public static DigitalInput leftshouldmagneticsensor = new DigitalInput(Constants.LShoulderMagneticSensor);
-  public static CANCoder Leftshouldercoder = new CANCoder(Constants.LShoulderCANCoder);
-  public static DoubleSolenoid Solenoid0 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 
-  Constants.Sol0FowardChannel, Constants.Sol0ReverseChannel);
-  public static PneumaticsControlModule PCM0 = new PneumaticsControlModule();
+  public static WPI_TalonFX leftshouldMoter = new WPI_TalonFX(Constants.Shoulder.LShoulderMotor);
+  public static DigitalInput leftshouldmagneticsensor = new DigitalInput(Constants.Shoulder.LShoulderMagneticSensor);
+  public static CANCoder Leftshouldercoder = new CANCoder(Constants.Shoulder.LShoulderCANCoder);
+  public static WPI_TalonFX leftelbowMoter = new WPI_TalonFX(Constants.Elbow.LElebowMotor); 
+  public static CANCoder ElbowCanCoder = new CANCoder(Constants.Elbow.LElbowCANCoder);
+  public static DoubleSolenoid Solenoid0 = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
+  public static Compressor AirCompressor = new Compressor(Constants.PCMCANID, PneumaticsModuleType.REVPH); 
+ 
   /*
    * public static WPI_TalonFX leftelbowMoter = new
    * WPI_TalonFX(Constants.LElebowMotor);
@@ -83,10 +76,25 @@ public class Arm extends SubsystemBase {
     encoder.configMagnetOffset(encoder.getPosition());
   }
 
+  public static void ElbowStartStuff(WPI_TalonFX motor1, CANCoder encoder1){
+    motor1.configFactoryDefault();
+    motor1.configPeakOutputForward(0.3); 
+    motor1.configPeakOutputReverse(-0.3);
+    encoder1.configFactoryDefault();
+    encoder1.configMagnetOffset(encoder1.getPosition()); 
+  }
+
   public static void movearmslow(WPI_TalonFX motor) {
     motor.set(-.1);
   }
 
+  public static void EnableCompressor(){
+    AirCompressor.enableDigital();
+  }
+
+  public static void DissableCompressor(){
+    AirCompressor.disable();
+  }
 
   public static void OpenGripper(){
     Solenoid0.set(Value.kForward);
@@ -97,9 +105,8 @@ public class Arm extends SubsystemBase {
   }
   @Override
   public void periodic() {
-  
-    SmartDashboard.putNumber("shoulder postion", Leftshouldercoder.getPosition());
+    SmartDashboard.putNumber("Elbow position", ElbowCanCoder.getAbsolutePosition()); 
+    SmartDashboard.putNumber("shoulder postion", Leftshouldercoder.getAbsolutePosition());
     SmartDashboard.putBoolean("magnectic switch", leftshouldmagneticsensor.get());
-    SmartDashboard.putNumber("shoulder power usage", leftshouldMoter.getMotorOutputVoltage());
   }
 }

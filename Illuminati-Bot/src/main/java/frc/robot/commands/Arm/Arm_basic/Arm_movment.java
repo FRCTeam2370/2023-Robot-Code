@@ -24,6 +24,12 @@ public class Arm_movment extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    if(shoulderpostion <= Arm.Leftshouldercoder.getPosition()){
+      Arm.leftshouldpid.setPID(.014, 0.001, 0);
+    }
+    else{
+      Arm.leftshouldpid.setPID(.01, .001, 0);
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -35,8 +41,8 @@ public class Arm_movment extends CommandBase {
 
     
 
-    Arm.leftelbowMoter.set(ControlMode.PercentOutput, 
-     Arm.leftelbowpid.calculate(Arm.ElbowCanCoder.getPosition(), elbowpostion)); 
+    Arm.leftelbowMoter.set(ControlMode.Position,
+    elbowpostion); 
 
     // Arm.leftelbowMoter.set(ControlMode.PercentOutput,
     // Arm.leftelbowpid.calculate(Arm.Leftelbowcoder.getPosition(), elbowpostion));
@@ -46,13 +52,13 @@ public class Arm_movment extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Arm.leftshouldMoter.set(ControlMode.PercentOutput, 0);
-    // Arm.leftelbowMoter.set(ControlMode.PercentOutput, 0);
+     Arm.leftelbowMoter.set(ControlMode.Position, shoulderpostion);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
    
-    return /* Arm.leftelbowpid.atSetpoint() && */ Arm.leftshouldpid.atSetpoint() ? true : false;
+    return Arm.leftelbowMoter.getSensorCollection().getIntegratedSensorPosition() == elbowpostion &&  Arm.leftshouldpid.atSetpoint() ? true : false;
   }
 }

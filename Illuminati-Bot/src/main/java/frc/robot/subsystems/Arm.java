@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.CANCoder;
 
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -35,7 +37,9 @@ public class Arm extends SubsystemBase {
     leftshouldMoter.configFactoryDefault();
     leftshouldMoter.configPeakOutputForward(.1);
     leftshouldMoter.configPeakOutputReverse(-.1);
-
+    leftelbowMoter.setNeutralMode(NeutralMode.Brake);
+    ElbowCanCoder.configMagnetOffset(0);
+    leftelbowMoter.configFactoryDefault();
   }
 
   public static boolean arminplace = false;
@@ -49,9 +53,9 @@ public class Arm extends SubsystemBase {
   public static DoubleSolenoid Solenoid0 = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
   public static Compressor AirCompressor = new Compressor(Constants.PCMCANID, PneumaticsModuleType.REVPH); 
  
-  /*
-   * public static WPI_TalonFX leftelbowMoter = new
-   * WPI_TalonFX(Constants.LElebowMotor);
+  
+    
+   /* WPI_TalonFX(Constants.LElebowMotor);
    * public static DigitalInput leftelbowmagneticsensor = new
    * DigitalInput(Constants.LElbowMagneticSensor);
    * public static CANCoder Leftelbowcoder = new
@@ -60,8 +64,7 @@ public class Arm extends SubsystemBase {
 
   public static PIDController leftshouldpid = new PIDController(Constants.LShoulder_kp, Constants.LShoulder_ki,
       Constants.LShoulder_kd);
-  public static PIDController leftelbowpid = new PIDController(Constants.LElbow_kp, Constants.LElbow_ki,
-      Constants.LElbow_kd);
+
 
   /*
    * public static boolean getelbowmagneticsonsor(){
@@ -73,23 +76,14 @@ public class Arm extends SubsystemBase {
     motor.configPeakOutputForward(.3);
     motor.configPeakOutputReverse(-.3);
     encoder.configFactoryDefault();
-    encoder.configMagnetOffset(encoder.getAbsolutePosition());
+    encoder.configMagnetOffset(180);
   }
+
 
   public static void ElbowStartStuff(WPI_TalonFX motor1, CANCoder encoder1){
     motor1.configFactoryDefault();
     motor1.configPeakOutputForward(0.3); 
     motor1.configPeakOutputReverse(-0.3);
-    encoder1.configFactoryDefault();
-    encoder1.configMagnetOffset(encoder1.getPosition()); 
-  }
-
-  public static void ElbowStartStuff(WPI_TalonFX motor1, CANCoder encoder1){
-    motor1.configFactoryDefault();
-    motor1.configPeakOutputForward(0.3); 
-    motor1.configPeakOutputReverse(-0.3);
-    encoder1.configFactoryDefault();
-    encoder1.configMagnetOffset(encoder1.getPosition()); 
   }
 
   public static void movearmslow(WPI_TalonFX motor) {
@@ -113,8 +107,13 @@ public class Arm extends SubsystemBase {
   }
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Elbow position", ElbowCanCoder.getAbsolutePosition()); 
+    if(RobotState.isDisabled() == true){
+leftelbowMoter.setNeutralMode(NeutralMode.Coast);
+leftshouldMoter.setNeutralMode(NeutralMode.Coast);
+    }
+    SmartDashboard.putBoolean("at set point", leftshouldmagneticsensor.get());
     SmartDashboard.putNumber("shoulder postion", Leftshouldercoder.getAbsolutePosition());
-    SmartDashboard.putBoolean("magnectic switch", leftshouldmagneticsensor.get());
-  }
+    SmartDashboard.putNumber("shoulder postion 2", Leftshouldercoder.getPosition());
+
+    SmartDashboard.putNumber("Elbow motorpostion", leftelbowMoter.getSensorCollection().getIntegratedSensorPosition());  }
 }

@@ -15,6 +15,7 @@ import frc.robot.commands.Arm.Arm_basic.Dissable_Compressor;
 import frc.robot.commands.Arm.Arm_basic.Enable_Compressor;
 import frc.robot.commands.Arm.Arm_basic.Gripper_Test;
 import frc.robot.commands.Arm.Arm_postions.Arm_back;
+import frc.robot.commands.Arm.Arm_postions.Arm_forward;
 import frc.robot.commands.LEDS.LED;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
@@ -38,12 +39,7 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static GenericHID driver = new GenericHID(0);
   public static GenericHID operater = new GenericHID(1);
-<<<<<<< Updated upstream
-  public static Intake m_Intake = new Intake(); 
-  public static Arm m_Arm = new Arm();
-=======
-;
->>>>>>> Stashed changes
+
 
       public static double Deadband(int axis, double deadband, GenericHID controler){
         double truezone = 1/(1-deadband);
@@ -105,7 +101,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    m_Drivetrain.setDefaultCommand(new Driving(m_Drivetrain));
+  //  m_Drivetrain.setDefaultCommand(new Driving(m_Drivetrain));
     m_sub_LEDs.setDefaultCommand(new Game_Piece_Detector(m_Sensors, m_sub_LEDs));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
@@ -113,12 +109,12 @@ public class RobotContainer {
 
    m_sub_LEDs.setDefaultCommand(new LED(m_sub_LEDs));
     
-   //B_driver.whileTrue(new Arm_set_up(m_Arm));
+   B_driver.whileTrue(new Arm_set_up(m_Arm));
    Y_driver.whileTrue(new Arm_back(m_Arm));
-
-   start_driver.onTrue(new Enable_Compressor(m_Arm));
-   select_driver.onTrue(new Dissable_Compressor(m_Arm)); 
-    m_Arm.setDefaultCommand(new Gripper_Test(m_Arm));
+    X_driver.whileTrue(new Arm_forward(m_Arm));
+   //start_driver.onTrue(new Enable_Compressor(m_Arm));
+   //select_driver.onTrue(new Dissable_Compressor(m_Arm)); 
+    //m_Arm.setDefaultCommand(new Gripper_Test(m_Arm));
   }
 
    //m_sub_LEDs.setDefaultCommand(new com_SelectLEDColor(m_sub_LEDs));

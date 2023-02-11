@@ -37,6 +37,7 @@ public class Arm_set_up extends CommandBase {
   public void end(boolean interrupted) {
     Arm.leftshouldMoter.stopMotor();
     Arm.shoulderstartstuff(Arm.leftshouldMoter, Arm.Leftshouldercoder);
+    Arm.ElbowStartStuff(Arm.leftelbowMoter, Arm.ElbowCanCoder);
   }
 
   // Returns true when the command should end.

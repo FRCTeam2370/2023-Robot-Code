@@ -62,9 +62,9 @@ public final class Constants {
     }
    
    
-     public static int LShoulder_kp = 0; 
-    public static int LShoulder_ki = 0; 
-    public static int LShoulder_kd = 0;
+     public static double LShoulder_kp = 0.01; 
+    public static double LShoulder_ki = 0.002; 
+    public static double LShoulder_kd = 0;
 
     public static int LElbow_kp = 0; 
     public static int LElbow_ki = 0; 

@@ -21,6 +21,7 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
     public static double x = 1;
     public static double y = 1+(1/6);
+
   
     public static int Frontleftdrive = 21;
     public static int Frontleftturn = 25;
@@ -83,4 +84,9 @@ public final class Constants {
     public static int LED_Strip_Length = 96;
     
     public static int PCMCANID = 1;
+
+    public static class sensors{
+
+    }
+    
 }

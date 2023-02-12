@@ -19,7 +19,9 @@ public class Vision extends SubsystemBase {
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
     NetworkTableEntry ta = table.getEntry("ta");
-    NetworkTableEntry tid = table.getEntry("tid");        
+    NetworkTableEntry tid = table.getEntry("tid");    
+    NetworkTableEntry tv = table.getEntry("tv");
+    public double targetsVisible = tv.getInteger(0);
   
 
 
@@ -33,13 +35,13 @@ public class Vision extends SubsystemBase {
     double y = ty.getDouble(0.0);
     double area = ta.getDouble(0.0);
     double num = tid.getInteger(0);
+    double targetsVisible = tv.getInteger(0);
 
     
     SmartDashboard.putNumber("TargetX", x);
     SmartDashboard.putNumber("TargetY", y);
     SmartDashboard.putNumber("LimelightArea", area);
     SmartDashboard.putNumber("AprilTagNum", num);
-  
-
+    SmartDashboard.putNumber("Are Tags Visible?", targetsVisible);
   }
 }

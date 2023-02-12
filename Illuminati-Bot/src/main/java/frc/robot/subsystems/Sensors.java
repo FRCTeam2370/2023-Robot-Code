@@ -25,11 +25,22 @@ public class Sensors extends SubsystemBase {
   public String GamePiece = "";
   private I2C.Port i2cPort = I2C.Port.kOnboard;
   public ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+
+  /*Limelight Variables
+   * tx = Target horizontal offset
+   * ty = Target vertical offset
+   * ta = Target area in camera
+   * tid = Apriltag number
+   * tv = If there are targets visible (1 or 0)
+  */
   public static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   public static NetworkTableEntry tx = table.getEntry("tx");
   public static NetworkTableEntry ty = table.getEntry("ty");
   public static NetworkTableEntry ta = table.getEntry("ta");
   public static NetworkTableEntry tid = table.getEntry("tid");
+  public static NetworkTableEntry tv = table.getEntry("tv");
+
+
 
 
 
@@ -103,6 +114,8 @@ public class Sensors extends SubsystemBase {
   @Override
   public void periodic() {
 
+    double targetsVisible = tv.getInteger(0);
+    SmartDashboard.putNumber("TargetsVisible?", targetsVisible);
 
     if(GamePiece == "Cube"){
       SwitchPipline0();

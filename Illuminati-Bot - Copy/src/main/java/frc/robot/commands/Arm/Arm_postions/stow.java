@@ -5,21 +5,19 @@
 package frc.robot.commands.Arm.Arm_postions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Arm.Arm_basic.Arm_movment;
+import frc.robot.commands.Arm.Arm_basic.Elbow_only_movement;
+import frc.robot.commands.Arm.Arm_basic.shoulder_only_movement;
 import frc.robot.subsystems.Arm;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Arm_back extends SequentialCommandGroup {
-  /** Creates a new Arm_back. */
-  public Arm_back(Arm m_arm) {
+public class stow extends SequentialCommandGroup {
+  /** Creates a new stow. */
+  public stow(Arm m_Arm) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-<<<<<<< HEAD
-    addCommands(new Arm_movment(m_arm, 0,4000));
-=======
-    addCommands(new Arm_movment(m_arm, -4.5, 0));
->>>>>>> 814ca2d3bbbeef9e826ca801cbe2b6ad8d6f8c9c
+    addCommands(new shoulder_only_movement(m_Arm, 5127), new Elbow_only_movement(m_Arm, 207));
+     
   }
 }

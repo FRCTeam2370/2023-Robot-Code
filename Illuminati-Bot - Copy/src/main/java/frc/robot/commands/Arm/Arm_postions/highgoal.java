@@ -11,15 +11,11 @@ import frc.robot.subsystems.Arm;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Arm_back extends SequentialCommandGroup {
-  /** Creates a new Arm_back. */
-  public Arm_back(Arm m_arm) {
+public class highgoal extends SequentialCommandGroup {
+  /** Creates a new highgoal. */
+  public highgoal(Arm m_arm) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-<<<<<<< HEAD
-    addCommands(new Arm_movment(m_arm, 0,4000));
-=======
-    addCommands(new Arm_movment(m_arm, -4.5, 0));
->>>>>>> 814ca2d3bbbeef9e826ca801cbe2b6ad8d6f8c9c
+    addCommands(new Arm_movment(m_arm, 51658, 158750 ));
   }
 }

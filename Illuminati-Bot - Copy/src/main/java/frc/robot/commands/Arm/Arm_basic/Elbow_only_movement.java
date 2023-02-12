@@ -7,50 +7,37 @@ package frc.robot.commands.Arm.Arm_basic;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.Arm;
 
-public class Arm_set_up extends CommandBase {
-  /** Creates a new Arm_set_up. */
-  public Arm_set_up(Arm m_Arm) {
-    addRequirements(m_Arm);
+public class Elbow_only_movement extends CommandBase {
+  /** Creates a new Elbow_only_movement. */
+  public Elbow_only_movement(Arm m_Arm, double elbowpostion) {
+addRequirements(m_Arm);
+this.elbowpostion= elbowpostion;
     // Use addRequirements() here to declare subsystem dependencies.
   }
-
+private double elbowpostion;
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    if (Arm.leftshouldmagneticsensor.get() == true) {
-      Arm.leftshouldMoter.set(ControlMode.PercentOutput, -.1);
-    }
-
+    Arm.leftelbowMoter.set(ControlMode.Position,
+    elbowpostion); 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Arm.leftshouldMoter.stopMotor();
-    Arm.shoulderstartstuff(Arm.leftshouldMoter, Arm.Leftshouldercoder);
+    Arm.leftelbowMoter.set(ControlMode.Position,
+    elbowpostion); 
   }
 
   // Returns true when the command should end.
-  /*
-   * (non-Javadoc)
-   * 
-   * @see edu.wpi.first.wpilibj2.command.Command#isFinished()
-   */
   @Override
   public boolean isFinished() {
-    if (Arm.leftshouldmagneticsensor.get() == true) {
-      return false;
-    } else {
-      return true;
-    }
+    return true;
   }
 }

@@ -2,24 +2,20 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Arm.Arm_postions;
+package frc.robot.commands.Auto_stuff;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Arm.Arm_basic.Arm_movment;
-import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Drivetrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Arm_back extends SequentialCommandGroup {
-  /** Creates a new Arm_back. */
-  public Arm_back(Arm m_arm) {
+public class test_auto extends SequentialCommandGroup {
+  /** Creates a new test_auto. */
+  public test_auto(Drivetrain m_Drivetrain, double x, double y, double z) {
+    super(new auto_move(m_Drivetrain, x, y, z));
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-<<<<<<< HEAD
-    addCommands(new Arm_movment(m_arm, 0,4000));
-=======
-    addCommands(new Arm_movment(m_arm, -4.5, 0));
->>>>>>> 814ca2d3bbbeef9e826ca801cbe2b6ad8d6f8c9c
+    addCommands();
   }
 }

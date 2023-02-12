@@ -19,10 +19,32 @@ public class DriveToDistanceFromApriLtag extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //Drivetrain.fullswervecontrol(0, 1, 0);
+    //Switches to apriltag pipeline
+    Sensors.SwitchPipline0();
+    //Are there targets visible?
+    if (Sensors.targetsVisible == 1) {
+      //X position lineup on apriltag
+      while (Sensors.TargetX > 1 && Sensors.TargetX < -1) {
+        if (Sensors.TargetX > 1) {
+          //Right
+          Drivetrain.fullswervecontrol(1, 0, 0);
+        } else {
+          if (Sensors.TargetX < -1) {
+            //Left
+            Drivetrain.fullswervecontrol(-1, 0, 0);
+          } 
+        }
+      }
+      //lined up on ApriltagX
+      //Get in retroreflective readout distance
+      //if (Sensors.TargetArea > ?) {
+        //Get in retroreflective distance
+      //}
+      Drivetrain.fullswervecontrol(0, 1, 0);
+      //Switch to retroreflective pipeline
+      Sensors.SwitchPipline1();
 
-    //if (Sensors.targetsVisible == 1) {
-    //}
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.

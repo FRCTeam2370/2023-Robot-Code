@@ -18,11 +18,13 @@ public class swerveMath {
     public static boolean reversed;
     private boolean fieldOriented = false;
     private AHRS gyro;
-    public swerveMath(double positionX, double positionY, WPI_TalonFX anglemoter, AHRS gyro){
+    private boolean wheelspeedinvert;
+    public swerveMath(double positionX, double positionY, WPI_TalonFX anglemoter, AHRS gyro, boolean wheelspeedinvert){
         this.positionX=positionX;
         this.positionY=positionY;    
         this.anglemoter=anglemoter;
         this.gyro = gyro;
+        this.wheelspeedinvert = wheelspeedinvert;
     }
 public static double encoderwheelangle;
 
@@ -43,12 +45,6 @@ public double rotationAngle(double x, double y, double z){
     double distancetoangle = (wantedangle - encoderAngle360);
 
     // finds the shortest path for the wheel
-if(Math.abs(distancetoangle)>180){
-    distancetoangle = distancetoangle>0? distancetoangle-180 : distancetoangle+180;
-    reversed = true;
-}
-else{reversed = false;}
-   
     
     SmartDashboard.putNumber("dis", distancetoangle);
     SmartDashboard.putNumber("encoderAngle360", encoderAngle360);

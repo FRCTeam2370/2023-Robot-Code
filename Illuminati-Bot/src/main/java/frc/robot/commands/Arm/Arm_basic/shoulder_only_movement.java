@@ -9,50 +9,33 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
 
-public class Arm_movment extends CommandBase {
-  /** Creates a new Arm_movment. */
-  public Arm_movment(Arm m_Arm, double shoulderpostion, double elbowpostion) {
-    // Use addRequirements() here to declare subsystem dependencies.
+public class shoulder_only_movement extends CommandBase {
+  /** Creates a new shoulder_only_movement. */
+  public shoulder_only_movement(Arm m_Arm, double shoulderpostion) {
     addRequirements(m_Arm);
     this.shoulderpostion = shoulderpostion;
-    this.elbowpostion = elbowpostion;
+    // Use addRequirements() here to declare subsystem dependencies.
   }
-
-  double shoulderpostion;
-  double elbowpostion;
-
+  private double shoulderpostion;
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
     Arm.leftshouldMoter.set(ControlMode.Position, shoulderpostion);
-
-    
-
-    Arm.leftelbowMoter.set(ControlMode.Position,
-    elbowpostion); 
-
-    // Arm.leftelbowMoter.set(ControlMode.PercentOutput,
-    // Arm.leftelbowpid.calculate(Arm.Leftelbowcoder.getPosition(), elbowpostion));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     Arm.leftshouldMoter.set(ControlMode.Position, shoulderpostion);
-     Arm.leftelbowMoter.set(ControlMode.Position, elbowpostion);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   
-    return Arm.leftelbowMoter.getSensorCollection().getIntegratedSensorPosition() == elbowpostion &&  Arm.leftelbowMoter.getSensorCollection().getIntegratedSensorPosition() == shoulderpostion ? true : false;
+   return true;
   }
 }

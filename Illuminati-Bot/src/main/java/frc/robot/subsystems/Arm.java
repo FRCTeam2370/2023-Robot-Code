@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.CANCoder;
@@ -37,9 +38,18 @@ public class Arm extends SubsystemBase {
     leftshouldMoter.configFactoryDefault();
     leftshouldMoter.configPeakOutputForward(.1);
     leftshouldMoter.configPeakOutputReverse(-.1);
-    leftelbowMoter.setNeutralMode(NeutralMode.Brake);
-    ElbowCanCoder.configMagnetOffset(0);
     leftelbowMoter.configFactoryDefault();
+    leftelbowMoter.configClosedLoopPeakOutput(0, .35);
+    leftshouldMoter.configClosedLoopPeakOutput(0, .35);
+    leftelbowMoter.config_kP(0, .05);
+    leftelbowMoter.config_kI(0, 0);
+    leftelbowMoter.config_kD(0, 0);
+    leftshouldMoter.config_kP(0, .12);
+    leftshouldMoter.config_kI(0, 0);
+    leftshouldMoter.config_kD(0, 0);
+    leftelbowMoter.set(ControlMode.Position, leftelbowMoter.getSensorCollection().getIntegratedSensorPosition());
+    leftshouldMoter.set(ControlMode.Position, leftshouldMoter.getSensorCollection().getIntegratedSensorPosition());
+
   }
 
   public static boolean arminplace = false;
@@ -62,8 +72,7 @@ public class Arm extends SubsystemBase {
    * CANCoder(Constants.LElbowCANCoder);
    */
 
-  public static PIDController leftshouldpid = new PIDController(Constants.LShoulder_kp, Constants.LShoulder_ki,
-      Constants.LShoulder_kd);
+
 
 
   /*
@@ -84,8 +93,9 @@ public class Arm extends SubsystemBase {
     motor1.configFactoryDefault();
     motor1.configPeakOutputForward(0.3); 
     motor1.configPeakOutputReverse(-0.3);
-  }
 
+  }
+public static boolean isgripperclosed = false;
   public static void movearmslow(WPI_TalonFX motor) {
     motor.set(-.1);
   }
@@ -100,10 +110,12 @@ public class Arm extends SubsystemBase {
 
   public static void OpenGripper(){
     Solenoid0.set(Value.kForward);
+    isgripperclosed = true;
   }
 
   public static void CloseGripper(){
     Solenoid0.set(Value.kReverse);
+    isgripperclosed = false;
   }
   @Override
   public void periodic() {
@@ -111,9 +123,11 @@ public class Arm extends SubsystemBase {
 leftelbowMoter.setNeutralMode(NeutralMode.Coast);
 leftshouldMoter.setNeutralMode(NeutralMode.Coast);
     }
-    SmartDashboard.putBoolean("at set point", leftshouldmagneticsensor.get());
-    SmartDashboard.putNumber("shoulder postion", Leftshouldercoder.getAbsolutePosition());
-    SmartDashboard.putNumber("shoulder postion 2", Leftshouldercoder.getPosition());
+    else{
+      leftelbowMoter.setNeutralMode(NeutralMode.Brake);
+leftshouldMoter.setNeutralMode(NeutralMode.Brake);
+    }
+    SmartDashboard.putNumber("shoulder postion", leftshouldMoter.getSensorCollection().getIntegratedSensorPosition());
 
     SmartDashboard.putNumber("Elbow motorpostion", leftelbowMoter.getSensorCollection().getIntegratedSensorPosition());  }
 }

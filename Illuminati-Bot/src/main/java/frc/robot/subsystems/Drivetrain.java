@@ -62,7 +62,7 @@ public class Drivetrain extends SubsystemBase {
   // encoder
   public static CANCoder Frontleftencoder = new CANCoder(Constants.Frontleftencoder);
   // math for each side
-  public static swerveMath leftfront = new swerveMath(Constants.Frontleftx, Constants.Frontlefty, Frontleftturn, gyro);
+  public static swerveMath leftfront = new swerveMath(Constants.Frontleftx, Constants.Frontlefty, Frontleftturn, gyro, false);
 
   // front right swerve
   // motors for driving
@@ -72,7 +72,7 @@ public class Drivetrain extends SubsystemBase {
   public static CANCoder frontrightencoder = new CANCoder(Constants.FrontRightencoder);
   // math for each side
   public static swerveMath rightfront = new swerveMath(Constants.Frontrightx, Constants.Frontrighty, Frontrightturn,
-      gyro);
+      gyro, true);
 
   // back left swerve
   // motors for driving
@@ -81,7 +81,7 @@ public class Drivetrain extends SubsystemBase {
   // encoder
   public static CANCoder Backleftencoder = new CANCoder(Constants.BackLeftencoder);
   // math for each side
-  public static swerveMath leftback = new swerveMath(Constants.BackLeftx, Constants.BackLefty, Backleftturn, gyro);
+  public static swerveMath leftback = new swerveMath(Constants.BackLeftx, Constants.BackLefty, Backleftturn, gyro, true);
 
   // back right swerve
   // motors for driving
@@ -90,7 +90,7 @@ public class Drivetrain extends SubsystemBase {
   // encoder
   public static CANCoder Backrightencoder = new CANCoder(Constants.Backrightencoder);
   // math for each side
-  public static swerveMath rightback = new swerveMath(Constants.Backrightx, Constants.Backrighty, Backrightturn, gyro);
+  public static swerveMath rightback = new swerveMath(Constants.Backrightx, Constants.Backrighty, Backrightturn, gyro, false);
   public static double rloffset = 0;
   public static double rroffset = 0;
   public static double floffset = 0;
@@ -256,11 +256,11 @@ public class Drivetrain extends SubsystemBase {
     x = x + distencetravel * Math.cos(xyangle);
     y = y + distencetravel * Math.sin(xyangle);
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("deseried ang;e", Math.toDegrees(xyangle));
+  
     SmartDashboard.putNumber("y", y);
     SmartDashboard.putNumber("x", x);
     SmartDashboard.putNumber("angle", gyro.getAngle());
     // This method will be called once per scheduler run
-    SmartDashboard.putBoolean("test", true);
+  
   }
 }

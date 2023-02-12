@@ -16,10 +16,6 @@ public class Arm_back extends SequentialCommandGroup {
   public Arm_back(Arm m_arm) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-<<<<<<< HEAD
     addCommands(new Arm_movment(m_arm, 0,4000));
-=======
-    addCommands(new Arm_movment(m_arm, -4.5, 0));
->>>>>>> 814ca2d3bbbeef9e826ca801cbe2b6ad8d6f8c9c
   }
 }

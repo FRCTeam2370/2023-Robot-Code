@@ -113,10 +113,10 @@ public class Sensors extends SubsystemBase {
 
   @Override
   public void periodic() {
-
+GetColor();
     double targetsVisible = tv.getInteger(0);
     SmartDashboard.putNumber("TargetsVisible?", targetsVisible);
-
+    SmartDashboard.putString("object", GamePiece);
     if(GamePiece == "Cube"){
       SwitchPipline0();
     }

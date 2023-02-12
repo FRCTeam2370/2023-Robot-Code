@@ -28,6 +28,12 @@ public class Game_Piece_Detector extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
     if(GamePiece == "Cube"){
       sub_LEDs.LEDs_Green();
     }else if(GamePiece == "Cone"){
@@ -35,11 +41,6 @@ public class Game_Piece_Detector extends CommandBase {
     } else {
       sub_LEDs.LEDs_Off();
     }
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
     Color detectedColor = m_colorSensor.getColor();
     double IR = m_colorSensor.getIR();
     SmartDashboard.putNumber("Red", detectedColor.red);

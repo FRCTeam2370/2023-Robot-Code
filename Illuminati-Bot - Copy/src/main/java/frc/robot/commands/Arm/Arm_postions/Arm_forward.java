@@ -16,12 +16,8 @@ public class Arm_forward extends SequentialCommandGroup {
   public Arm_forward(Arm m_Arm) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-<<<<<<< HEAD
     addCommands( new Arm_movment(m_Arm, 0, 8000))
     ;
     
-=======
-    addCommands( new Arm_movment(m_Arm, 20, 0));
->>>>>>> 814ca2d3bbbeef9e826ca801cbe2b6ad8d6f8c9c
   }
 }

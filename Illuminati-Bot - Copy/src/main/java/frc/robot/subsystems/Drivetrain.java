@@ -26,6 +26,7 @@ import frc.robot.Constants;
  * 3. check that wheels have the right x and y cords
  * 4. To do after week 0: Teach other how Swerve code works
  */
+import frc.robot.RobotContainer;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
@@ -240,6 +241,9 @@ public class Drivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if(RobotContainer.select_driver.getAsBoolean()){
+      gyro.reset();
+    }
     SmartDashboard.putNumber("encoder angle1",
         Frontrightturn.getSensorCollection().getIntegratedSensorPosition() * falcontickstodegrees);
     // collects distence

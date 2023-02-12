@@ -121,12 +121,12 @@ public class Drivetrain extends SubsystemBase {
       Backleftdrive.stopMotor();
       Backrightdrive.stopMotor();
     } else {
-      swervecontrol(Frontleftdrive, Frontleftturn, leftfront, x * drivespeedmax, y * drivespeedmax,
+      swervecontrol(Frontleftdrive, Frontleftturn, leftfront, x , y ,
           z * rotationspeedmax);
-      swervecontrol(Frontrightdrive, Frontrightturn, rightfront, x * drivespeedmax, y * drivespeedmax,
+      swervecontrol(Frontrightdrive, Frontrightturn, rightfront, x , y ,
           -z * rotationspeedmax);
-      swervecontrol(Backleftdrive, Backleftturn, leftback, x * drivespeedmax, y * drivespeedmax, -z * rotationspeedmax);
-      swervecontrol(Backrightdrive, Backrightturn, rightback, x * drivespeedmax, y * drivespeedmax,
+      swervecontrol(Backleftdrive, Backleftturn, leftback, x , y , -z * rotationspeedmax);
+      swervecontrol(Backrightdrive, Backrightturn, rightback, x , y ,
           z * rotationspeedmax);
     }
   }

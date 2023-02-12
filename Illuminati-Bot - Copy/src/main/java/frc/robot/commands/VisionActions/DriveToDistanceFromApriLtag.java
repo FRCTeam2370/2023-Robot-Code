@@ -22,19 +22,7 @@ public class DriveToDistanceFromApriLtag extends CommandBase {
     //Switches to apriltag pipeline
     Sensors.SwitchPipline0();
     //Are there targets visible?
-    if (Sensors.targetsVisible == 1) {
-      //X position lineup on apriltag
-      while (Sensors.TargetX > 1 && Sensors.TargetX < -1) {
-        if (Sensors.TargetX > 1) {
-          //Right
-          Drivetrain.fullswervecontrol(1, 0, 0);
-        } else {
-          if (Sensors.TargetX < -1) {
-            //Left
-            Drivetrain.fullswervecontrol(-1, 0, 0);
-          } 
-        }
-      }
+   
       //lined up on ApriltagX
       //Get in retroreflective readout distance
       //if (Sensors.TargetArea > ?) {
@@ -45,7 +33,7 @@ public class DriveToDistanceFromApriLtag extends CommandBase {
       Sensors.SwitchPipline1();
 
     }
-  }
+
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

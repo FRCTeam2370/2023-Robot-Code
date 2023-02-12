@@ -4,11 +4,8 @@
 
 package frc.robot.subsystems;
 
-<<<<<<< HEAD
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-=======
->>>>>>> 814ca2d3bbbeef9e826ca801cbe2b6ad8d6f8c9c
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.CANCoder;
 
@@ -18,9 +15,11 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.Arm.Arm_basic.Gripper.close_gripper;
 
 /*things left to do
  * 1.tune PID for arm
@@ -40,7 +39,6 @@ public class Arm extends SubsystemBase {
     leftshouldMoter.configFactoryDefault();
     leftshouldMoter.configPeakOutputForward(.1);
     leftshouldMoter.configPeakOutputReverse(-.1);
-<<<<<<< HEAD
     leftelbowMoter.configFactoryDefault();
     leftelbowMoter.configClosedLoopPeakOutput(0, .35);
     leftshouldMoter.configClosedLoopPeakOutput(0, .35);
@@ -52,8 +50,6 @@ public class Arm extends SubsystemBase {
     leftshouldMoter.config_kD(0, 0);
     leftelbowMoter.set(ControlMode.Position, leftelbowMoter.getSensorCollection().getIntegratedSensorPosition());
     leftshouldMoter.set(ControlMode.Position, leftshouldMoter.getSensorCollection().getIntegratedSensorPosition());
-=======
->>>>>>> 814ca2d3bbbeef9e826ca801cbe2b6ad8d6f8c9c
 
   }
 
@@ -77,15 +73,8 @@ public class Arm extends SubsystemBase {
    * CANCoder(Constants.LElbowCANCoder);
    */
 
-<<<<<<< HEAD
 
 
-=======
-  public static PIDController leftshouldpid = new PIDController(Constants.LShoulder_kp, Constants.LShoulder_ki,
-      Constants.LShoulder_kd);
-  public static PIDController leftelbowpid = new PIDController(Constants.LElbow_kp, Constants.LElbow_ki,
-      Constants.LElbow_kd);
->>>>>>> 814ca2d3bbbeef9e826ca801cbe2b6ad8d6f8c9c
 
   /*
    * public static boolean getelbowmagneticsonsor(){
@@ -104,12 +93,6 @@ public class Arm extends SubsystemBase {
     motor1.configFactoryDefault();
     motor1.configPeakOutputForward(0.3); 
     motor1.configPeakOutputReverse(-0.3);
-<<<<<<< HEAD
-=======
-    encoder1.configFactoryDefault();
-    encoder1.configMagnetOffset(encoder1.getPosition()); 
-  }
->>>>>>> 814ca2d3bbbeef9e826ca801cbe2b6ad8d6f8c9c
 
   }
 public static boolean isgripperclosed = false;
@@ -134,9 +117,9 @@ public static boolean isgripperclosed = false;
     Solenoid0.set(Value.kReverse);
     isgripperclosed = false;
   }
+
   @Override
   public void periodic() {
-<<<<<<< HEAD
     if(RobotState.isDisabled() == true){
 leftelbowMoter.setNeutralMode(NeutralMode.Coast);
 leftshouldMoter.setNeutralMode(NeutralMode.Coast);
@@ -148,10 +131,4 @@ leftshouldMoter.setNeutralMode(NeutralMode.Brake);
     SmartDashboard.putNumber("shoulder postion", leftshouldMoter.getSensorCollection().getIntegratedSensorPosition());
 
     SmartDashboard.putNumber("Elbow motorpostion", leftelbowMoter.getSensorCollection().getIntegratedSensorPosition());  }
-=======
-    SmartDashboard.putNumber("Elbow position", ElbowCanCoder.getAbsolutePosition()); 
-    SmartDashboard.putNumber("shoulder postion", Leftshouldercoder.getAbsolutePosition());
-    SmartDashboard.putBoolean("magnectic switch", leftshouldmagneticsensor.get());
-  }
->>>>>>> 814ca2d3bbbeef9e826ca801cbe2b6ad8d6f8c9c
 }

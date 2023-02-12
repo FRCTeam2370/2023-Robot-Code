@@ -24,22 +24,13 @@ public class Arm_movment extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-<<<<<<< HEAD
-
-=======
->>>>>>> 814ca2d3bbbeef9e826ca801cbe2b6ad8d6f8c9c
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-<<<<<<< HEAD
-    
-    Arm.leftshouldMoter.set(ControlMode.Position, shoulderpostion);
-=======
     Arm.leftshouldMoter.set(ControlMode.PercentOutput,
         Arm.leftshouldpid.calculate(Arm.Leftshouldercoder.getPosition(), shoulderpostion));
->>>>>>> 814ca2d3bbbeef9e826ca801cbe2b6ad8d6f8c9c
 
     
 
@@ -53,23 +44,13 @@ public class Arm_movment extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-<<<<<<< HEAD
-    Arm.leftshouldMoter.set(ControlMode.Position, shoulderpostion);
-     Arm.leftelbowMoter.set(ControlMode.Position, elbowpostion);
-=======
     // Arm.leftelbowMoter.set(ControlMode.PercentOutput, 0);
     // Arm.leftelbowMoter.set(ControlMode.PercentOutput, 0);
->>>>>>> 814ca2d3bbbeef9e826ca801cbe2b6ad8d6f8c9c
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-<<<<<<< HEAD
-   
-    return Arm.leftelbowMoter.getSensorCollection().getIntegratedSensorPosition() == elbowpostion &&  Arm.leftelbowMoter.getSensorCollection().getIntegratedSensorPosition() == shoulderpostion ? true : false;
-=======
     return /* Arm.leftelbowpid.atSetpoint() && */ Arm.leftshouldpid.atSetpoint() ? true : false;
->>>>>>> 814ca2d3bbbeef9e826ca801cbe2b6ad8d6f8c9c
   }
 }

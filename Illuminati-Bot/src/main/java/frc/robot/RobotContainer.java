@@ -10,24 +10,12 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.Elbow;
 import frc.robot.commands.Driving;
 import frc.robot.commands.Game_Piece_Detector;
-import frc.robot.commands.Arm.Arm_basic.Arm_set_up;
 import frc.robot.commands.Arm.Arm_basic.Dissable_Compressor;
-import frc.robot.commands.Arm.Arm_basic.Elbow_only_movement;
 import frc.robot.commands.Arm.Arm_basic.Enable_Compressor;
 import frc.robot.commands.Arm.Arm_basic.Gripper_Test;
-import frc.robot.commands.Arm.Arm_basic.shoulder_only_movement;
-import frc.robot.commands.Arm.Arm_basic.Gripper.close_gripper;
-import frc.robot.commands.Arm.Arm_basic.Gripper.open_gripper;
 import frc.robot.commands.Arm.Arm_postions.Arm_back;
-<<<<<<< HEAD
-import frc.robot.commands.Arm.Arm_postions.Arm_forward;
-import frc.robot.commands.Arm.Arm_postions.highgoal;
-import frc.robot.commands.Arm.Arm_postions.stow;
-=======
->>>>>>> 814ca2d3bbbeef9e826ca801cbe2b6ad8d6f8c9c
 import frc.robot.commands.LEDS.LED;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
@@ -123,19 +111,6 @@ public static WaitCommand Wait1 = new WaitCommand(1);
    // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
    m_sub_LEDs.setDefaultCommand(new LED(m_sub_LEDs));
-<<<<<<< HEAD
-  righbumper_driver.whileTrue(new highgoal(m_Arm));
-  triggerbutton(driver, 3).whileTrue(new Elbow_only_movement(m_Arm, 79175).andThen(new WaitCommand(1/5).andThen(new shoulder_only_movement(m_Arm, 18335))));
-  triggerbutton(driver, 2).whileTrue(new shoulder_only_movement(m_Arm, 21508).andThen(new Elbow_only_movement(m_Arm, 84369)));
-    leftbumper_driver.whileTrue(new Elbow_only_movement(m_Arm, 28723).andThen(new WaitCommand(1/2).andThen(new shoulder_only_movement(m_Arm, 36719))));
-    A_driver.whileTrue(new shoulder_only_movement(m_Arm, 5127).andThen(new Elbow_only_movement(m_Arm, 207)));
-   Y_driver.whileTrue(new close_gripper(m_Arm));
-    X_driver.whileTrue(new open_gripper(m_Arm));
-  
-   //start_driver.onTrue(new Enable_Compressor(m_Arm));
-   //select_driver.onTrue(new Dissable_Compressor(m_Arm)); 
-    //m_Arm.setDefaultCommand(new Gripper_Test(m_Arm));
-=======
     
    //B_driver.whileTrue(new Arm_set_up(m_Arm));
    Y_driver.whileTrue(new Arm_back(m_Arm));
@@ -143,7 +118,6 @@ public static WaitCommand Wait1 = new WaitCommand(1);
    start_driver.onTrue(new Enable_Compressor(m_Arm));
    select_driver.onTrue(new Dissable_Compressor(m_Arm)); 
     m_Arm.setDefaultCommand(new Gripper_Test(m_Arm));
->>>>>>> 814ca2d3bbbeef9e826ca801cbe2b6ad8d6f8c9c
   }
 
    //m_sub_LEDs.setDefaultCommand(new com_SelectLEDColor(m_sub_LEDs));

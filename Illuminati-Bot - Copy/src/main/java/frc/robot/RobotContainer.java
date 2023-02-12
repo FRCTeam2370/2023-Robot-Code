@@ -120,12 +120,12 @@ public static WaitCommand Wait1 = new WaitCommand(1);
     // cancelling on release.
    // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-   m_sub_LEDs.setDefaultCommand(new LED(m_sub_LEDs));
-  righbumper_driver.whileTrue(new highgoal(m_Arm));
-  triggerbutton(driver, 3).whileTrue(new Elbow_only_movement(m_Arm, 79175).andThen(new WaitCommand(1/5).andThen(new shoulder_only_movement(m_Arm, 18335))));
-  triggerbutton(driver, 2).whileTrue(new shoulder_only_movement(m_Arm, 21508).andThen(new Elbow_only_movement(m_Arm, 84369)));
+   m_sub_LEDs.setDefaultCommand(new LED(m_sub_LEDs)); 
+  righbumper_driver.toggleOnTrue(new highgoal(m_Arm));
+  triggerbutton(driver, 3).toggleOnTrue(new Elbow_only_movement(m_Arm, 79175).andThen(new WaitCommand(1/5).andThen(new shoulder_only_movement(m_Arm, 18335))));
+  triggerbutton(driver, 2).toggleOnTrue(new shoulder_only_movement(m_Arm, 21508).andThen(new Elbow_only_movement(m_Arm, 84369)));
     leftbumper_driver.whileTrue(new Elbow_only_movement(m_Arm, 28723).andThen(new WaitCommand(1/2).andThen(new shoulder_only_movement(m_Arm, 36719))));
-    A_driver.whileTrue(new shoulder_only_movement(m_Arm, 5127).andThen(new Elbow_only_movement(m_Arm, 207)));
+    A_driver.toggleOnTrue(new shoulder_only_movement(m_Arm, 11508).andThen(new WaitCommand(1.5)).andThen(new Elbow_only_movement(m_Arm, 208)));
    Y_driver.toggleOnTrue(new gripper_open_and_close(m_Arm));
     X_driver.whileTrue(new open_gripper(m_Arm));
   

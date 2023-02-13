@@ -40,7 +40,7 @@ public class Arm extends SubsystemBase {
     leftshouldMoter.configPeakOutputForward(.1);
     leftshouldMoter.configPeakOutputReverse(-.1);
     leftelbowMoter.configFactoryDefault();
-    leftelbowMoter.configClosedLoopPeakOutput(0, .35);
+    leftelbowMoter.configClosedLoopPeakOutput(0, .20);
     leftshouldMoter.configClosedLoopPeakOutput(0, .35);
     leftelbowMoter.config_kP(0, .05);
     leftelbowMoter.config_kI(0, 0);
@@ -61,8 +61,7 @@ public class Arm extends SubsystemBase {
   public static CANCoder Leftshouldercoder = new CANCoder(Constants.Shoulder.LShoulderCANCoder);
   public static WPI_TalonFX leftelbowMoter = new WPI_TalonFX(Constants.Elbow.LElebowMotor); 
   public static CANCoder ElbowCanCoder = new CANCoder(Constants.Elbow.LElbowCANCoder);
-  public static DoubleSolenoid Solenoid0 = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
-  public static Compressor AirCompressor = new Compressor(Constants.PCMCANID, PneumaticsModuleType.REVPH); 
+
  
   /*
    * public static WPI_TalonFX leftelbowMoter = new
@@ -100,23 +99,7 @@ public static boolean isgripperclosed = false;
     motor.set(-.1);
   }
 
-  public static void EnableCompressor(){
-    AirCompressor.enableDigital();
-  }
 
-  public static void DissableCompressor(){
-    AirCompressor.disable();
-  }
-
-  public static void OpenGripper(){
-    Solenoid0.set(Value.kForward);
-    isgripperclosed = true;
-  }
-
-  public static void CloseGripper(){
-    Solenoid0.set(Value.kReverse);
-    isgripperclosed = false;
-  }
 
   @Override
   public void periodic() {

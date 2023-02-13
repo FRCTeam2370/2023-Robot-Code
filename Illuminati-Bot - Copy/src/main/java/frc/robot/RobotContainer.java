@@ -32,6 +32,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Sensors;
+import frc.robot.subsystems.gripper;
 import frc.robot.subsystems.sub_LEDs;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -49,6 +50,7 @@ public class RobotContainer {
   public static GenericHID operater = new GenericHID(1);
   public static Intake m_Intake = new Intake(); 
   public static Arm m_Arm = new Arm();
+  public static gripper m_Gripper = new gripper();
 
       public static double Deadband(int axis, double deadband, GenericHID controler){
         double truezone = 1/(1-deadband);
@@ -121,14 +123,14 @@ public static WaitCommand Wait1 = new WaitCommand(1);
    // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
    m_sub_LEDs.setDefaultCommand(new LED(m_sub_LEDs)); 
-  righbumper_driver.toggleOnTrue(new highgoal(m_Arm));
-  triggerbutton(driver, 3).toggleOnTrue(new Elbow_only_movement(m_Arm, 79175).andThen(new WaitCommand(1/5).andThen(new shoulder_only_movement(m_Arm, 18335))));
+  righbumper_driver.toggleOnTrue(new Elbow_only_movement(m_Arm, 79175).andThen(new WaitCommand(2). andThen(new shoulder_only_movement(m_Arm, 51658).andThen(new WaitCommand(1).andThen( new Elbow_only_movement(m_Arm, 158570))))));
+  triggerbutton(driver, 3).toggleOnTrue(new Elbow_only_movement(m_Arm, 90324).andThen(new WaitCommand(1/5).andThen(new shoulder_only_movement(m_Arm, 18335))));
   triggerbutton(driver, 2).toggleOnTrue(new shoulder_only_movement(m_Arm, 21508).andThen(new Elbow_only_movement(m_Arm, 84369)));
     leftbumper_driver.whileTrue(new Elbow_only_movement(m_Arm, 28723).andThen(new WaitCommand(1/2).andThen(new shoulder_only_movement(m_Arm, 36719))));
     A_driver.toggleOnTrue(new shoulder_only_movement(m_Arm, 11508).andThen(new WaitCommand(1.5)).andThen(new Elbow_only_movement(m_Arm, 208)));
-   Y_driver.toggleOnTrue(new gripper_open_and_close(m_Arm));
-    X_driver.whileTrue(new open_gripper(m_Arm));
-  
+   Y_driver.toggleOnTrue(new gripper_open_and_close(m_Gripper));
+    X_driver.whileTrue(new open_gripper(m_Gripper));
+   
    //start_driver.onTrue(new Enable_Compressor(m_Arm));
    //select_driver.onTrue(new Dissable_Compressor(m_Arm)); 
     //m_Arm.setDefaultCommand(new Gripper_Test(m_Arm));

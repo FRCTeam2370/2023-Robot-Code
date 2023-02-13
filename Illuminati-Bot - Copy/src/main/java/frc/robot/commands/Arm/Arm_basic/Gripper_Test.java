@@ -7,10 +7,11 @@ package frc.robot.commands.Arm.Arm_basic;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.gripper;
 
 public class Gripper_Test extends CommandBase {
   /** Creates a new Gripper_Test. */
-  public Gripper_Test(Arm m_Arm) {
+  public Gripper_Test(gripper m_Arm) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_Arm);
   }
@@ -23,9 +24,9 @@ public class Gripper_Test extends CommandBase {
   @Override
   public void execute() {
     if(RobotContainer.A_driver.getAsBoolean() == true){
-     Arm.OpenGripper();
+      gripper.OpenGripper();
     } else if(RobotContainer.B_driver.getAsBoolean() == true){
-      Arm.CloseGripper();
+      gripper.CloseGripper();
     } 
     
   }

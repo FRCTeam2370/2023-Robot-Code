@@ -5,20 +5,22 @@
 package frc.robot.commands.Arm.Arm_basic.Gripper;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.commands.Arm.Arm_basic.Gripper_Test;
 import frc.robot.commands.Arm.Arm_postions.Arm_back;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.gripper;
 
 public class gripper_open_and_close extends CommandBase {
   /** Creates a new gripper_open_and_close. */
-  public gripper_open_and_close(Arm m_Arm) {
-    addRequirements(m_Arm);
+  public gripper_open_and_close(gripper m_gGripper) {
+    addRequirements(m_gGripper);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Arm.OpenGripper();
+    gripper.OpenGripper();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -28,7 +30,7 @@ public class gripper_open_and_close extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Arm.CloseGripper();
+    gripper.CloseGripper();
   }
 
   // Returns true when the command should end.

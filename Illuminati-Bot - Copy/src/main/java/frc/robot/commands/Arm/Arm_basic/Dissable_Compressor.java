@@ -6,10 +6,11 @@ package frc.robot.commands.Arm.Arm_basic;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.gripper;
 
 public class Dissable_Compressor extends CommandBase {
   /** Creates a new Dissable_Compressor. */
-  public Dissable_Compressor(Arm m_Arm) {
+  public Dissable_Compressor(gripper m_Arm) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_Arm);
   }
@@ -17,7 +18,7 @@ public class Dissable_Compressor extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Arm.DissableCompressor();
+    gripper.DissableCompressor();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

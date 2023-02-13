@@ -6,10 +6,11 @@ package frc.robot.commands.Arm.Arm_basic.Gripper;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.gripper;
 
 public class open_gripper extends CommandBase {
   /** Creates a new open_gripper. */
-  public open_gripper(Arm m_Arm) {
+  public open_gripper(gripper m_Arm) {
     addRequirements(m_Arm);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -17,7 +18,7 @@ public class open_gripper extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Arm.OpenGripper();
+    gripper.OpenGripper();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

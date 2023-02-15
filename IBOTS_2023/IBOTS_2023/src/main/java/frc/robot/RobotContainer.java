@@ -115,26 +115,26 @@ public class RobotContainer {
  * 
  */
 
-
-        JS2.onTrue(new OpenGripper(m_Sub_Gripper));
-        JS1.onTrue(new CloseGripper(m_Sub_Gripper));
+        //opens gripper
+        LB.toggleOnTrue(new OpenGripper(m_Sub_Gripper));
+       // JS1.onTrue(new CloseGripper(m_Sub_Gripper));
 
         // shelf pose
-        JS5.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 73000).andThen(new Move_Shoulder(m_sub_Shoulder, 5000)));
+        B.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 73000).andThen(new Move_Shoulder(m_sub_Shoulder, 5000)));
 
         //stowed pose
-        JS3.toggleOnTrue(new Move_Shoulder(m_sub_Shoulder, 4700).andThen(new Move_Elbow(m_sub_Elbow, 10000)));
+        RB.toggleOnTrue(new Move_Shoulder(m_sub_Shoulder, 4700).andThen(new Move_Elbow(m_sub_Elbow, 10000)));
 
         // high-goal pose
         //X.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 137504).andThen(new Move_Shoulder(m_sub_Shoulder, 40000)));
-        JS6.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).andThen(new Move_Elbow(m_sub_Elbow, 137504).alongWith(new Move_Shoulder(m_sub_Shoulder, 40000))));
+        Y.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).andThen(new Move_Elbow(m_sub_Elbow, 137504).alongWith(new Move_Shoulder(m_sub_Shoulder, 40000))));
 
         // mid-goal pose
-        //A.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 129200).andThen(new Move_Shoulder(m_sub_Shoulder, 45000)));
-        JS4.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).andThen(new Move_Elbow(m_sub_Elbow, 129200).alongWith(new Move_Shoulder(m_sub_Shoulder, 45000))));
+        X.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 129200).andThen(new Move_Shoulder(m_sub_Shoulder, 45000)));
+       // JS4.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).andThen(new Move_Elbow(m_sub_Elbow, 129200).alongWith(new Move_Shoulder(m_sub_Shoulder, 45000))));
 
         //Ground Pickup (Joystick)
-        JS11.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 18038).andThen(new Move_Shoulder(m_sub_Shoulder, 40000)));
+        A.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 18038).andThen(new Move_Shoulder(m_sub_Shoulder, 40000)));
     }
 
     public Command getAutonomousCommand() {

@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.autos.drive_back;
 import frc.robot.autos.exampleAuto;
+import frc.robot.autos.score_one;
+
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.Elbow.Move_Elbow;
 import frc.robot.commands.Gripper.CloseGripper;
@@ -73,8 +75,7 @@ public class RobotContainer {
     public final sub_Shoulder m_sub_Shoulder = new sub_Shoulder();
     public final sub_Gripper m_Sub_Gripper = new sub_Gripper();
     private final Swerve s_Swerve = new Swerve();
-
-    
+      
 
     public RobotContainer() {
         s_Swerve.setDefaultCommand(
@@ -181,6 +182,6 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return new drive_back(s_Swerve);
+        return new score_one(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper);
     }
 }

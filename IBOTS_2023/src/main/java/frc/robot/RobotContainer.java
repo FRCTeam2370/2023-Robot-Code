@@ -97,7 +97,7 @@ public class RobotContainer {
 
 
         // resets the gyro
-        JJ_Select.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        //JJ_Select.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
 
 
         // Add Button Bindings here
@@ -141,43 +141,43 @@ public class RobotContainer {
  */
 
         // closes and opens the gripper
-        driver_X.toggleOnTrue(new gripper_toggle(m_Sub_Gripper));
+        //driver_X.toggleOnTrue(new gripper_toggle(m_Sub_Gripper));
 
         // shelf pose
-        trigger(driver, 3).toggleOnTrue(new Move_Elbow(m_sub_Elbow, 73000).andThen(new Move_Shoulder(m_sub_Shoulder, 5000)));
+        //trigger(driver, 3).toggleOnTrue(new Move_Elbow(m_sub_Elbow, 73000).andThen(new Move_Shoulder(m_sub_Shoulder, 5000)));
 
         //stowed pose
-        driver_A.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 10000) .andThen(new WaitCommand(.5).andThen(new Move_Shoulder(m_sub_Shoulder, 4700)) ));
+        //driver_A.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 10000) .andThen(new WaitCommand(.5).andThen(new Move_Shoulder(m_sub_Shoulder, 4700)) ));
 
         // high-goal pose
         //X.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 137504).andThen(new Move_Shoulder(m_sub_Shoulder, 40000)));
-        driver_LB.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).andThen(new Move_Elbow(m_sub_Elbow, 137504).alongWith(new Move_Shoulder(m_sub_Shoulder, 40000))));
+       // driver_LB.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).andThen(new Move_Elbow(m_sub_Elbow, 137504).alongWith(new Move_Shoulder(m_sub_Shoulder, 40000))));
 
         // mid-goal pose
         //A.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 129200).andThen(new Move_Shoulder(m_sub_Shoulder, 45000)));
-        trigger(driver, 2).toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).andThen(new Move_Elbow(m_sub_Elbow, 129200).alongWith(new Move_Shoulder(m_sub_Shoulder, 45000))));
+        //trigger(driver, 2).toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).andThen(new Move_Elbow(m_sub_Elbow, 129200).alongWith(new Move_Shoulder(m_sub_Shoulder, 45000))));
 
         //Ground Pickup (Joystick)
-        driver_RB.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 18038).andThen(new Move_Shoulder(m_sub_Shoulder, 40000)));
+        //driver_RB.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 18038).andThen(new Move_Shoulder(m_sub_Shoulder, 40000)));
    
 
        // closes and opens the gripper
-       JJ_LB.toggleOnTrue(new gripper_toggle(m_Sub_Gripper));
+       driver_LB.toggleOnTrue(new gripper_toggle(m_Sub_Gripper));
 
        //Loading pose
-       JJ_RB.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 73000).andThen(new Move_Shoulder(m_sub_Shoulder, 5000)));
+       driver_RB.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 73000).andThen(new Move_Shoulder(m_sub_Shoulder, 5000)));
 
        //high goal pose
-       JJ_Y.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).andThen(new Move_Elbow(m_sub_Elbow, 137504).alongWith(new Move_Shoulder(m_sub_Shoulder, 40000))));
+       driver_Y.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).andThen(new Move_Elbow(m_sub_Elbow, 137504).alongWith(new Move_Shoulder(m_sub_Shoulder, 40000))));
 
        //mid goal pose
-        JJ_X.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).andThen(new Move_Elbow(m_sub_Elbow, 129200).alongWith(new Move_Shoulder(m_sub_Shoulder, 45000))));
+        driver_X.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).andThen(new Move_Elbow(m_sub_Elbow, 129200).alongWith(new Move_Shoulder(m_sub_Shoulder, 45000))));
 
         //stow pose
-        JJ_B.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 10000) .andThen(new WaitCommand(.5).andThen(new Move_Shoulder(m_sub_Shoulder, 4700)) ));
+        driver_B.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 10000) .andThen(new WaitCommand(.5).andThen(new Move_Shoulder(m_sub_Shoulder, 4700)) ));
 
         //floor pickup
-        JJ_A.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 18038).andThen(new Move_Shoulder(m_sub_Shoulder, 40000)));
+        driver_A.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 18038).andThen(new Move_Shoulder(m_sub_Shoulder, 40000)));
    
     }
 

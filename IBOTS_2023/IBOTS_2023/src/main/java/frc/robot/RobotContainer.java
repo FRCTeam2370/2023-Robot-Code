@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.lib.util.COTSFalconSwerveConstants.driveGearRatios;
 import frc.robot.autos.exampleAuto;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.Elbow.Move_Elbow;
@@ -23,7 +24,16 @@ public class RobotContainer {
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
-
+    public static double Deadband(double value, double Deadband){
+       double Deadbandfix = 1-Deadband;
+       if(value< - Deadband){
+        return (value+Deadband)*Deadbandfix;
+       }
+       else if(value > Deadband){
+       return (value-Deadband)*Deadbandfix;
+       }
+       else{return 0;}
+    }
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);

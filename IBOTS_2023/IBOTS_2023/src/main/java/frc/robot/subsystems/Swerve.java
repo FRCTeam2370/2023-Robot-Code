@@ -10,6 +10,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
 import com.ctre.phoenix.sensors.Pigeon2;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -22,8 +23,22 @@ public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
-
+    public static PIDController swerve_X_movenment_PID = new PIDController(0.1 , 0, 0);
+    public static PIDController swerve_Y_movenment_PID = new PIDController(0.1, 0, .0);
+    public static PIDController swerve_angle_movenment_PID = new PIDController(0.17, 0, 0);
+    public static PIDController swerve_auto_balance_Controller = new PIDController(.025, 0, 0);
+    public static double angle;
+    public static double pitch;
+    public static double setSpeed(double p, double postion, double target){
+        double error = target - postion;
+        return p*error;
+    }
     public Swerve() {
+        swerve_X_movenment_PID.setTolerance(5.0);
+        
+        swerve_Y_movenment_PID.setTolerance(2.0);
+        swerve_Y_movenment_PID.disableContinuousInput();
+        swerve_auto_balance_Controller.setTolerance(10);
         gyro = new Pigeon2(Constants.Swerve.pigeonID);
         gyro.configFactoryDefault();
         zeroGyro();
@@ -115,11 +130,13 @@ public class Swerve extends SubsystemBase {
     @Override
     public void periodic(){
         swerveOdometry.update(getYaw(), getModulePositions());  
-
+        angle = gyro.getYaw();
+        pitch = gyro.getPitch();
         for(SwerveModule mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
         }
-    }
+    SmartDashboard.putNumber("angle", gyro.getYaw()); }
+
 }

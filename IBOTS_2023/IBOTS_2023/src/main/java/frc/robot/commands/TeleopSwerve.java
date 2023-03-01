@@ -31,6 +31,12 @@ public class TeleopSwerve extends CommandBase {
 
     @Override
     public void execute() {
+        if(RobotContainer.Rdriver_A.getAsBoolean() || RobotContainer.trigger(RobotContainer.driver, 2).getAsBoolean() ){
+            Swerve.Slowturn();
+        }
+        else{
+            Swerve.normalturn();
+        }
         /* Get Values, Deadband*/
         double translationVal = RobotContainer.Deadband(translationSup.getAsDouble(), Constants.stickDeadband);
         double strafeVal = RobotContainer.Deadband(strafeSup.getAsDouble(), Constants.stickDeadband);

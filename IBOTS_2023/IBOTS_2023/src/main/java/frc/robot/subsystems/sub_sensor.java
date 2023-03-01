@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ElbowConstants;
 
 public class sub_sensor extends SubsystemBase {
   /** Creates a new sub_sensor. */
@@ -103,15 +104,20 @@ public static void SwitchPipline1(){
   NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(1);
 }
 
+public static void SwitchPipline2(){
+  NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(2);
+}
+
   @Override
   public void periodic() {
     GetColor();
     if(GamePiece == "Cube"){
       SwitchPipline0();
     }
-    if(GamePiece == "Cone"){
+    else if(GamePiece == "Cone"){
       SwitchPipline1();
     }
+
    
     Distence = distince_from_target(Distence_sensor);
 //at 7 feet voltage=2

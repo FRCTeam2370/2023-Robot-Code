@@ -16,6 +16,7 @@ public class Move_Elbow extends CommandBase {
   @Override
   public void initialize() {
     sub_Elbow.Elbow_motor.set(ControlMode.Position, elbowposition);
+    sub_Elbow.Send_Elbow_PID_Variables();
   }
 
   @Override

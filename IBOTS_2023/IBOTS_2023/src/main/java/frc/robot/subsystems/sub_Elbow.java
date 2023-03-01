@@ -18,7 +18,7 @@ public class sub_Elbow extends SubsystemBase {
     Elbow_Reset_Encoder();
     Send_Elbow_PID_Variables();
     //motor.setStatusFramePeriod(StatusFrame.Status_1_General, 25);
-    motor.configClosedLoopPeakOutput(0, 0.25);
+    motor.configClosedLoopPeakOutput(0, 0.70);
     motor.setNeutralMode(NeutralMode.Coast); 
   }
 
@@ -26,7 +26,8 @@ public class sub_Elbow extends SubsystemBase {
     Elbow_motor.config_kP(0, 0.05);
     Elbow_motor.config_kI(0, 0);
     Elbow_motor.config_kD(0, 0);
-    Elbow_motor.configClosedLoopPeakOutput(0, 0.25);
+    Elbow_motor.configClosedLoopPeakOutput(0, .70);
+    Elbow_motor.configClosedloopRamp(0.3);
   }
 
   public static void Elbow_Reset_Encoder() {

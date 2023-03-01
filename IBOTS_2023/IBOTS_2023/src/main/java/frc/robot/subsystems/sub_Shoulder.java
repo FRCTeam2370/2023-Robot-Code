@@ -24,7 +24,7 @@ public class sub_Shoulder extends SubsystemBase {
 
   public static void Set_Shoulder_Motor_Up() {
     Shoulder_motor.configFactoryDefault();
-    Shoulder_motor.config_kP(0, 0.12);
+    Shoulder_motor.config_kP(0, 0.17);
     Shoulder_motor.config_kI(0, 0);
     Shoulder_motor.config_kD(0, 0);
     Shoulder_motor.setNeutralMode(NeutralMode.Coast);

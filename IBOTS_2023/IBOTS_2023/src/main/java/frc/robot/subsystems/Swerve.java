@@ -23,6 +23,7 @@ public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
+    public static double rotationMultiplier = 1;
     public static PIDController swerve_X_movenment_PID = new PIDController(0.1 , 0, 0);
     public static PIDController swerve_Y_movenment_PID = new PIDController(0.1, 0, .0);
     public static PIDController swerve_angle_movenment_PID = new PIDController(0.17, 0, 0);
@@ -79,7 +80,12 @@ public class Swerve extends SubsystemBase {
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
     }    
-
+public static void Slowturn(){
+    rotationMultiplier = .25;
+}
+public static void normalturn(){
+    rotationMultiplier = 1;
+}
     /* Used by SwerveControllerCommand in Auto */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.Swerve.maxSpeed);

@@ -18,6 +18,6 @@ public class low_pick_up extends SequentialCommandGroup {
   public low_pick_up(sub_Elbow elbow, sub_Shoulder shoulder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new Move_Elbow(elbow, 25038).alongWith(new Move_Shoulder(shoulder, 45500)));
+    addCommands(new Move_Elbow(elbow, 25038).alongWith(new Move_Shoulder(shoulder, 45300)));
   }
 }

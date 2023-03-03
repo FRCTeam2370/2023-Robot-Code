@@ -19,7 +19,7 @@ public class loading extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new Move_Elbow(elbow, 73000).andThen(new Move_Shoulder(shoulder, 5000)));
+      new Move_Elbow(elbow, 71000).andThen(new Move_Shoulder(shoulder, 10000)));
     
   }
 }

@@ -31,11 +31,11 @@ public class TeleopSwerve extends CommandBase {
 
     @Override
     public void execute() {
-        if(RobotContainer.Rdriver_A.getAsBoolean() || RobotContainer.trigger(RobotContainer.driver, 2).getAsBoolean() ){
-            Swerve.Slowturn();
+        if(RobotContainer.Rdriver_A.getAsBoolean() == true || RobotContainer.trigger(RobotContainer.driver, 2).getAsBoolean() == true){
+            Swerve.normalturn();
         }
         else{
-            Swerve.normalturn();
+            Swerve.Slowturn();
         }
         /* Get Values, Deadband*/
         double translationVal = RobotContainer.Deadband(translationSup.getAsDouble(), Constants.stickDeadband);
@@ -45,7 +45,7 @@ public class TeleopSwerve extends CommandBase {
         /* Drive */
         s_Swerve.drive(
             new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
-            rotationVal * Constants.Swerve.maxAngularVelocity, 
+            rotationVal * Constants.Swerve.maxAngularVelocity * Swerve.rotationMultiplier, 
             !robotCentricSup.getAsBoolean(), 
             true
         );

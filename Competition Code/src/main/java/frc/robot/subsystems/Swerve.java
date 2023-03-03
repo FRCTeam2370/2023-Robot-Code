@@ -81,7 +81,7 @@ public class Swerve extends SubsystemBase {
         }
     }    
 public static void Slowturn(){
-    rotationMultiplier = .25;
+    rotationMultiplier = .4;
 }
 public static void normalturn(){
     rotationMultiplier = 1;

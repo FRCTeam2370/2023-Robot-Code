@@ -160,7 +160,7 @@ public class RobotContainer {
 
 
   //Loading pose
-  driver_B.toggleOnTrue(new loading(m_sub_Elbow, m_sub_Shoulder));
+  trigger(driver, 3).toggleOnTrue(new loading(m_sub_Elbow, m_sub_Shoulder));
 
   //high goal pose
   driver_Y.toggleOnTrue(new high_goal(m_sub_Elbow, m_sub_Shoulder));

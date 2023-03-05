@@ -10,6 +10,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
 import com.ctre.phoenix.sensors.Pigeon2;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -25,11 +26,17 @@ public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
-
+    public static PIDController swerve_X_movenment_PID = new PIDController(0.1 , 0, 0);
+    public static PIDController swerve_Y_movenment_PID = new PIDController(0.1, 0, .0);
+    public static PIDController swerve_angle_movenment_PID = new PIDController(0.17, 0, 0);
+    public static PIDController swerve_auto_balance_Controller = new PIDController(.025, 0, 0);
+    public static double angle;
+    public static double pitch;
     public Swerve() {
         gyro = new Pigeon2(Constants.Swerve.pigeonID);
         gyro.configFactoryDefault();
         zeroGyro();
+        
 
         mSwerveMods = new SwerveModule[] {
             new SwerveModule(0, Constants.Swerve.Mod0.constants),
@@ -119,7 +126,8 @@ public class Swerve extends SubsystemBase {
  public GenericEntry persondriving = competion.add("person driving", 0).getEntry();
     @Override
     public void periodic(){
-        
+        angle = gyro.getYaw();
+        pitch = gyro.getPitch();
         swerveOdometry.update(getYaw(), getModulePositions());  
         driver = persondriving.getDouble(1);
         for(SwerveModule mod : mSwerveMods){

@@ -15,6 +15,11 @@ import frc.robot.autos.exampleAuto;
 import frc.robot.autos.score_one;
 
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.high_goal;
+import frc.robot.commands.loading;
+import frc.robot.commands.low_pick_up;
+import frc.robot.commands.mid_goal;
+import frc.robot.commands.stow;
 import frc.robot.commands.Elbow.Move_Elbow;
 import frc.robot.commands.Gripper.CloseGripper;
 import frc.robot.commands.Gripper.OpenGripper;
@@ -28,9 +33,9 @@ import frc.robot.subsystems.sub_Shoulder;
 public class RobotContainer {
     /* Controllers */
     
-    public final GenericHID driver = new Joystick(0);
+    public final static GenericHID driver = new Joystick(0);
     public final GenericHID operator = new Joystick(1);
-    public final GenericHID Rdriver = new Joystick(3);
+    public final static GenericHID Rdriver = new Joystick(3);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -64,22 +69,19 @@ public class RobotContainer {
     public final JoystickButton Rdriver_Select = new JoystickButton(Rdriver, 7);
     public final JoystickButton Rdriver_Start = new JoystickButton(Rdriver, 8);
 
-    public final JoystickButton operator_A = new JoystickButton(operator, 1);
-    public final JoystickButton operator_B = new JoystickButton(operator, 2);
-    public final JoystickButton operator_X = new JoystickButton(operator, 3);
-    public final JoystickButton operator_Y = new JoystickButton(operator, 4);
-    public final JoystickButton operator_LB = new JoystickButton(operator, 5);
-    public final JoystickButton operator_RB = new JoystickButton(operator, 6);
-    public final JoystickButton operator_Select = new JoystickButton(operator, 7);
-    public final JoystickButton operator_Start = new JoystickButton(operator, 8);
-   
 
-    public final JoystickButton JJ_X = new JoystickButton(operator, 3);
-    public final JoystickButton JJ_Y = new JoystickButton(operator, 4);
-    public final JoystickButton JJ_LB = new JoystickButton(operator, 5);
-    public final JoystickButton JJ_RB = new JoystickButton(operator, 6);
-    public final JoystickButton JJ_Select = new JoystickButton(operator, 7);
-    public final JoystickButton JJ_Start = new JoystickButton(operator, 8);
+    public final JoystickButton align_to_score_Button = new JoystickButton(operator, 2);
+    public final JoystickButton stow_Button = new JoystickButton(operator, 3);
+    public final JoystickButton Mid_goal_Button = new JoystickButton(operator, 4);
+    public final JoystickButton load_Button= new JoystickButton(operator, 5);
+    public final JoystickButton high_goal_Button = new JoystickButton(operator, 6);
+    public final JoystickButton ask_for_cube_Button = new JoystickButton(operator, 7);
+    public final JoystickButton ask_for_cone_Button = new JoystickButton(operator, 8);
+    public final JoystickButton Align_to_load_button = new JoystickButton(operator, 9);
+    public final JoystickButton Close_gripper_Button = new JoystickButton(operator, 10);
+    public final JoystickButton Open_gripper_button = new JoystickButton(operator, 11);
+    public final JoystickButton Gournd_pick_up_Button = new JoystickButton(operator, 12);
+    
    
 
 
@@ -180,39 +182,54 @@ public class RobotContainer {
     
         Rdriver_Y.toggleOnTrue(new gripper_toggle(m_Sub_Gripper));
        //Loading pose
-       trigger(Rdriver, 3).toggleOnTrue(new Move_Elbow(m_sub_Elbow, 73000).andThen(new Move_Shoulder(m_sub_Shoulder, 5000)));
-
+       trigger(Rdriver, 3).toggleOnTrue(new loading(m_sub_Elbow, m_sub_Shoulder));
        //high goal pose
-       Rdriver_LB.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).andThen(new Move_Elbow(m_sub_Elbow, 137504).alongWith(new Move_Shoulder(m_sub_Shoulder, 40000))));
-
+       Rdriver_LB.toggleOnTrue(new high_goal(m_sub_Elbow, m_sub_Shoulder));
        //mid goal pose
-        trigger(Rdriver, 2).toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).andThen(new Move_Elbow(m_sub_Elbow, 129200).alongWith(new Move_Shoulder(m_sub_Shoulder, 45000))));
-
+        trigger(Rdriver, 2).toggleOnTrue(new mid_goal(m_sub_Elbow, m_sub_Shoulder));
         //stow pose
-        Rdriver_X.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).alongWith(new WaitCommand(.5).andThen(new Move_Shoulder(m_sub_Shoulder, 4700)) ).andThen(new Move_Elbow(m_sub_Elbow, 10000)));
-
+        Rdriver_X.toggleOnTrue(new stow(m_sub_Shoulder, m_sub_Elbow));
         //floor pickup
-        Rdriver_RB.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 25038).andThen(new Move_Shoulder(m_sub_Shoulder, 37000)));
-   
-       driver_LB.toggleOnTrue(new gripper_toggle(m_Sub_Gripper));
+        Rdriver_RB.toggleOnTrue(new low_pick_up(m_sub_Elbow, m_sub_Shoulder));
+      
+        driver_LB.toggleOnTrue(new gripper_toggle(m_Sub_Gripper));
 
        //Loading pose
-       driver_RB.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 73000).andThen(new Move_Shoulder(m_sub_Shoulder, 5000)));
-
+       driver_RB.toggleOnTrue(new loading(m_sub_Elbow, m_sub_Shoulder));
        //high goal pose
-       driver_Y.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).andThen(new Move_Elbow(m_sub_Elbow, 137504).alongWith(new Move_Shoulder(m_sub_Shoulder, 40000))));
-
+       driver_Y.toggleOnTrue(new high_goal(m_sub_Elbow, m_sub_Shoulder));
        //mid goal pose
-        driver_X.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).andThen(new Move_Elbow(m_sub_Elbow, 129200).alongWith(new Move_Shoulder(m_sub_Shoulder, 45000))));
-
+        driver_X.toggleOnTrue(new mid_goal(m_sub_Elbow, m_sub_Shoulder));
         //stow pose
-        driver_RB.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 60000).alongWith(new WaitCommand(.5).andThen(new Move_Shoulder(m_sub_Shoulder, 4700)) ).andThen(new Move_Elbow(m_sub_Elbow, 10000)));
+        driver_RB.toggleOnTrue(new stow(m_sub_Shoulder, m_sub_Elbow));
 
         //floor pickup
-        driver_A.toggleOnTrue(new Move_Elbow(m_sub_Elbow, 25038).andThen(new Move_Shoulder(m_sub_Shoulder, 37000)));
-    
-    }
+        driver_A.toggleOnTrue(new low_pick_up(m_sub_Elbow, m_sub_Shoulder));
 
+
+        //floor pickup
+        Gournd_pick_up_Button.onTrue(new low_pick_up(m_sub_Elbow, m_sub_Shoulder));
+        //stow
+        stow_Button.onTrue(new stow(m_sub_Shoulder, m_sub_Elbow));
+        //high goal
+        high_goal_Button.onTrue(new high_goal(m_sub_Elbow, m_sub_Shoulder));
+        //mid goal
+        Mid_goal_Button.onTrue(new mid_goal(m_sub_Elbow, m_sub_Shoulder));
+        //load
+        load_Button.onTrue(new loading(m_sub_Elbow, m_sub_Shoulder));
+        //ask for cone
+        
+        // ask for cube
+
+        // Align load 
+
+        // Align score
+
+        // open gripper
+        Open_gripper_button.onTrue(new OpenGripper(m_Sub_Gripper));
+        //close gripper
+        Close_gripper_Button.onTrue(new CloseGripper(m_Sub_Gripper));
+    }
     public Command getAutonomousCommand() {
         return new score_one(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper);
     }

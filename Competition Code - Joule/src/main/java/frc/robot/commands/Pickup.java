@@ -6,18 +6,22 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Elbow.Move_Elbow;
+import frc.robot.commands.Gripper.OpenGripper;
 import frc.robot.commands.Shoulder.Move_Shoulder;
 import frc.robot.subsystems.sub_Elbow;
+import frc.robot.subsystems.sub_Gripper;
 import frc.robot.subsystems.sub_Shoulder;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class high_goal extends SequentialCommandGroup {
-  /** Creates a new high_goal. */
-  public high_goal(sub_Elbow elbow, sub_Shoulder shoulder) {
+public class Pickup extends SequentialCommandGroup {
+  /** Creates a new Pickup. */
+  public Pickup(sub_Shoulder shoulder, sub_Elbow elbow, sub_Gripper mGripper) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new Move_Elbow(elbow, 15000).andThen(new Move_Elbow(elbow, 145972).alongWith(new Move_Shoulder(shoulder,  50473))));
+    addCommands(new Move_Elbow(elbow, 24390).alongWith(new Move_Shoulder(shoulder, 17826)));
   }
 }
+
+//.alongWith(new OpenGripper(mGripper))

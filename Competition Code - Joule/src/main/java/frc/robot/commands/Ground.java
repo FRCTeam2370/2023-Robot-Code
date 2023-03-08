@@ -13,11 +13,11 @@ import frc.robot.subsystems.sub_Shoulder;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class low_pick_up extends SequentialCommandGroup {
+public class Ground extends SequentialCommandGroup {
   /** Creates a new low_pick_up. */
-  public low_pick_up(sub_Elbow elbow, sub_Shoulder shoulder) {
+  public Ground(sub_Elbow elbow, sub_Shoulder shoulder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new Move_Elbow(elbow, 25038).alongWith(new Move_Shoulder(shoulder, 45300)));
+    addCommands(new Move_Elbow(elbow, 20149).alongWith(new Move_Shoulder(shoulder, 35298)));
   }
 }

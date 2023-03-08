@@ -14,7 +14,8 @@ import frc.robot.autos.score_one_and_balance;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.high_goal;
 import frc.robot.commands.loading;
-import frc.robot.commands.low_pick_up;
+import frc.robot.commands.Ground;
+import frc.robot.commands.Pickup;
 import frc.robot.commands.mid_goal;
 import frc.robot.commands.stow;
 import frc.robot.commands.Drivetrain.align_to_target;
@@ -150,10 +151,10 @@ public class RobotContainer {
   //mid goal pose
    trigger(rdriver, 2).toggleOnTrue(new mid_goal(m_sub_Elbow, m_sub_Shoulder));
    //stow pose
-   Rdriver_X.toggleOnTrue(new stow(m_sub_Shoulder, m_sub_Elbow));
+   Rdriver_X.toggleOnTrue(new stow(m_sub_Shoulder, m_sub_Elbow, m_Sub_Gripper));
 
    //floor pickup
-   Rdriver_RB.toggleOnTrue(new low_pick_up(m_sub_Elbow, m_sub_Shoulder));
+   Rdriver_RB.toggleOnTrue(new Ground(m_sub_Elbow, m_sub_Shoulder));
 
 
   driver_LB.toggleOnTrue(new gripper_toggle(m_Sub_Gripper));
@@ -169,10 +170,13 @@ public class RobotContainer {
    driver_X.toggleOnTrue(new mid_goal(m_sub_Elbow, m_sub_Shoulder));
 
    //stow pose
-   driver_RB.toggleOnTrue(new stow(m_sub_Shoulder, m_sub_Elbow));
+   driver_RB.toggleOnTrue(new stow(m_sub_Shoulder, m_sub_Elbow, m_Sub_Gripper));
 
    //floor pickup
-   driver_A.toggleOnTrue(new low_pick_up(m_sub_Elbow, m_sub_Shoulder));
+   driver_A.toggleOnTrue(new Ground(m_sub_Elbow, m_sub_Shoulder));
+
+   //pickup pose
+   driver_B.toggleOnTrue(new Pickup(m_sub_Shoulder, m_sub_Elbow, m_Sub_Gripper));
 
 
 

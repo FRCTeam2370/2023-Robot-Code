@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.sensors.CANCoder;
+//import com.ctre.phoenix.sensors.CANCoder;
 
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class sub_Elbow extends SubsystemBase {
 
   public static WPI_TalonFX Elbow_motor = new WPI_TalonFX(12);
-  public static CANCoder Elbow_CANCoder = new CANCoder(13);
+  //public static CANCoder Elbow_CANCoder = new CANCoder(13);
 
   private static void Reset_Elbow_Motor(WPI_TalonFX motor) {
     motor.configFactoryDefault();
@@ -43,7 +43,7 @@ public class sub_Elbow extends SubsystemBase {
   public void periodic() {
     
     SmartDashboard.putNumber("Elbow Motor Encoder Reading", Elbow_motor.getSensorCollection().getIntegratedSensorPosition());
-    SmartDashboard.putNumber("Elbow CANCoder", Elbow_CANCoder.getAbsolutePosition());
+    //SmartDashboard.putNumber("Elbow CANCoder", Elbow_CANCoder.getAbsolutePosition());
     if(RobotState.isDisabled()==true)
     {
       // When the robot is disabled, allow the arm to move

@@ -18,6 +18,7 @@ public class high_goal extends SequentialCommandGroup {
   public high_goal(sub_Elbow elbow, sub_Shoulder shoulder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new Move_Elbow(elbow, 15000).andThen(new Move_Elbow(elbow, 145972).alongWith(new Move_Shoulder(shoulder,  50473))));
+    addCommands( new Move_Elbow(elbow, 71000).andThen(new Move_Shoulder(shoulder, 10000)).andThen(new Move_Elbow(elbow, 145972).alongWith(new Move_Shoulder(shoulder,  50473))));
   }
 }
+//new Move_Elbow(elbow, 15000).andThen

@@ -18,6 +18,7 @@ public class mid_goal extends SequentialCommandGroup {
   public mid_goal(sub_Elbow elbow, sub_Shoulder shoulder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new Move_Elbow(elbow, 15000).andThen(new Move_Elbow(elbow, 74526).alongWith(new Move_Shoulder(shoulder, 17548))));
+    addCommands(new Move_Elbow(elbow, 79526).andThen(new Move_Shoulder(shoulder, 25048)));
   }
 }
+//(new Move_Elbow(elbow, 15000).andThen

@@ -24,13 +24,13 @@ public class sub_Shoulder extends SubsystemBase {
 
   public static void Set_Shoulder_Motor_Up() {
     Shoulder_motor.configFactoryDefault();
-    Shoulder_motor.config_kP(0, 0.19);
+    Shoulder_motor.config_kP(0, 0.23);
     Shoulder_motor.config_kI(0, 0);
-    Shoulder_motor.config_kD(0, 0);
+    Shoulder_motor.config_kD(0, 0.1);
     Shoulder_motor.setNeutralMode(NeutralMode.Coast);
     Shoulder_motor.setStatusFramePeriod(StatusFrame.Status_1_General, 22);
     Shoulder_motor.configClosedLoopPeakOutput(0, 0.3);
-    Shoulder_motor.configClosedloopRamp(0.2);
+    Shoulder_motor.configClosedloopRamp(0.3);
     Shoulder_motor.setNeutralMode(NeutralMode.Coast); 
     System.out.println("Shoulder set up complete");
 
@@ -52,6 +52,8 @@ public class sub_Shoulder extends SubsystemBase {
     SmartDashboard.putNumber("Shoulder Motor Encoder Reading", Shoulder_motor.getSensorCollection().getIntegratedSensorPosition());
     //SmartDashboard.putNumber("Shoulder CANCoder", Shoulder_CANCoder.getAbsolutePosition());
 
+
+
     if(RobotState.isDisabled() == true)
     {
       Shoulder_motor.setNeutralMode(NeutralMode.Coast);
@@ -60,5 +62,8 @@ public class sub_Shoulder extends SubsystemBase {
     {
       Shoulder_motor.setNeutralMode(NeutralMode.Brake);
     }
+
+
+
   }
 }

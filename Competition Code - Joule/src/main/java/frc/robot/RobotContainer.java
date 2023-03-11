@@ -12,6 +12,7 @@ import frc.robot.autos.exampleAuto;
 import frc.robot.autos.score_one;
 import frc.robot.autos.score_one_and_balance;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.UltraStow;
 import frc.robot.commands.high_goal;
 import frc.robot.commands.loading;
 import frc.robot.commands.Ground;
@@ -23,6 +24,10 @@ import frc.robot.commands.Drivetrain.align_with_driver_input;
 import frc.robot.commands.Drivetrain.auto_balence;
 import frc.robot.commands.Drivetrain.limelight_on;
 import frc.robot.commands.Gripper.gripper_toggle;
+import frc.robot.commands.Intake.ForwardIntake;
+import frc.robot.commands.Intake.IntakeToggle;
+import frc.robot.commands.Intake.ReverseIntake;
+import frc.robot.subsystems.Cube_Intake;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.sub_Elbow;
 import frc.robot.subsystems.sub_Gripper;
@@ -89,6 +94,7 @@ public class RobotContainer {
     public final sub_Gripper m_Sub_Gripper = new sub_Gripper();
     private final Swerve s_Swerve = new Swerve();
     private final sub_sensor m_Sub_sensor = new sub_sensor();
+    private final Cube_Intake m_Cube_Intake = new Cube_Intake();
     public static Trigger trigger (GenericHID controller, int axis) {
         return new Trigger(() -> controller.getRawAxis(axis) >= 0.9);
       }
@@ -174,15 +180,23 @@ public class RobotContainer {
    //pickup pose
    driver_B.toggleOnTrue(new Pickup(m_sub_Shoulder, m_sub_Elbow, m_Sub_Gripper));
 
+   //ultra stow pose
+   driver_Start.toggleOnTrue(new UltraStow(m_sub_Elbow, m_sub_Shoulder));
 
 
-        operator_LB.whileTrue(new align_to_target(s_Swerve, 5, 2, 180));
+     
 
         operator_B.whileTrue(new align_to_target(s_Swerve, 2, 2, 180));
 
         operator_A.toggleOnTrue(new align_with_driver_input(s_Swerve, 2,180));
         
         operator_Y.whileTrue(new auto_balence(s_Swerve, 0, 0));
+
+        operator_X.toggleOnTrue(new IntakeToggle(m_Cube_Intake));
+
+        operator_LB.toggleOnTrue(new ReverseIntake(m_Cube_Intake));
+
+        operator_RB.toggleOnTrue(new ForwardIntake(m_Cube_Intake));
     }
 
     public Command getAutonomousCommand() {

@@ -25,7 +25,7 @@ public class sub_Elbow extends SubsystemBase {
   public static void Send_Elbow_PID_Variables() {
     Elbow_motor.config_kP(0, 0.05);
     Elbow_motor.config_kI(0, 0);
-    Elbow_motor.config_kD(0, 0.08);
+    Elbow_motor.config_kD(0, 0.1);
     Elbow_motor.configClosedLoopPeakOutput(0, .70);
     Elbow_motor.configClosedloopRamp(0.3);
   }

@@ -22,10 +22,10 @@ public class sub_Gripper extends SubsystemBase {
     AirCompressor.disable();
   }
   public static void OpenGripper(){
-    Solenoid0.set(Value.kForward);
+    Solenoid0.set(Value.kReverse);
   }
   public static void CloseGripper(){
-    Solenoid0.set(Value.kReverse);
+    Solenoid0.set(Value.kForward);
   }
 
   @Override

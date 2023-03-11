@@ -31,7 +31,7 @@ public class TeleopSwerve extends CommandBase {
 
     @Override
     public void execute() {
-        if(RobotContainer.Rdriver_A.getAsBoolean() == true || RobotContainer.trigger(RobotContainer.driver, 2).getAsBoolean() == true){
+        if(RobotContainer.Rdriver_A.getAsBoolean() == true || RobotContainer.driver_Select.getAsBoolean() == true){
             Swerve.normalturn();
         }
         else{

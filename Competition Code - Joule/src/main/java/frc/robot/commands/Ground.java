@@ -18,6 +18,6 @@ public class Ground extends SequentialCommandGroup {
   public Ground(sub_Elbow elbow, sub_Shoulder shoulder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new Move_Elbow(elbow, 15500).andThen(new Move_Elbow(elbow, 20749).alongWith(new Move_Shoulder(shoulder, 36598))));
+    addCommands(new Move_Elbow(elbow, 15500).andThen(new Move_Elbow(elbow, 23449).alongWith(new Move_Shoulder(shoulder, 37598))));
   }
 }

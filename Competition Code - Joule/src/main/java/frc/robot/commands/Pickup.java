@@ -20,7 +20,7 @@ public class Pickup extends SequentialCommandGroup {
   public Pickup(sub_Shoulder shoulder, sub_Elbow elbow, sub_Gripper mGripper) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new Move_Elbow(elbow, 24390).andThen(new Move_Shoulder(shoulder, 17826)));
+    addCommands(new Move_Elbow(elbow, 39000).alongWith(new Move_Shoulder(shoulder, 17826)).andThen(new Move_Elbow(elbow, 24390)));
   }
 }
 

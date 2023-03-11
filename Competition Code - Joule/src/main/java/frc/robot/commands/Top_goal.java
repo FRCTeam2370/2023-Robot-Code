@@ -13,9 +13,9 @@ import frc.robot.subsystems.sub_Shoulder;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class high_goal extends SequentialCommandGroup {
+public class Top_goal extends SequentialCommandGroup {
   /** Creates a new high_goal. */
-  public high_goal(sub_Elbow elbow, sub_Shoulder shoulder) {
+  public Top_goal(sub_Elbow elbow, sub_Shoulder shoulder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands( new Move_Elbow(elbow, 71000).andThen(new Move_Shoulder(shoulder, 10000)).andThen(new Move_Elbow(elbow, 145972).alongWith(new Move_Shoulder(shoulder,  50473))));

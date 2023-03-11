@@ -13,7 +13,7 @@ import frc.robot.autos.score_one;
 import frc.robot.autos.score_one_and_balance;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.UltraStow;
-import frc.robot.commands.high_goal;
+import frc.robot.commands.Top_goal;
 import frc.robot.commands.loading;
 import frc.robot.commands.Ground;
 import frc.robot.commands.Pickup;
@@ -23,6 +23,8 @@ import frc.robot.commands.Drivetrain.align_to_target;
 import frc.robot.commands.Drivetrain.align_with_driver_input;
 import frc.robot.commands.Drivetrain.auto_balence;
 import frc.robot.commands.Drivetrain.limelight_on;
+import frc.robot.commands.Gripper.CloseGripper;
+import frc.robot.commands.Gripper.OpenGripper;
 import frc.robot.commands.Gripper.gripper_toggle;
 import frc.robot.commands.Intake.ForwardIntake;
 import frc.robot.commands.Intake.IntakeToggle;
@@ -39,6 +41,7 @@ public class RobotContainer {
     public final static GenericHID driver = new GenericHID(0);
     public final static GenericHID operator = new GenericHID(1);
     public final static GenericHID rdriver = new GenericHID(3);
+    public final static GenericHID operatorBoard = new GenericHID(4);
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
@@ -67,8 +70,8 @@ public class RobotContainer {
     public final static JoystickButton driver_RB = new JoystickButton(driver, 6);  
     public final static JoystickButton driver_Select = new JoystickButton(driver, 7);
     public final static JoystickButton driver_Start = new JoystickButton(driver, 8);
-    public final static JoystickButton LStickButton = new JoystickButton(driver, 9);
-    public final static JoystickButton RStickButton = new JoystickButton(driver, 10);
+    public final static JoystickButton driver_M1 = new JoystickButton(driver, 9);
+    public final static JoystickButton driver_M2 = new JoystickButton(driver, 10);
 
     public final static JoystickButton Rdriver_A = new JoystickButton(rdriver, 1);
     public final static JoystickButton Rdriver_B = new JoystickButton(rdriver, 2);
@@ -88,6 +91,18 @@ public class RobotContainer {
     public final static JoystickButton operator_Select = new JoystickButton(operator, 7);
     public final static JoystickButton operator_Start = new JoystickButton(operator, 8);
 
+    public final static JoystickButton GND = new JoystickButton(operatorBoard, 1);
+    public final static JoystickButton Stow = new JoystickButton(operatorBoard, 2);
+    public final static JoystickButton Pickup = new JoystickButton(operatorBoard, 3);
+    public final static JoystickButton Mid = new JoystickButton(operatorBoard, 4);
+    public final static JoystickButton Load = new JoystickButton(operatorBoard, 5);
+    public final static JoystickButton High = new JoystickButton(operatorBoard, 6);
+    public final static JoystickButton Open = new JoystickButton(operatorBoard, 7);
+    public final static JoystickButton Close = new JoystickButton(operatorBoard, 8);
+    public final static JoystickButton AlignLoad = new JoystickButton(operatorBoard, 9);
+    public final static JoystickButton AlignScore = new JoystickButton(operatorBoard, 10);
+    public final static JoystickButton Cone = new JoystickButton(operatorBoard, 11);
+    public final static JoystickButton Cube = new JoystickButton(operatorBoard, 12);
 
     public final  sub_Elbow m_sub_Elbow = new sub_Elbow();
     public final sub_Shoulder m_sub_Shoulder = new sub_Shoulder();
@@ -119,7 +134,7 @@ public class RobotContainer {
     }
 
     private void configureButtonBindings() {
-        driver_Select.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        Cube.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         Rdriver_Select.onTrue(new InstantCommand(()->s_Swerve.zeroGyro()));
         // Add Button Bindings here
         //A.onTrue(new Move_Elbow(m_sub_Elbow, Constants.ElbowConstants.ArmDownPosition));
@@ -146,8 +161,8 @@ public class RobotContainer {
   //Loading pose
   trigger(rdriver, 3).onTrue(new loading(m_sub_Elbow, m_sub_Shoulder));
 
-  //high goal pose
-  Rdriver_LB.toggleOnTrue(new high_goal(m_sub_Elbow, m_sub_Shoulder));
+  //Top goal pose
+  Rdriver_LB.toggleOnTrue(new Top_goal(m_sub_Elbow, m_sub_Shoulder));
 
 
   //mid goal pose
@@ -163,13 +178,19 @@ public class RobotContainer {
 
 
   //Loading pose
-  trigger(driver, 3).toggleOnTrue(new loading(m_sub_Elbow, m_sub_Shoulder));
+  driver_B.toggleOnTrue(new loading(m_sub_Elbow, m_sub_Shoulder));
 
-  //high goal pose
-  driver_Y.toggleOnTrue(new high_goal(m_sub_Elbow, m_sub_Shoulder));
+  //Run intake forward
+  trigger(driver, 3).whileTrue(new ForwardIntake(m_Cube_Intake));
+
+  //Run intake backward
+  trigger(driver, 2).whileTrue(new ReverseIntake(m_Cube_Intake));
+
+  //Top goal pose
+  driver_M1.toggleOnTrue(new Top_goal(m_sub_Elbow, m_sub_Shoulder));
 
   //mid goal pose
-   driver_X.toggleOnTrue(new mid_goal(m_sub_Elbow, m_sub_Shoulder));
+   driver_M2.toggleOnTrue(new mid_goal(m_sub_Elbow, m_sub_Shoulder));
 
    //stow pose
    driver_RB.toggleOnTrue(new stow(m_sub_Shoulder, m_sub_Elbow, m_Sub_Gripper));
@@ -178,11 +199,38 @@ public class RobotContainer {
    driver_A.toggleOnTrue(new Ground(m_sub_Elbow, m_sub_Shoulder));
 
    //pickup pose
-   driver_B.toggleOnTrue(new Pickup(m_sub_Shoulder, m_sub_Elbow, m_Sub_Gripper));
+   driver_X.toggleOnTrue(new Pickup(m_sub_Shoulder, m_sub_Elbow, m_Sub_Gripper));
 
    //ultra stow pose
    driver_Start.toggleOnTrue(new UltraStow(m_sub_Elbow, m_sub_Shoulder));
 
+   //Intake toggle
+  // driver_Y.toggleOnTrue(new IntakeToggle(m_Cube_Intake));
+
+
+        //Ground 
+        GND.toggleOnTrue(new Ground(m_sub_Elbow, m_sub_Shoulder));
+
+        //Stow
+        Stow.toggleOnTrue(new stow(m_sub_Shoulder, m_sub_Elbow, m_Sub_Gripper));
+
+        //Pickup 
+        Pickup.toggleOnTrue(new Pickup(m_sub_Shoulder, m_sub_Elbow, m_Sub_Gripper));
+
+        //Mid Goal
+        Mid.toggleOnTrue(new mid_goal(m_sub_Elbow, m_sub_Shoulder));
+
+        //Load
+        Load.toggleOnTrue(new loading(m_sub_Elbow, m_sub_Shoulder));
+
+        //Top goal
+        High.toggleOnTrue(new Top_goal(m_sub_Elbow, m_sub_Shoulder));
+
+        //Open gripper
+        Open.toggleOnTrue(new OpenGripper(m_Sub_Gripper));
+
+        //Close gripper
+        Close.toggleOnTrue(new CloseGripper(m_Sub_Gripper));
 
      
 
@@ -194,9 +242,9 @@ public class RobotContainer {
 
         operator_X.toggleOnTrue(new IntakeToggle(m_Cube_Intake));
 
-        operator_LB.toggleOnTrue(new ReverseIntake(m_Cube_Intake));
+        operator_LB.whileTrue(new ReverseIntake(m_Cube_Intake));
 
-        operator_RB.toggleOnTrue(new ForwardIntake(m_Cube_Intake));
+        operator_RB.whileTrue(new ForwardIntake(m_Cube_Intake));
     }
 
     public Command getAutonomousCommand() {

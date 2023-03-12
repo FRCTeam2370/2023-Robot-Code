@@ -181,10 +181,10 @@ public class RobotContainer {
   driver_B.toggleOnTrue(new loading(m_sub_Elbow, m_sub_Shoulder));
 
   //Run intake forward
-  trigger(driver, 3).whileTrue(new ForwardIntake(m_Cube_Intake));
+  //trigger(driver, 3).whileTrue(new ForwardIntake(m_Cube_Intake));
 
   //Run intake backward
-  trigger(driver, 2).whileTrue(new ReverseIntake(m_Cube_Intake));
+ // trigger(driver, 2).whileTrue(new ReverseIntake(m_Cube_Intake));
 
   //Top goal pose
   driver_M1.toggleOnTrue(new Top_goal(m_sub_Elbow, m_sub_Shoulder));
@@ -205,7 +205,7 @@ public class RobotContainer {
    driver_Start.toggleOnTrue(new UltraStow(m_sub_Elbow, m_sub_Shoulder));
 
    //Intake toggle
-  // driver_Y.toggleOnTrue(new IntakeToggle(m_Cube_Intake));
+  driver_Y.toggleOnTrue(new IntakeToggle(m_Cube_Intake));
 
 
         //Ground 

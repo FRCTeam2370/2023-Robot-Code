@@ -32,9 +32,9 @@ public class IntakeToggle extends CommandBase {
   public void execute() {
 
     if(RobotContainer.trigger(RobotContainer.driver, 3).getAsBoolean() == true){
-      Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, 20);
+      Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, 0.8);
     }else if(RobotContainer.trigger(RobotContainer.driver, 2).getAsBoolean() == true){
-      Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, -100);
+      Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, -1);
     }else{
       Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, 0);
     }

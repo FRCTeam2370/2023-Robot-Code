@@ -4,16 +4,22 @@
 
 package frc.robot.commands.Intake;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Cube_Intake;
 
 public class IntakeToggle extends CommandBase {
+
+ public Cube_Intake m_Cube_Intake;
   /** Creates a new IntakeToggle. */
   public IntakeToggle(Cube_Intake m_Cube_Intake) {
     // Use addRequirements() here to declare subsystem dependencies.
    addRequirements(m_Cube_Intake);
-    
+    this.m_Cube_Intake = m_Cube_Intake;
   }
+  
 
   // Called when the command is initially scheduled.
   @Override
@@ -23,12 +29,22 @@ public class IntakeToggle extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+
+    if(RobotContainer.trigger(RobotContainer.driver, 3).getAsBoolean() == true){
+      Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, 20);
+    }else if(RobotContainer.trigger(RobotContainer.driver, 2).getAsBoolean() == true){
+      Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, -100);
+    }else{
+      Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, 0);
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     Cube_Intake.RiseIntake();
+    Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, 0);
   }
 
   // Returns true when the command should end.

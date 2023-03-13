@@ -19,10 +19,19 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.commands.Top_goal;
+import frc.robot.commands.UltraStow;
+import frc.robot.commands.stow;
+import frc.robot.commands.Drivetrain.auto_balence;
 import frc.robot.commands.Elbow.Move_Elbow;
 import frc.robot.commands.Gripper.CloseGripper;
 import frc.robot.commands.Gripper.OpenGripper;
+import frc.robot.commands.Intake.ForwardIntake;
+import frc.robot.commands.Intake.ReverseIntake;
+import frc.robot.commands.Intake.drop_intake;
+import frc.robot.commands.Intake.stop_intake;
 import frc.robot.commands.Shoulder.Move_Shoulder;
+import frc.robot.subsystems.Cube_Intake;
 import frc.robot.subsystems.sub_Elbow;
 import frc.robot.subsystems.sub_Gripper;
 import frc.robot.subsystems.sub_Shoulder;
@@ -30,9 +39,9 @@ import frc.robot.subsystems.sub_Shoulder;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class score_one extends SequentialCommandGroup {
+public class left_score_one_and_balance extends SequentialCommandGroup {
   /** Creates a new score_one. */
-  public score_one(frc.robot.subsystems.Swerve s_Swerve, sub_Elbow m_sub_Elbow, sub_Shoulder m_sub_Shoulder, sub_Gripper m_Sub_Gripper) {
+  public left_score_one_and_balance(frc.robot.subsystems.Swerve s_Swerve, sub_Elbow m_sub_Elbow, sub_Shoulder m_sub_Shoulder, sub_Gripper m_Sub_Gripper, Cube_Intake m_cube ) {
     TrajectoryConfig config =
     new TrajectoryConfig(
             Constants.AutoConstants.kMaxSpeedMetersPerSecond,
@@ -45,7 +54,7 @@ public class score_one extends SequentialCommandGroup {
       // Pass through these two interior waypoints, making an 's' curve path
       List.of(new Translation2d(.5, 0)),
       // End 3 meters straight ahead of where we started, facing forward
-      new Pose2d(1.1, 0, new Rotation2d(0)),
+      new Pose2d(1, 0, new Rotation2d(0)),
       config);
       TrajectoryConfig config2 =
       new TrajectoryConfig(
@@ -57,10 +66,38 @@ public class score_one extends SequentialCommandGroup {
         // Start at the origin facing the +X direction
         new Pose2d(0, 0, new Rotation2d(180)),
         // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(-.5, 0)),
+        List.of(new Translation2d(-1.5, 0)),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(-1.5, 0, new Rotation2d(0)),
+        new Pose2d(-2.2, 0, new Rotation2d(0)),
         config2);
+        TrajectoryConfig config3 =
+      new TrajectoryConfig(
+              Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+              Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+          .setKinematics(Constants.Swerve.swerveKinematics);
+          Trajectory exampleTrajectory3 =
+          TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(-2.2, 0, new Rotation2d(180)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(new Translation2d(-1, 2)),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(-.0, 3, new Rotation2d(0)),
+        config3);
+        TrajectoryConfig config4 =
+      new TrajectoryConfig(
+              Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+              Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+          .setKinematics(Constants.Swerve.swerveKinematics);
+          Trajectory exampleTrajectory4 =
+          TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(-1, 3, new Rotation2d(0)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(new Translation2d(-.5, 3)),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(0, 3, new Rotation2d(180)),
+        config4);
 var thetaController =
   new ProfiledPIDController(
       Constants.AutoConstants.kPThetaController, 0, 0, Constants.AutoConstants.kThetaControllerConstraints);
@@ -86,10 +123,30 @@ SwerveControllerCommand swerveControllerCommand =
           thetaController,
           s_Swerve::setModuleStates,
           s_Swerve);
+SwerveControllerCommand swerveControllerCommand3 =
+  new SwerveControllerCommand(
+      exampleTrajectory3,
+      s_Swerve::getPose,
+      Constants.Swerve.swerveKinematics,
+      new PIDController(Constants.AutoConstants.kPXController, 0, 0),
+      new PIDController(Constants.AutoConstants.kPYController, 0, 0),
+      thetaController,
+      s_Swerve::setModuleStates,
+      s_Swerve);
+      SwerveControllerCommand swerveControllerCommand4 =
+  new SwerveControllerCommand(
+      exampleTrajectory4,
+      s_Swerve::getPose,
+      Constants.Swerve.swerveKinematics,
+      new PIDController(Constants.AutoConstants.kPXController, 0, 0),
+      new PIDController(Constants.AutoConstants.kPYController, 0, 0),
+      thetaController,
+      s_Swerve::setModuleStates,
+      s_Swerve);
 
-addCommands(new CloseGripper(m_Sub_Gripper), new high_goal(m_sub_Elbow, m_sub_Shoulder),
-  new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
-  swerveControllerCommand, new OpenGripper(m_Sub_Gripper), new WaitCommand(1), new stow(m_sub_Elbow, m_sub_Shoulder)
+addCommands(new CloseGripper(m_Sub_Gripper),new Top_goal(m_sub_Elbow, m_sub_Shoulder),  new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
+  swerveControllerCommand, new OpenGripper(m_Sub_Gripper), new WaitCommand(.75), swerveControllerCommand2,new UltraStow(m_sub_Elbow, m_sub_Shoulder), new drop_intake(m_cube), new ForwardIntake(m_cube), 
+  new WaitCommand(1), new stop_intake(m_cube), swerveControllerCommand3, swerveControllerCommand4, new auto_balence(s_Swerve, 0, 0)
 );
 }
 }

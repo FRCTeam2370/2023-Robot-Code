@@ -2,6 +2,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -9,8 +11,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.lib.util.COTSFalconSwerveConstants.driveGearRatios;
 import frc.robot.autos.exampleAuto;
+import frc.robot.autos.left_score_one_and_balance;
 import frc.robot.autos.score_one;
-import frc.robot.autos.score_one_and_balance;
+import frc.robot.autos.right_score_one_and_balance;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.UltraStow;
 import frc.robot.commands.Top_goal;
@@ -37,6 +40,7 @@ import frc.robot.subsystems.sub_Shoulder;
 import frc.robot.subsystems.sub_sensor;
 
 public class RobotContainer {
+    
     /* Controllers */
     public final static GenericHID driver = new GenericHID(0);
     public final static GenericHID operator = new GenericHID(1);
@@ -119,6 +123,7 @@ public class RobotContainer {
     }
 
     public RobotContainer() {
+        addAutoOptions();
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
@@ -132,7 +137,17 @@ public class RobotContainer {
 
         configureButtonBindings();
     }
-
+    SendableChooser<Command> chooser = new SendableChooser<>();
+    private final score_one m_score_one =  new score_one(s_Swerve, m_sub_Elbow,m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
+    private final right_score_one_and_balance mScore_one_and_balance = new right_score_one_and_balance(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
+    private final left_score_one_and_balance mLeft_score_one_and_balance = new left_score_one_and_balance(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
+    public void addAutoOptions(){
+        chooser.addOption("score one",m_score_one);
+        chooser.addOption("right score and balance", mScore_one_and_balance);
+        chooser.addOption("left score one and balance", mLeft_score_one_and_balance);
+        SmartDashboard.putData(chooser);
+    }
+    
     private void configureButtonBindings() {
         Cube.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         Rdriver_Select.onTrue(new InstantCommand(()->s_Swerve.zeroGyro()));
@@ -245,9 +260,11 @@ public class RobotContainer {
         operator_LB.whileTrue(new ReverseIntake(m_Cube_Intake));
 
         operator_RB.whileTrue(new ForwardIntake(m_Cube_Intake));
+
+    AlignLoad.onTrue(new auto_balence(s_Swerve, 0, 0));
     }
 
     public Command getAutonomousCommand() {
-        return new score_one_and_balance(s_Swerve, m_sub_Elbow,m_sub_Shoulder, m_Sub_Gripper);
+        return chooser.getSelected();
     }
 }

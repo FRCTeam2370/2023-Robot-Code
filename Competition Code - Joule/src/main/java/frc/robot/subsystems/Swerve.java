@@ -27,7 +27,7 @@ public class Swerve extends SubsystemBase {
     public static PIDController swerve_X_movenment_PID = new PIDController(0.1 , 0, 0);
     public static PIDController swerve_Y_movenment_PID = new PIDController(0.1, 0, .0);
     public static PIDController swerve_angle_movenment_PID = new PIDController(0.17, 0, 0);
-    public static PIDController swerve_auto_balance_Controller = new PIDController(.025, 0, 0);
+    public static PIDController swerve_auto_balance_Controller = new PIDController(.0225, 0, 0.00675);
     public static double angle;
     public static double pitch;
     public static double setSpeed(double p, double postion, double target){
@@ -39,7 +39,7 @@ public class Swerve extends SubsystemBase {
         
         swerve_Y_movenment_PID.setTolerance(2.0);
         swerve_Y_movenment_PID.disableContinuousInput();
-        swerve_auto_balance_Controller.setTolerance(10);
+        swerve_auto_balance_Controller.setTolerance(4);
         gyro = new Pigeon2(Constants.Swerve.pigeonID);
         gyro.configFactoryDefault();
         zeroGyro();
@@ -143,6 +143,8 @@ public static void normalturn(){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
         }
-    SmartDashboard.putNumber("angle", gyro.getYaw()); }
+    SmartDashboard.putNumber("angle", gyro.getYaw());
+    SmartDashboard.putNumber("Pitch", pitch);
+}
 
 }

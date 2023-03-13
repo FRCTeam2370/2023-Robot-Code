@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.stow;
 
 public class Cube_Intake extends SubsystemBase {
   /** Creates a new Cube_Intake. */
@@ -28,7 +29,7 @@ public class Cube_Intake extends SubsystemBase {
     IntakeSolenoid.set(Value.kReverse);
   }
   public static void ForwardIntake(){
-    IntakeMotor.set(ControlMode.PercentOutput,20);
+    IntakeMotor.set(ControlMode.PercentOutput,40);
   }
   public static void StopIntake(){
     IntakeMotor.set(ControlMode.PercentOutput, 0);
@@ -36,6 +37,7 @@ public class Cube_Intake extends SubsystemBase {
   public static void ReverseIntake(){
     IntakeMotor.set(ControlMode.PercentOutput, -100);
   }
+  public static double intake_time;
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

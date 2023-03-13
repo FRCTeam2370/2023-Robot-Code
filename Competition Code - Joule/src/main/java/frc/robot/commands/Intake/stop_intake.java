@@ -4,33 +4,32 @@
 
 package frc.robot.commands.Intake;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Cube_Intake;
 
-public class ReverseIntake extends CommandBase {
-  /** Creates a new ReverseIntake. */
-  public ReverseIntake(Cube_Intake mCube_Intake) {
+public class stop_intake extends CommandBase {
+  /** Creates a new stop_intake. */
+  public stop_intake(Cube_Intake m_Cube_Intake) {
+ addRequirements(m_Cube_Intake);
+    
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(mCube_Intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Cube_Intake.ReverseIntake();
+    Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, 0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

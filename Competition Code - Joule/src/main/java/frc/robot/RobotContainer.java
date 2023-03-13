@@ -247,6 +247,9 @@ public class RobotContainer {
         //Close gripper
         Close.toggleOnTrue(new CloseGripper(m_Sub_Gripper));
 
+        //toggle Intake
+        Cone.toggleOnTrue(new IntakeToggle(m_Cube_Intake));
+
      
 
         operator_B.whileTrue(new align_to_target(s_Swerve, 2, 2, 180));

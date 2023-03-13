@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.lib.util.COTSFalconSwerveConstants.driveGearRatios;
 import frc.robot.autos.exampleAuto;
+import frc.robot.autos.scoreOneBalance;
 import frc.robot.autos.score_one;
 import frc.robot.autos.score_one_and_balance;
 import frc.robot.commands.TeleopSwerve;
@@ -186,6 +187,6 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return new score_one_and_balance(s_Swerve, m_sub_Elbow,m_sub_Shoulder, m_Sub_Gripper);
+        return new scoreOneBalance(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper);
     }
 }

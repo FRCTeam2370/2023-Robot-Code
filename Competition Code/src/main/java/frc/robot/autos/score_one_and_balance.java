@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.commands.high_goal;
+import frc.robot.commands.stow;
 import frc.robot.commands.Drivetrain.align_to_target;
 import frc.robot.commands.Drivetrain.auto_balence;
 import frc.robot.commands.Elbow.Move_Elbow;
@@ -59,11 +61,11 @@ public class score_one_and_balance extends SequentialCommandGroup {
           Trajectory Trajectory2 =
           TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
-        new Pose2d(.16, 0, new Rotation2d(180)),
+        new Pose2d(.0, 0, new Rotation2d(0)),
         // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(-4, 0)),
+        List.of(new Translation2d(-0.1, 0)),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(-8.6, 0, new Rotation2d(0)),
+        new Pose2d(-0.1, 0, new Rotation2d(0)),
         config2);
         TrajectoryConfig config3 =
         new TrajectoryConfig(
@@ -79,6 +81,39 @@ public class score_one_and_balance extends SequentialCommandGroup {
           // End 3 meters straight ahead of where we started, facing forward
           new Pose2d(3, 0, new Rotation2d(0)),
           config3);
+
+          TrajectoryConfig config4 =
+          new TrajectoryConfig(
+                  Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                  Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+              .setKinematics(Constants.Swerve.swerveKinematics);
+          Trajectory Trajectory4 =
+          TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(-1, 0, new Rotation2d(0)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(new Translation2d(-5, 0)),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(-8.5, 0, new Rotation2d(0)),
+        config4);
+
+        TrajectoryConfig config5 =
+        new TrajectoryConfig(
+                Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+            .setKinematics(Constants.Swerve.swerveKinematics);
+        Trajectory Trajectory5 =
+        TrajectoryGenerator.generateTrajectory(
+      // Start at the origin facing the +X direction
+      new Pose2d(0, 0, new Rotation2d(100)),
+      // Pass through these two interior waypoints, making an 's' curve path
+      List.of(new Translation2d(-0.01, 0)),
+      // End 3 meters straight ahead of where we started, facing forward
+      new Pose2d(0, 0, new Rotation2d(100)),
+      config5);
+      
+             
+
 var thetaController =
   new ProfiledPIDController(
       Constants.AutoConstants.kPThetaController, 0, 0, Constants.AutoConstants.kThetaControllerConstraints);
@@ -115,8 +150,30 @@ SwerveControllerCommand swerveControllerCommand =
               s_Swerve::setModuleStates,
               s_Swerve);
 
-addCommands(new CloseGripper(m_Sub_Gripper),new align_to_target(s_Swerve, 2, 0, 0), new Move_Elbow(m_sub_Elbow, 15000).andThen(new Move_Elbow(m_sub_Elbow, 144115).alongWith(new Move_Shoulder(m_sub_Shoulder, 48863))),new WaitCommand(1),
+      SwerveControllerCommand swerveControllerCommand4 = 
+      new SwerveControllerCommand(
+        Trajectory4,
+        s_Swerve::getPose,
+        Constants.Swerve.swerveKinematics,
+        new PIDController(Constants.AutoConstants.kPXController, 0, 0),
+        new PIDController(Constants.AutoConstants.kPYController, 0, 0),
+        thetaController,
+        s_Swerve::setModuleStates,
+        s_Swerve);
+
+        SwerveControllerCommand swerveControllerCommand5 = 
+        new SwerveControllerCommand(
+          Trajectory5,
+          s_Swerve::getPose,
+          Constants.Swerve.swerveKinematics,
+          new PIDController(Constants.AutoConstants.kPXController, 0, 0),
+          new PIDController(Constants.AutoConstants.kPYController, 0, 0),
+          thetaController,
+          s_Swerve::setModuleStates,
+          s_Swerve);
+  
+addCommands(new CloseGripper(m_Sub_Gripper), new high_goal(m_sub_Elbow, m_sub_Shoulder),new WaitCommand(1),
 new InstantCommand(() -> s_Swerve.resetOdometry(Trajectory1.getInitialPose())),swerveControllerCommand,new WaitCommand(.25), new OpenGripper(m_Sub_Gripper), new WaitCommand(.5), 
-new ParallelCommandGroup(swerveControllerCommand2, (new WaitCommand(1).andThen(new Move_Elbow(m_sub_Elbow, 60000).alongWith(new Move_Shoulder(m_sub_Shoulder, 4700)).andThen(new Move_Elbow(m_sub_Elbow, 10000))))), new  InstantCommand(() -> s_Swerve.zeroGyro()) ,
-swerveControllerCommand3, new auto_balence(s_Swerve, 0, 0));}
+new ParallelCommandGroup(swerveControllerCommand2, (new WaitCommand(1).andThen(new stow(m_sub_Shoulder, m_sub_Elbow)))), new  InstantCommand(() -> s_Swerve.zeroGyro()), swerveControllerCommand4, new WaitCommand(0.5) ,
+ new auto_balence(s_Swerve, 0, 0));}
 }

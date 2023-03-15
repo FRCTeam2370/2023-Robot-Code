@@ -150,6 +150,7 @@ public class RobotContainer {
     
     private void configureButtonBindings() {
         Cube.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        //AlignLoad.onTrue(new InstantCommand(() -> s_Swerve.reverseGyro()));
         Rdriver_Select.onTrue(new InstantCommand(()->s_Swerve.zeroGyro()));
         // Add Button Bindings here
         //A.onTrue(new Move_Elbow(m_sub_Elbow, Constants.ElbowConstants.ArmDownPosition));
@@ -188,7 +189,7 @@ public class RobotContainer {
    //floor pickup
    Rdriver_RB.toggleOnTrue(new Ground(m_sub_Elbow, m_sub_Shoulder));
 
-
+//gripper toggle
   driver_LB.toggleOnTrue(new gripper_toggle(m_Sub_Gripper));
 
 
@@ -196,10 +197,10 @@ public class RobotContainer {
   driver_B.toggleOnTrue(new loading(m_sub_Elbow, m_sub_Shoulder));
 
   //Run intake forward
-  //trigger(driver, 3).whileTrue(new ForwardIntake(m_Cube_Intake));
+  trigger(driver, 3).whileTrue(new ForwardIntake(m_Cube_Intake));
 
   //Run intake backward
- // trigger(driver, 2).whileTrue(new ReverseIntake(m_Cube_Intake));
+  trigger(driver, 2).whileTrue(new ReverseIntake(m_Cube_Intake));
 
   //Top goal pose
   driver_M1.toggleOnTrue(new Top_goal(m_sub_Elbow, m_sub_Shoulder));

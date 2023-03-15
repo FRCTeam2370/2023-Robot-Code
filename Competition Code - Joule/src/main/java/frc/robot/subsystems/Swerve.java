@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.SwerveModule;
+import frc.robot.commands.Intake.stop_intake;
 import frc.robot.Constants;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -29,6 +30,7 @@ public class Swerve extends SubsystemBase {
     public static PIDController swerve_angle_movenment_PID = new PIDController(0.17, 0, 0);
     public static PIDController swerve_auto_balance_Controller = new PIDController(.0225, 0, 0.00675);
     public static double angle;
+    public static double angle_offset = 0;
     public static double pitch;
     public static double setSpeed(double p, double postion, double target){
         double error = target - postion;
@@ -123,6 +125,9 @@ public static void normalturn(){
         gyro.setYaw(0);
     }
 
+    public void reverseGyro(){
+        gyro.setYaw(180);
+    }
     public Rotation2d getYaw() {
         return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
     }
@@ -132,11 +137,13 @@ public static void normalturn(){
             mod.resetToAbsolute();
         }
     }
-
+    public static void setoffset(double offsets){
+        angle_offset=offsets;
+    }
     @Override
     public void periodic(){
         swerveOdometry.update(getYaw(), getModulePositions());  
-        angle = gyro.getYaw();
+        angle = gyro.getYaw()+angle_offset;
         pitch = gyro.getPitch();
         for(SwerveModule mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());

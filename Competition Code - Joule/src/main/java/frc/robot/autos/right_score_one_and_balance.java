@@ -32,6 +32,7 @@ import frc.robot.commands.Intake.drop_intake;
 import frc.robot.commands.Intake.stop_intake;
 import frc.robot.commands.Shoulder.Move_Shoulder;
 import frc.robot.subsystems.Cube_Intake;
+import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.sub_Elbow;
 import frc.robot.subsystems.sub_Gripper;
 import frc.robot.subsystems.sub_Shoulder;
@@ -146,7 +147,7 @@ SwerveControllerCommand swerveControllerCommand3 =
 
 addCommands(new CloseGripper(m_Sub_Gripper),new Top_goal(m_sub_Elbow, m_sub_Shoulder),  new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
   swerveControllerCommand, new OpenGripper(m_Sub_Gripper), new WaitCommand(.75), swerveControllerCommand2,new UltraStow(m_sub_Elbow, m_sub_Shoulder), new drop_intake(m_cube), new ForwardIntake(m_cube), 
-  new WaitCommand(1), new stop_intake(m_cube), swerveControllerCommand3, swerveControllerCommand4, new auto_balence(s_Swerve, 0, 0)
+  new WaitCommand(1), new stop_intake(m_cube), swerveControllerCommand3, swerveControllerCommand4, new auto_balence(s_Swerve, 0, 0), new InstantCommand(()-> Swerve.setoffset(180))
 );
 }
 }

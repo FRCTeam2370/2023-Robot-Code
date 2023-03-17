@@ -142,6 +142,7 @@ public static void normalturn(){
     }
     @Override
     public void periodic(){
+    
         swerveOdometry.update(getYaw(), getModulePositions());  
         angle = gyro.getYaw()+angle_offset;
         pitch = gyro.getPitch();

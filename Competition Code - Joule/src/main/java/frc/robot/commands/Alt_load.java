@@ -13,16 +13,11 @@ import frc.robot.subsystems.sub_Shoulder;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class loading extends SequentialCommandGroup {
-  /** Creates a new loading. */
-  public loading(sub_Elbow elbow, sub_Shoulder shoulder) {
+public class Alt_load extends SequentialCommandGroup {
+  /** Creates a new Alt_load. */
+  public Alt_load(sub_Elbow elbow, sub_Shoulder shoulder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-      new Move_Elbow(elbow, 76100).andThen(new Move_Shoulder(shoulder, 15700)));
-      //blue pick up from loading station 75100 progarmer ticks
-      //red pick up from loading station 72100 progarmer ticks
-      //
-    
+    addCommands(new Move_Elbow(elbow, 73100).andThen(new Move_Shoulder(shoulder, 15700)));
   }
 }

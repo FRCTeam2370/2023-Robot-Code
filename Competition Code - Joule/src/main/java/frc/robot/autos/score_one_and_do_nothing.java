@@ -39,9 +39,9 @@ import frc.robot.subsystems.sub_Shoulder;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class score_one extends SequentialCommandGroup {
+public class score_one_and_do_nothing extends SequentialCommandGroup {
   /** Creates a new score_one. */
-  public score_one(frc.robot.subsystems.Swerve s_Swerve, sub_Elbow m_sub_Elbow, sub_Shoulder m_sub_Shoulder, sub_Gripper m_Sub_Gripper, Cube_Intake m_cube ) {
+  public score_one_and_do_nothing(frc.robot.subsystems.Swerve s_Swerve, sub_Elbow m_sub_Elbow, sub_Shoulder m_sub_Shoulder, sub_Gripper m_Sub_Gripper, Cube_Intake m_cube ) {
     TrajectoryConfig config =
     new TrajectoryConfig(
             Constants.AutoConstants.kMaxSpeedMetersPerSecond,
@@ -97,8 +97,7 @@ SwerveControllerCommand swerveControllerCommand =
           s_Swerve);
 
 addCommands(new CloseGripper(m_Sub_Gripper),new Top_goal(m_sub_Elbow, m_sub_Shoulder),  new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
-  swerveControllerCommand, new OpenGripper(m_Sub_Gripper), new WaitCommand(1), swerveControllerCommand2,new UltraStow(m_sub_Elbow, m_sub_Shoulder), new drop_intake(m_cube), new ForwardIntake(m_cube), new WaitCommand(1), new stop_intake(m_cube),
-  new InstantCommand(()-> Swerve.setoffset(0))
+  swerveControllerCommand, new OpenGripper(m_Sub_Gripper), new WaitCommand(1)
 
   );
 }

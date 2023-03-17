@@ -150,7 +150,7 @@ public static void normalturn(){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
         }
-    SmartDashboard.putNumber("angle", gyro.getYaw());
+    SmartDashboard.putNumber("angle", angle);
     SmartDashboard.putNumber("Pitch", pitch);
 }
 

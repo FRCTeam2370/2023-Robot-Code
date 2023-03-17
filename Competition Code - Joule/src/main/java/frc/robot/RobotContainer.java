@@ -10,9 +10,11 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.lib.util.COTSFalconSwerveConstants.driveGearRatios;
+import frc.robot.autos.Score_one_and_balance_middle;
 import frc.robot.autos.exampleAuto;
 import frc.robot.autos.left_score_one_and_balance;
 import frc.robot.autos.score_one;
+import frc.robot.autos.score_one_and_do_nothing;
 import frc.robot.autos.right_score_one_and_balance;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.UltraStow;
@@ -141,16 +143,22 @@ public class RobotContainer {
     private final score_one m_score_one =  new score_one(s_Swerve, m_sub_Elbow,m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
     private final right_score_one_and_balance mScore_one_and_balance = new right_score_one_and_balance(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
     private final left_score_one_and_balance mLeft_score_one_and_balance = new left_score_one_and_balance(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
+    private final exampleAuto mExampleAuto = new exampleAuto(s_Swerve);
+    private final Score_one_and_balance_middle m_Balance_middle = new Score_one_and_balance_middle(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
+    private final score_one_and_do_nothing mAnd_do_nothing = new score_one_and_do_nothing(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
     public void addAutoOptions(){
         chooser.addOption("score one",m_score_one);
         chooser.addOption("right score and balance", mScore_one_and_balance);
         chooser.addOption("left score one and balance", mLeft_score_one_and_balance);
+        chooser.addOption("do nothing", mExampleAuto);
+        chooser.addOption("score one and do nothing", mAnd_do_nothing);
+        chooser.addOption("score one and balance middle =", m_Balance_middle);
         SmartDashboard.putData(chooser);
     }
     
     private void configureButtonBindings() {
-        Cube.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        //AlignLoad.onTrue(new InstantCommand(() -> s_Swerve.reverseGyro()));
+        //Cube.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        Cube.onTrue(new InstantCommand(() -> s_Swerve.reverseGyro()));
         Rdriver_Select.onTrue(new InstantCommand(()->s_Swerve.zeroGyro()));
         // Add Button Bindings here
         //A.onTrue(new Move_Elbow(m_sub_Elbow, Constants.ElbowConstants.ArmDownPosition));
@@ -178,8 +186,7 @@ public class RobotContainer {
   trigger(rdriver, 3).onTrue(new loading(m_sub_Elbow, m_sub_Shoulder));
 
   //Top goal pose
-  Rdriver_LB.toggleOnTrue(new Top_goal(m_sub_Elbow, m_sub_Shoulder));
-
+  Rdriver_LB.toggleOnTrue(new auto_balence(s_Swerve, strafeAxis, rotationAxis));
 
   //mid goal pose
    trigger(rdriver, 2).toggleOnTrue(new mid_goal(m_sub_Elbow, m_sub_Shoulder));
@@ -197,10 +204,7 @@ public class RobotContainer {
   driver_B.toggleOnTrue(new loading(m_sub_Elbow, m_sub_Shoulder));
 
   //Run intake forward
-  trigger(driver, 3).whileTrue(new ForwardIntake(m_Cube_Intake));
 
-  //Run intake backward
-  trigger(driver, 2).whileTrue(new ReverseIntake(m_Cube_Intake));
 
   //Top goal pose
   driver_M1.toggleOnTrue(new Top_goal(m_sub_Elbow, m_sub_Shoulder));
@@ -250,6 +254,11 @@ public class RobotContainer {
 
         //toggle Intake
         Cone.toggleOnTrue(new IntakeToggle(m_Cube_Intake));
+
+        AlignScore.toggleOnTrue(new auto_balence(s_Swerve, strafeAxis, rotationAxis));
+
+        
+        
 
      
 

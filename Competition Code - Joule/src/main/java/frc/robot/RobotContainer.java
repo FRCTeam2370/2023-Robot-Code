@@ -20,6 +20,7 @@ import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.UltraStow;
 import frc.robot.commands.Top_goal;
 import frc.robot.commands.loading;
+import frc.robot.commands.Alt_load;
 import frc.robot.commands.Ground;
 import frc.robot.commands.Pickup;
 import frc.robot.commands.mid_goal;
@@ -277,7 +278,7 @@ public class RobotContainer {
 
         operator_RB.whileTrue(new ForwardIntake(m_Cube_Intake));
 
-    AlignLoad.onTrue(new auto_balence(s_Swerve, 0, 0));
+    AlignLoad.onTrue(new Alt_load(m_sub_Elbow, m_sub_Shoulder));
     }
 
     public Command getAutonomousCommand() {

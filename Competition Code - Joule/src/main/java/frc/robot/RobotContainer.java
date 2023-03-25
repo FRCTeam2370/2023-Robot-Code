@@ -257,6 +257,9 @@ public class RobotContainer {
 
         AlignScore.toggleOnTrue(new auto_balence(s_Swerve, strafeAxis, rotationAxis));
 
+        //Ultra Stow
+        AlignLoad.toggleOnTrue(new UltraStow(m_sub_Elbow, m_sub_Shoulder));
+
         
         
 

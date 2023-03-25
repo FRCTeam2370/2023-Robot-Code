@@ -37,6 +37,7 @@ public class Swerve extends SubsystemBase {
         return p*error;
     }
     public Swerve() {
+        
         swerve_X_movenment_PID.setTolerance(5.0);
         
         swerve_Y_movenment_PID.setTolerance(2.0);
@@ -45,7 +46,6 @@ public class Swerve extends SubsystemBase {
         gyro = new Pigeon2(Constants.Swerve.pigeonID);
         gyro.configFactoryDefault();
         zeroGyro();
-
         mSwerveMods = new SwerveModule[] {
             new SwerveModule(0, Constants.Swerve.Mod0.constants),
             new SwerveModule(1, Constants.Swerve.Mod1.constants),

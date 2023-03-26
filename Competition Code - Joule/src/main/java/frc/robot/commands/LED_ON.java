@@ -22,7 +22,7 @@ public class LED_ON extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    sub_LED.LEDset(sub_LED.rearLEDs, sub_LED.rearLEDSbuffer, 255, 0, 0);
+    sub_LED.LEDset(sub_LED.rearLEDs, sub_LED.rearLEDSbuffer, 0, 213, 0);
   }
 
   // Called once the command ends or is interrupted.

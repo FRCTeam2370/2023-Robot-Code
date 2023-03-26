@@ -9,6 +9,7 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.loading;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.sub_Elbow;
+import frc.robot.subsystems.sub_Gripper;
 import frc.robot.subsystems.sub_LED;
 import frc.robot.subsystems.sub_Shoulder;
 
@@ -17,9 +18,9 @@ import frc.robot.subsystems.sub_Shoulder;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class load_mode_with_arm extends SequentialCommandGroup {
   /** Creates a new load_mode_with_arm. */
-  public load_mode_with_arm(Swerve s_Swerve, sub_LED m_Sub_Led, sub_Elbow elbow, sub_Shoulder shoulder) {
+  public load_mode_with_arm(Swerve s_Swerve, sub_LED m_Sub_Led, sub_Elbow elbow, sub_Shoulder shoulder, sub_Gripper mGripper) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new load_mode(s_Swerve,()-> -RobotContainer.driver.getRawAxis(0),()-> -RobotContainer.driver.getRawAxis(1), m_Sub_Led,()-> -RobotContainer.driver.getRawAxis(4)).alongWith(new loading(elbow, shoulder)));
+    addCommands(new load_mode(s_Swerve,()-> -RobotContainer.driver.getRawAxis(0),()-> -RobotContainer.driver.getRawAxis(1), m_Sub_Led,()-> -RobotContainer.driver.getRawAxis(4), mGripper).alongWith(new loading(elbow, shoulder)));
   }
 }

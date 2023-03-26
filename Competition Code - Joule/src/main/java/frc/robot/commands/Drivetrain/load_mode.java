@@ -9,12 +9,14 @@ import java.util.function.DoubleSupplier;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.sub_Elbow;
+import frc.robot.subsystems.sub_Gripper;
 import frc.robot.subsystems.sub_LED;
 import frc.robot.subsystems.sub_Shoulder;
 import frc.robot.subsystems.sub_sensor;
@@ -25,9 +27,9 @@ public class load_mode extends CommandBase {
   DoubleSupplier translationSup;
   DoubleSupplier strafeSup;
   DoubleSupplier turn;
-  public load_mode(Swerve m_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, sub_LED LED, DoubleSupplier turn) {
+  public load_mode(Swerve m_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, sub_LED LED, DoubleSupplier turn, sub_Gripper mGripper) {
     this.m_Swerve = m_Swerve;
-    addRequirements(m_Swerve, LED);
+    addRequirements(m_Swerve, LED, mGripper);
     this.translationSup= translationSup;
     this.strafeSup = strafeSup; 
     this.turn = turn;
@@ -37,7 +39,7 @@ public class load_mode extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    sub_Gripper.OpenGripper();
 
   }
 
@@ -57,26 +59,34 @@ public class load_mode extends CommandBase {
        translationVal = RobotContainer.Deadband(translationSup.getAsDouble(), Constants.stickDeadband);
        strafeVal = RobotContainer.Deadband(strafeSup.getAsDouble(), Constants.stickDeadband);
        sub_LED.LEDset(sub_LED.rearLEDs, sub_LED.rearLEDSbuffer, 125, 0, 0);
-    }
-    else if(sub_sensor.Distence < 1){
+       RobotContainer.driver.setRumble(RumbleType.kBothRumble, 0);
+    }else if(sub_sensor.Distence < 1.8){
        translationVal = RobotContainer.Deadband(translationSup.getAsDouble(), Constants.stickDeadband)*.1;
        strafeVal = RobotContainer.Deadband(strafeSup.getAsDouble(), Constants.stickDeadband)*.1;
        sub_LED.LEDset(sub_LED.rearLEDs, sub_LED.rearLEDSbuffer, 93, 213, 0);
+       RobotContainer.driver.setRumble(RumbleType.kBothRumble, 1);
     }
     else{
        translationVal = Swerve.findlinerequationandpoint(RobotContainer.Deadband(translationSup.getAsDouble(), Constants.stickDeadband), 5, 1, 1, .1);
        strafeVal = Swerve.findlinerequationandpoint(RobotContainer.Deadband(strafeSup.getAsDouble(), Constants.stickDeadband), 5, 1, 1, .1);
        sub_LED.LEDset(sub_LED.rearLEDs, sub_LED.rearLEDSbuffer, 245, 242, 49);
+       RobotContainer.driver.setRumble(RumbleType.kBothRumble, 0);
     }
+if(sub_sensor.GamePiece == "Cone" || sub_sensor.GamePiece == "Cube" && sub_sensor.m_colorSensor.getIR() > 180){
+    sub_Gripper.CloseGripper();
+    RobotContainer.driver.setRumble(RumbleType.kBothRumble, 0);
+}
+   
+    double rotationVal = 0.4*RobotContainer.Deadband(turn.getAsDouble(), Constants.stickDeadband);
 
-    double rotationVal = RobotContainer.Deadband(turn.getAsDouble(), Constants.stickDeadband);
-
-  m_Swerve.drive(new Translation2d(strafeVal,translationVal).times(Constants.Swerve.maxSpeed), rotationVal , !true, true);
+  m_Swerve.drive(new Translation2d(strafeVal,translationVal).times(Constants.Swerve.maxSpeed), rotationVal , true, true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    RobotContainer.driver.setRumble(RumbleType.kBothRumble, 0);
+  }
 
   // Returns true when the command should end.
   @Override

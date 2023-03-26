@@ -136,6 +136,10 @@ public static void normalturn(){
     public void zeroGyro(){
         gyro.setYaw(0);
     }
+    public void reverseGyro(){
+        gyro.setYaw(0);
+        gyro.setYaw(180);
+    }
 
     public Rotation2d getYaw() {
         return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());

@@ -117,7 +117,7 @@ public static void SwitchPipline2(){
       SwitchPipline0();
     }
     else if(GamePiece == "Cone"){
-      SwitchPipline1();
+     // SwitchPipline1();
     }
 
    
@@ -136,7 +136,7 @@ public static void SwitchPipline2(){
     SmartDashboard.putNumber("x lime", X_lime);
     SmartDashboard.putNumber("y lime", Y_lime);
     SmartDashboard.putNumber("Area lime", Area_lime);
-
+    SmartDashboard.putString("Game Piece", GamePiece);
     SmartDashboard.putNumber("distance", Distence);
     // This method will be called once per scheduler run
     

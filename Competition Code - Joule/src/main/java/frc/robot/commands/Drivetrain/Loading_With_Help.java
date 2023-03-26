@@ -7,6 +7,7 @@ package frc.robot.commands.Drivetrain;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.loading;
 import frc.robot.subsystems.sub_Elbow;
+import frc.robot.subsystems.sub_Gripper;
 import frc.robot.subsystems.sub_LED;
 import frc.robot.subsystems.sub_Shoulder;
 import frc.robot.subsystems.sub_sensor;
@@ -16,9 +17,9 @@ import frc.robot.subsystems.sub_sensor;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Loading_With_Help extends SequentialCommandGroup {
   /** Creates a new Loading_With_Help. */
-  public Loading_With_Help(sub_Elbow mElbow, sub_Shoulder msShoulder, sub_sensor msSensor, sub_LED mLed) {
+  public Loading_With_Help(sub_Elbow mElbow, sub_Shoulder msShoulder, sub_sensor msSensor, sub_LED mLed, sub_Gripper mGripper) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new loading(mElbow, msShoulder).alongWith(new LED_load(msSensor, mLed)));
+    addCommands(new loading(mElbow, msShoulder).alongWith(new LED_load(msSensor, mLed, mGripper)));
   }
 }

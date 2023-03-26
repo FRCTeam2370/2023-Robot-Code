@@ -1,36 +1,34 @@
 package frc.robot;
-import java.sql.Driver;
-
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.lib.util.COTSFalconSwerveConstants.driveGearRatios;
+import frc.robot.autos.Score_one_and_balance_middle;
 import frc.robot.autos.exampleAuto;
+import frc.robot.autos.left_score_one_and_balance;
+import frc.robot.autos.right_score_one_and_balance;
 import frc.robot.autos.score_one;
 import frc.robot.autos.score_one_and_balance;
-import frc.robot.commands.TeleopSwerve;
-import frc.robot.commands.UltraStow;
-import frc.robot.commands.Top_goal;
-import frc.robot.commands.loading;
+import frc.robot.autos.score_one_and_do_nothing;
+import frc.robot.autos.score_two;
 import frc.robot.commands.Ground;
 import frc.robot.commands.LED_ON;
 import frc.robot.commands.Pickup;
+import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.Top_goal;
+import frc.robot.commands.UltraStow;
+import frc.robot.commands.loading;
 import frc.robot.commands.mid_goal;
 import frc.robot.commands.stow;
+import frc.robot.commands.Drivetrain.Loading_With_Help;
 import frc.robot.commands.Drivetrain.align_to_target;
 import frc.robot.commands.Drivetrain.align_with_driver_input;
 import frc.robot.commands.Drivetrain.auto_balence;
 import frc.robot.commands.Drivetrain.limelight_on;
-import frc.robot.commands.Drivetrain.load_mode;
-import frc.robot.commands.Drivetrain.load_mode_with_arm;
 import frc.robot.commands.Gripper.CloseGripper;
 import frc.robot.commands.Gripper.OpenGripper;
 import frc.robot.commands.Gripper.gripper_toggle;
@@ -120,7 +118,23 @@ public class RobotContainer {
     private final sub_sensor m_Sub_sensor = new sub_sensor();
     private final Cube_Intake m_Cube_Intake = new Cube_Intake();
     private final sub_LED m_Sub_Led = new sub_LED();
-    
+    SendableChooser<Command> chooser = new SendableChooser<>();
+    private final score_one m_score_one =  new score_one(s_Swerve, m_sub_Elbow,m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
+    private final right_score_one_and_balance mScore_one_and_balance = new right_score_one_and_balance(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
+    private final left_score_one_and_balance mLeft_score_one_and_balance = new left_score_one_and_balance(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
+    private final exampleAuto mExampleAuto = new exampleAuto(s_Swerve);
+    private final Score_one_and_balance_middle m_Balance_middle = new Score_one_and_balance_middle(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
+    private final score_one_and_do_nothing mAnd_do_nothing = new score_one_and_do_nothing(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
+    private final score_two mScore_two = new score_two(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper);
+    public void addAutoOptions(){
+        chooser.addOption("score one",m_score_one);
+        chooser.addOption("right score and balance", mScore_one_and_balance);
+        chooser.addOption("left score one and balance", mLeft_score_one_and_balance);
+        chooser.addOption("do nothing", mExampleAuto);
+        chooser.addOption("score one and do nothing", mAnd_do_nothing);
+        chooser.addOption("score one and balance middle =", m_Balance_middle);
+        chooser.addOption("score two", mScore_two);
+        SmartDashboard.putData(chooser);}
     public static Trigger trigger (GenericHID controller, int axis) {
         return new Trigger(() -> controller.getRawAxis(axis) >= 0.9);
       }
@@ -145,7 +159,7 @@ public class RobotContainer {
     } 
 
     private void configureButtonBindings() {
-        Cube.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        Cube.onTrue(new InstantCommand(() -> s_Swerve.reverseGyro()));
         Rdriver_Select.onTrue(new InstantCommand(()->s_Swerve.zeroGyro()));
         // Add Button Bindings here
         //A.onTrue(new Move_Elbow(m_sub_Elbow, Constants.ElbowConstants.ArmDownPosition));
@@ -189,7 +203,8 @@ public class RobotContainer {
 
 
   //Loading pose
-  driver_B.toggleOnTrue(new loading(m_sub_Elbow, m_sub_Shoulder));
+  //driver_B.toggleOnTrue(new load_mode_with_arm(s_Swerve, m_Sub_Led, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper));
+  driver_B.toggleOnTrue(new Loading_With_Help(m_sub_Elbow, m_sub_Shoulder, m_Sub_sensor, m_Sub_Led, m_Sub_Gripper));
 
   //Run intake forward
   //trigger(driver, 3).whileTrue(new ForwardIntake(m_Cube_Intake));
@@ -232,8 +247,9 @@ public class RobotContainer {
         Mid.toggleOnTrue(new mid_goal(m_sub_Elbow, m_sub_Shoulder));
 
         //Load
-       // Load.toggleOnTrue(new load_mode(s_Swerve, -driver.getRawAxis(0), -driver.getRawAxis(1), m_Sub_Led, -driver.getRawAxis(4), m_sub_Elbow, m_sub_Shoulder));
-       Load.toggleOnTrue(new load_mode_with_arm(s_Swerve, m_Sub_Led, m_sub_Elbow, m_sub_Shoulder));
+       //Load.toggleOnTrue(new load_mode_with_arm(s_Swerve, m_Sub_Led, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper));
+        Load.toggleOnTrue(new Loading_With_Help(m_sub_Elbow, m_sub_Shoulder, m_Sub_sensor, m_Sub_Led, m_Sub_Gripper));
+
         High.toggleOnTrue(new Top_goal(m_sub_Elbow, m_sub_Shoulder));
 
         //Open gripper
@@ -264,6 +280,6 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return new score_one_and_balance(s_Swerve, m_sub_Elbow,m_sub_Shoulder, m_Sub_Gripper);
+        return chooser.getSelected();
     }
 }

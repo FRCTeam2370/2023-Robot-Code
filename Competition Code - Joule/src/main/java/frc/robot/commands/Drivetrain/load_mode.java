@@ -6,29 +6,39 @@ package frc.robot.commands.Drivetrain;
 
 import java.util.function.DoubleSupplier;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Swerve;
+import frc.robot.subsystems.sub_Elbow;
 import frc.robot.subsystems.sub_LED;
+import frc.robot.subsystems.sub_Shoulder;
 import frc.robot.subsystems.sub_sensor;
 
 public class load_mode extends CommandBase {
   /** Creates a new load_mode. */
   Swerve m_Swerve;
-  DoubleSupplier translationSup;
-  DoubleSupplier strafeSup;
-  public load_mode(Swerve m_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, sub_LED LED) {
+  double translationSup;
+  double strafeSup;
+  double turn;
+  public load_mode(Swerve m_Swerve, double translationSup, double strafeSup, sub_LED LED, double turn, sub_Elbow elbow, sub_Shoulder shoulder) {
     this.m_Swerve = m_Swerve;
-    addRequirements(m_Swerve, LED);
+    addRequirements(m_Swerve, LED, elbow, shoulder);
     this.translationSup= translationSup;
-    this.strafeSup = strafeSup;    // Use addRequirements() here to declare subsystem dependencies.
+    this.strafeSup = strafeSup; 
+    this.turn = turn;
+       // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    sub_Elbow.Elbow_motor.set(ControlMode.Position, 76300);
+    sub_Shoulder.Shoulder_motor.set(ControlMode.Position, 15700);
 
   }
 
@@ -40,27 +50,27 @@ public class load_mode extends CommandBase {
     double translationVal;
     double strafeVal;
     
-    if( RobotContainer.Deadband(strafeSup.getAsDouble(), Constants.stickDeadband) <0){
-      translationVal = RobotContainer.Deadband(translationSup.getAsDouble(), Constants.stickDeadband);
-      strafeVal = RobotContainer.Deadband(strafeSup.getAsDouble(), Constants.stickDeadband);
+    if( RobotContainer.Deadband(strafeSup, Constants.stickDeadband) <0){
+      translationVal = RobotContainer.Deadband(translationSup, Constants.stickDeadband);
+      strafeVal = RobotContainer.Deadband(strafeSup, Constants.stickDeadband);
     }
     else if(sub_sensor.Distence > 5){
-       translationVal = RobotContainer.Deadband(translationSup.getAsDouble(), Constants.stickDeadband);
-       strafeVal = RobotContainer.Deadband(strafeSup.getAsDouble(), Constants.stickDeadband);
+       translationVal = RobotContainer.Deadband(translationSup, Constants.stickDeadband);
+       strafeVal = RobotContainer.Deadband(strafeSup, Constants.stickDeadband);
        sub_LED.LEDset(sub_LED.rearLEDs, sub_LED.rearLEDSbuffer, 125, 0, 0);
     }
     else if(sub_sensor.Distence < 1){
-       translationVal = RobotContainer.Deadband(translationSup.getAsDouble(), Constants.stickDeadband)*.1;
-       strafeVal = RobotContainer.Deadband(strafeSup.getAsDouble(), Constants.stickDeadband)*.1;
+       translationVal = RobotContainer.Deadband(translationSup, Constants.stickDeadband)*.1;
+       strafeVal = RobotContainer.Deadband(strafeSup, Constants.stickDeadband)*.1;
        sub_LED.LEDset(sub_LED.rearLEDs, sub_LED.rearLEDSbuffer, 93, 213, 0);
     }
     else{
-       translationVal = Swerve.findlinerequationandpoint(RobotContainer.Deadband(translationSup.getAsDouble(), Constants.stickDeadband), 5, 1, 1, .1);
-       strafeVal = Swerve.findlinerequationandpoint(RobotContainer.Deadband(strafeSup.getAsDouble(), Constants.stickDeadband), 5, 1, 1, .1);
+       translationVal = Swerve.findlinerequationandpoint(RobotContainer.Deadband(translationSup, Constants.stickDeadband), 5, 1, 1, .1);
+       strafeVal = Swerve.findlinerequationandpoint(RobotContainer.Deadband(strafeSup, Constants.stickDeadband), 5, 1, 1, .1);
        sub_LED.LEDset(sub_LED.rearLEDs, sub_LED.rearLEDSbuffer, 245, 242, 49);
     }
 
-    double rotationVal = Swerve.swerve_angle_movenment_PID.calculate(Swerve.angle, 0);
+    double rotationVal = RobotContainer.Deadband(turn, Constants.stickDeadband);
 
   m_Swerve.drive(new Translation2d(strafeVal,translationVal).times(Constants.Swerve.maxSpeed), rotationVal , !true, true);
   }

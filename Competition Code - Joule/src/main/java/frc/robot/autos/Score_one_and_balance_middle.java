@@ -123,8 +123,7 @@ SwerveControllerCommand swerveControllerCommand =
 addCommands(new CloseGripper(m_Sub_Gripper),new Top_goal(m_sub_Elbow, m_sub_Shoulder),  new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
   swerveControllerCommand, new OpenGripper(m_Sub_Gripper), new WaitCommand(1), swerveControllerCommand2,new UltraStow(m_sub_Elbow, m_sub_Shoulder), new drop_intake(m_cube), new ForwardIntake(m_cube), new WaitCommand(1), new stop_intake(m_cube),
   
-  
-  new InstantCommand(()-> Swerve.setoffset(0)), swerveControllerCommand3, new auto_balence(s_Swerve, 0, 0)
+   /*  new InstantCommand(()-> Swerve.setoffset(0)),*/ swerveControllerCommand3, new auto_balence(s_Swerve, 0, 0)
 
   );
 }

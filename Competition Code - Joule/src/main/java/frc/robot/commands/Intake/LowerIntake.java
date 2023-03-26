@@ -16,9 +16,9 @@ import frc.robot.subsystems.sub_Shoulder;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class LowerIntake extends SequentialCommandGroup {
   /** Creates a new LowerIntake. */
-  public LowerIntake(sub_Elbow mElbow, sub_Shoulder  msShoulder, Cube_Intake mCube_Intake, Swerve mSwerve) {
+  public LowerIntake(sub_Elbow mElbow, sub_Shoulder  msShoulder, Cube_Intake mCube_Intake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new UltraStow(mElbow, msShoulder).andThen(new IntakeToggle(mCube_Intake, mSwerve)));
+    addCommands(new UltraStow(mElbow, msShoulder).andThen(new IntakeToggle(mCube_Intake)));
   }
 }

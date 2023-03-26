@@ -9,14 +9,15 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Cube_Intake;
+import frc.robot.subsystems.Swerve;
 
 public class IntakeToggle extends CommandBase {
 
  public Cube_Intake m_Cube_Intake;
   /** Creates a new IntakeToggle. */
-  public IntakeToggle(Cube_Intake m_Cube_Intake, Swerve mSwerve) {
+  public IntakeToggle(Cube_Intake m_Cube_Intake) {
     // Use addRequirements() here to declare subsystem dependencies.
-   addRequirements(m_Cube_Intake, mSwerve);
+   addRequirements(m_Cube_Intake);
     this.m_Cube_Intake = m_Cube_Intake;
 
   }
@@ -33,7 +34,7 @@ public class IntakeToggle extends CommandBase {
   public void execute() {
 
     if(RobotContainer.trigger(RobotContainer.driver, 3).getAsBoolean() == true){
-      Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, 0.8);
+      Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, 0.6);
     }else if(RobotContainer.trigger(RobotContainer.driver, 2).getAsBoolean() == true){
       Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, -1);
     }else{

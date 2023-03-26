@@ -54,7 +54,8 @@ public class exampleAuto extends SequentialCommandGroup {
 
 
         addCommands(
-    
+            new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
+            swerveControllerCommand
         );
     }
 }

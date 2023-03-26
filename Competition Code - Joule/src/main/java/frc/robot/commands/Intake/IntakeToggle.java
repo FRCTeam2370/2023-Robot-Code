@@ -9,7 +9,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Cube_Intake;
-import frc.robot.subsystems.Swerve;
 
 public class IntakeToggle extends CommandBase {
 
@@ -27,7 +26,6 @@ public class IntakeToggle extends CommandBase {
   @Override
   public void initialize() {
     Cube_Intake.DropIntake();
-    Swerve.normalturn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -35,7 +33,7 @@ public class IntakeToggle extends CommandBase {
   public void execute() {
 
     if(RobotContainer.trigger(RobotContainer.driver, 3).getAsBoolean() == true){
-      Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, 0.6);
+      Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, 0.8);
     }else if(RobotContainer.trigger(RobotContainer.driver, 2).getAsBoolean() == true){
       Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, -1);
     }else{
@@ -49,7 +47,6 @@ public class IntakeToggle extends CommandBase {
   public void end(boolean interrupted) {
     Cube_Intake.RiseIntake();
     Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, 0);
-    Swerve.Slowturn();
   }
 
   // Returns true when the command should end.

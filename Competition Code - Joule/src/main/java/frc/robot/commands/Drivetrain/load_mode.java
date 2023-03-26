@@ -22,12 +22,12 @@ import frc.robot.subsystems.sub_sensor;
 public class load_mode extends CommandBase {
   /** Creates a new load_mode. */
   Swerve m_Swerve;
-  double translationSup;
-  double strafeSup;
-  double turn;
-  public load_mode(Swerve m_Swerve, double translationSup, double strafeSup, sub_LED LED, double turn, sub_Elbow elbow, sub_Shoulder shoulder) {
+  DoubleSupplier translationSup;
+  DoubleSupplier strafeSup;
+  DoubleSupplier turn;
+  public load_mode(Swerve m_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, sub_LED LED, DoubleSupplier turn) {
     this.m_Swerve = m_Swerve;
-    addRequirements(m_Swerve, LED, elbow, shoulder);
+    addRequirements(m_Swerve, LED);
     this.translationSup= translationSup;
     this.strafeSup = strafeSup; 
     this.turn = turn;
@@ -37,8 +37,7 @@ public class load_mode extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    sub_Elbow.Elbow_motor.set(ControlMode.Position, 76300);
-    sub_Shoulder.Shoulder_motor.set(ControlMode.Position, 15700);
+
 
   }
 
@@ -50,27 +49,27 @@ public class load_mode extends CommandBase {
     double translationVal;
     double strafeVal;
     
-    if( RobotContainer.Deadband(strafeSup, Constants.stickDeadband) <0){
-      translationVal = RobotContainer.Deadband(translationSup, Constants.stickDeadband);
-      strafeVal = RobotContainer.Deadband(strafeSup, Constants.stickDeadband);
+    if( RobotContainer.Deadband(strafeSup.getAsDouble(), Constants.stickDeadband) <0){
+      translationVal = RobotContainer.Deadband(translationSup.getAsDouble(), Constants.stickDeadband);
+      strafeVal = RobotContainer.Deadband(strafeSup.getAsDouble(), Constants.stickDeadband);
     }
     else if(sub_sensor.Distence > 5){
-       translationVal = RobotContainer.Deadband(translationSup, Constants.stickDeadband);
-       strafeVal = RobotContainer.Deadband(strafeSup, Constants.stickDeadband);
+       translationVal = RobotContainer.Deadband(translationSup.getAsDouble(), Constants.stickDeadband);
+       strafeVal = RobotContainer.Deadband(strafeSup.getAsDouble(), Constants.stickDeadband);
        sub_LED.LEDset(sub_LED.rearLEDs, sub_LED.rearLEDSbuffer, 125, 0, 0);
     }
     else if(sub_sensor.Distence < 1){
-       translationVal = RobotContainer.Deadband(translationSup, Constants.stickDeadband)*.1;
-       strafeVal = RobotContainer.Deadband(strafeSup, Constants.stickDeadband)*.1;
+       translationVal = RobotContainer.Deadband(translationSup.getAsDouble(), Constants.stickDeadband)*.1;
+       strafeVal = RobotContainer.Deadband(strafeSup.getAsDouble(), Constants.stickDeadband)*.1;
        sub_LED.LEDset(sub_LED.rearLEDs, sub_LED.rearLEDSbuffer, 93, 213, 0);
     }
     else{
-       translationVal = Swerve.findlinerequationandpoint(RobotContainer.Deadband(translationSup, Constants.stickDeadband), 5, 1, 1, .1);
-       strafeVal = Swerve.findlinerequationandpoint(RobotContainer.Deadband(strafeSup, Constants.stickDeadband), 5, 1, 1, .1);
+       translationVal = Swerve.findlinerequationandpoint(RobotContainer.Deadband(translationSup.getAsDouble(), Constants.stickDeadband), 5, 1, 1, .1);
+       strafeVal = Swerve.findlinerequationandpoint(RobotContainer.Deadband(strafeSup.getAsDouble(), Constants.stickDeadband), 5, 1, 1, .1);
        sub_LED.LEDset(sub_LED.rearLEDs, sub_LED.rearLEDSbuffer, 245, 242, 49);
     }
 
-    double rotationVal = RobotContainer.Deadband(turn, Constants.stickDeadband);
+    double rotationVal = RobotContainer.Deadband(turn.getAsDouble(), Constants.stickDeadband);
 
   m_Swerve.drive(new Translation2d(strafeVal,translationVal).times(Constants.Swerve.maxSpeed), rotationVal , !true, true);
   }

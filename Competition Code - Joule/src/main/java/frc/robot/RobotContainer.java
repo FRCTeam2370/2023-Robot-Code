@@ -1,25 +1,36 @@
 package frc.robot;
+import java.sql.Driver;
+
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.lib.util.COTSFalconSwerveConstants.driveGearRatios;
+import frc.robot.autos.exampleAuto;
+import frc.robot.autos.score_one;
 import frc.robot.autos.score_one_and_balance;
+import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.UltraStow;
+import frc.robot.commands.Top_goal;
+import frc.robot.commands.loading;
 import frc.robot.commands.Ground;
 import frc.robot.commands.LED_ON;
 import frc.robot.commands.Pickup;
-import frc.robot.commands.TeleopSwerve;
-import frc.robot.commands.Top_goal;
-import frc.robot.commands.UltraStow;
-import frc.robot.commands.loading;
 import frc.robot.commands.mid_goal;
 import frc.robot.commands.stow;
-import frc.robot.commands.Drivetrain.Loading_With_Help;
 import frc.robot.commands.Drivetrain.align_to_target;
 import frc.robot.commands.Drivetrain.align_with_driver_input;
 import frc.robot.commands.Drivetrain.auto_balence;
 import frc.robot.commands.Drivetrain.limelight_on;
+import frc.robot.commands.Drivetrain.load_mode;
+import frc.robot.commands.Drivetrain.load_mode_with_arm;
 import frc.robot.commands.Gripper.CloseGripper;
 import frc.robot.commands.Gripper.OpenGripper;
 import frc.robot.commands.Gripper.gripper_toggle;
@@ -222,9 +233,7 @@ public class RobotContainer {
 
         //Load
        // Load.toggleOnTrue(new load_mode(s_Swerve, -driver.getRawAxis(0), -driver.getRawAxis(1), m_Sub_Led, -driver.getRawAxis(4), m_sub_Elbow, m_sub_Shoulder));
-      // Load.toggleOnTrue(new loading(m_sub_Elbow, m_sub_Shoulder));
-        Load.toggleOnTrue(new Loading_With_Help(m_sub_Elbow, m_sub_Shoulder, m_Sub_sensor, m_Sub_Led));
-       //Top goal
+       Load.toggleOnTrue(new load_mode_with_arm(s_Swerve, m_Sub_Led, m_sub_Elbow, m_sub_Shoulder));
         High.toggleOnTrue(new Top_goal(m_sub_Elbow, m_sub_Shoulder));
 
         //Open gripper

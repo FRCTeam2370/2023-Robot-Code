@@ -2,6 +2,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+<<<<<<< Updated upstream
+=======
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+>>>>>>> Stashed changes
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -209,7 +215,7 @@ public class RobotContainer {
    driver_Start.toggleOnTrue(new UltraStow(m_sub_Elbow, m_sub_Shoulder));
 
    //Intake toggle
-  driver_Y.toggleOnTrue(new IntakeToggle(m_Cube_Intake));
+  driver_Y.toggleOnTrue(new IntakeToggle(m_Cube_Intake, s_Swerve));
 
 
         //Ground 
@@ -237,7 +243,7 @@ public class RobotContainer {
         Close.toggleOnTrue(new CloseGripper(m_Sub_Gripper));
 
         //toggle Intake
-        Cone.toggleOnTrue(new IntakeToggle(m_Cube_Intake));
+        Cone.toggleOnTrue(new IntakeToggle(m_Cube_Intake, s_Swerve));
 
      
 
@@ -247,7 +253,7 @@ public class RobotContainer {
         
         operator_Y.whileTrue(new auto_balence(s_Swerve, 0, 0));
 
-        operator_X.toggleOnTrue(new IntakeToggle(m_Cube_Intake));
+        operator_X.toggleOnTrue(new IntakeToggle(m_Cube_Intake, s_Swerve));
 
         operator_LB.whileTrue(new ReverseIntake(m_Cube_Intake));
 

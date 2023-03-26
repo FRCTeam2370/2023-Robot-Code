@@ -7,6 +7,7 @@ package frc.robot.commands.Intake;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.UltraStow;
 import frc.robot.subsystems.Cube_Intake;
+import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.sub_Elbow;
 import frc.robot.subsystems.sub_Shoulder;
 
@@ -15,9 +16,9 @@ import frc.robot.subsystems.sub_Shoulder;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class LowerIntake extends SequentialCommandGroup {
   /** Creates a new LowerIntake. */
-  public LowerIntake(sub_Elbow mElbow, sub_Shoulder  msShoulder, Cube_Intake mCube_Intake) {
+  public LowerIntake(sub_Elbow mElbow, sub_Shoulder  msShoulder, Cube_Intake mCube_Intake, Swerve mSwerve) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new UltraStow(mElbow, msShoulder).andThen(new IntakeToggle(mCube_Intake)));
+    addCommands(new UltraStow(mElbow, msShoulder).andThen(new IntakeToggle(mCube_Intake, mSwerve)));
   }
 }

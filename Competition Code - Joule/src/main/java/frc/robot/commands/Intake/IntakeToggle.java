@@ -15,10 +15,11 @@ public class IntakeToggle extends CommandBase {
 
  public Cube_Intake m_Cube_Intake;
   /** Creates a new IntakeToggle. */
-  public IntakeToggle(Cube_Intake m_Cube_Intake) {
+  public IntakeToggle(Cube_Intake m_Cube_Intake, Swerve mSwerve) {
     // Use addRequirements() here to declare subsystem dependencies.
-   addRequirements(m_Cube_Intake);
+   addRequirements(m_Cube_Intake, mSwerve);
     this.m_Cube_Intake = m_Cube_Intake;
+
   }
   
 
@@ -40,6 +41,7 @@ public class IntakeToggle extends CommandBase {
     }else{
       Cube_Intake.IntakeMotor.set(ControlMode.PercentOutput, 0);
     }
+    
   }
 
   // Called once the command ends or is interrupted.

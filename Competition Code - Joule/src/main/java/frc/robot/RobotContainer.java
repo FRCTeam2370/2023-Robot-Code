@@ -30,7 +30,7 @@ import frc.robot.commands.Drivetrain.align_with_driver_input;
 import frc.robot.commands.Drivetrain.auto_balence;
 import frc.robot.commands.Drivetrain.limelight_on;
 import frc.robot.commands.Drivetrain.load_mode;
-
+import frc.robot.commands.Drivetrain.load_mode_with_arm;
 import frc.robot.commands.Gripper.CloseGripper;
 import frc.robot.commands.Gripper.OpenGripper;
 import frc.robot.commands.Gripper.gripper_toggle;
@@ -233,8 +233,7 @@ public class RobotContainer {
 
         //Load
        // Load.toggleOnTrue(new load_mode(s_Swerve, -driver.getRawAxis(0), -driver.getRawAxis(1), m_Sub_Led, -driver.getRawAxis(4), m_sub_Elbow, m_sub_Shoulder));
-       Load.toggleOnTrue(new loading(m_sub_Elbow, m_sub_Shoulder));
-        //Top goal
+       Load.toggleOnTrue(new load_mode_with_arm(s_Swerve, m_Sub_Led, m_sub_Elbow, m_sub_Shoulder));
         High.toggleOnTrue(new Top_goal(m_sub_Elbow, m_sub_Shoulder));
 
         //Open gripper

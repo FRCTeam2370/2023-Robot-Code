@@ -2,16 +2,17 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Intake;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Cube_Intake;
+import frc.robot.subsystems.sub_LED;
+import frc.robot.subsystems.sub_sensor;
 
-public class ReverseIntake extends CommandBase {
-  /** Creates a new ReverseIntake. */
-  public ReverseIntake(Cube_Intake mCube_Intake) {
+public class LED_ON extends CommandBase {
+  /** Creates a new LED_ON. */
+  public LED_ON(sub_LED LED) {
+    addRequirements(LED);
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(mCube_Intake);
   }
 
   // Called when the command is initially scheduled.
@@ -21,14 +22,12 @@ public class ReverseIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Cube_Intake.ReverseIntake();
+    sub_LED.LEDset(sub_LED.rearLEDs, sub_LED.rearLEDSbuffer, 255, 0, 0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    Cube_Intake.StopIntake();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

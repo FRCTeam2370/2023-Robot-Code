@@ -1,13 +1,14 @@
 package frc.robot.subsystems;
 
 import frc.robot.SwerveModule;
-import frc.robot.commands.Intake.stop_intake;
 import frc.robot.Constants;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+
+import java.util.function.DoubleUnaryOperator;
 
 import com.ctre.phoenix.sensors.Pigeon2;
 
@@ -27,25 +28,36 @@ public class Swerve extends SubsystemBase {
     public static double rotationMultiplier = 1;
     public static PIDController swerve_X_movenment_PID = new PIDController(0.1 , 0, 0);
     public static PIDController swerve_Y_movenment_PID = new PIDController(0.1, 0, .0);
-    public static PIDController swerve_angle_movenment_PID = new PIDController(0.17, 0, 0);
-    public static PIDController swerve_auto_balance_Controller = new PIDController(.0225, 0, 0.00675);
+    public static PIDController swerve_angle_movenment_PID = new PIDController(0.085, 0, 0);
+    public static PIDController swerve_auto_balance_Controller = new PIDController(.025, 0, 0);
     public static double angle;
-    public static double angle_offset = 0;
     public static double pitch;
     public static double setSpeed(double p, double postion, double target){
         double error = target - postion;
         return p*error;
+    
     }
+    public static double findlinerequationandpoint(double speed,double x1, double  y1, double x2, double y2 ){
+        double slope = (y2 - y1)/(x2-x1);
+        double yintercept = y2 - x2*slope;
+        return slope*speed;}
+        public static DoubleUnaryOperator linearEquationFromPoints(double x1, double y1, double x2, double y2) {
+            double slope = (y2 - y1) / (x2 - x1);
+            double intercept = y1 - slope * x1;
+            return x -> slope * x + intercept;
+        }
+    public static DoubleUnaryOperator Rvalue = linearEquationFromPoints(2, 93, 1, 213);
+    public static DoubleUnaryOperator Gvalue = linearEquationFromPoints(2, 213, 1, 28);
     public Swerve() {
-        
         swerve_X_movenment_PID.setTolerance(5.0);
         
         swerve_Y_movenment_PID.setTolerance(2.0);
         swerve_Y_movenment_PID.disableContinuousInput();
-        swerve_auto_balance_Controller.setTolerance(4);
+        swerve_auto_balance_Controller.setTolerance(10);
         gyro = new Pigeon2(Constants.Swerve.pigeonID);
         gyro.configFactoryDefault();
         zeroGyro();
+
         mSwerveMods = new SwerveModule[] {
             new SwerveModule(0, Constants.Swerve.Mod0.constants),
             new SwerveModule(1, Constants.Swerve.Mod1.constants),
@@ -125,9 +137,6 @@ public static void normalturn(){
         gyro.setYaw(0);
     }
 
-    public void reverseGyro(){
-        gyro.setYaw(180);
-    }
     public Rotation2d getYaw() {
         return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
     }
@@ -137,22 +146,17 @@ public static void normalturn(){
             mod.resetToAbsolute();
         }
     }
-    public static void setoffset(double offsets){
-        angle_offset=offsets;
-    }
+
     @Override
     public void periodic(){
-    
         swerveOdometry.update(getYaw(), getModulePositions());  
-        angle = gyro.getYaw()+angle_offset;
+        angle = gyro.getYaw();
         pitch = gyro.getPitch();
         for(SwerveModule mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
         }
-    SmartDashboard.putNumber("angle", angle);
-    SmartDashboard.putNumber("Pitch", pitch);
-}
+    SmartDashboard.putNumber("angle", gyro.getYaw()); }
 
 }

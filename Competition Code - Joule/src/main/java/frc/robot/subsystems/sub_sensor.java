@@ -11,6 +11,8 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,6 +23,7 @@ import frc.robot.Constants.ElbowConstants;
 public class sub_sensor extends SubsystemBase {
   /** Creates a new sub_sensor. */
   public sub_sensor() {
+   
     
   }
 public static double X_lime;
@@ -34,7 +37,6 @@ if(target-1 <= postion && postion < target+1){
 }
 else{return 0;}
 }
-  
 public static NetworkTable limeTable = NetworkTableInstance.getDefault().getTable("limelight");
 public static NetworkTableEntry tx = limeTable.getEntry("tx");
 public static NetworkTableEntry ty = limeTable.getEntry("ty");
@@ -44,7 +46,7 @@ public static AnalogInput Distence_sensor = new AnalogInput(0);
 public static double Distence;
 
 public static double distince_from_target(AnalogInput x){ 
-  return Math.floor( ((3.55*x.getAverageVoltage())-0.159));
+  return  ((3.55*x.getAverageVoltage())-0.159);
 }
 
 public static String GamePiece = "";
@@ -135,7 +137,8 @@ public static void SwitchPipline2(){
     SmartDashboard.putNumber("y lime", Y_lime);
     SmartDashboard.putNumber("Area lime", Area_lime);
 
-    SmartDashboard.putNumber("distance", Distence_sensor.getVoltage());
+    SmartDashboard.putNumber("distance", Distence);
     // This method will be called once per scheduler run
+    
   }
 }

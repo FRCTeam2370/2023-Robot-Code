@@ -46,7 +46,7 @@ import frc.robot.subsystems.sub_sensor;
 public class RobotContainer {
     /* Controllers */
     public final static GenericHID driver = new GenericHID(0);
-    public final static GenericHID operator = new GenericHID(1);
+   // public final static GenericHID operator = new GenericHID(1);
     public final static GenericHID rdriver = new GenericHID(3);
     public final static GenericHID operatorBoard = new GenericHID(4);
     /* Drive Controls */
@@ -89,14 +89,14 @@ public class RobotContainer {
     public final static JoystickButton Rdriver_Select = new JoystickButton(rdriver, 7);
     public final static JoystickButton Rdriver_Start = new JoystickButton(rdriver, 8);
 
-    public final static JoystickButton operator_A = new JoystickButton(operator, 1);
+   /*  public final static JoystickButton operator_A = new JoystickButton(operator, 1);
     public final static JoystickButton operator_B = new JoystickButton(operator, 2);
     public final static JoystickButton operator_X = new JoystickButton(operator, 3);
     public final static JoystickButton operator_Y = new JoystickButton(operator, 4);
     public final static JoystickButton operator_LB = new JoystickButton(operator, 5);
     public final static JoystickButton operator_RB = new JoystickButton(operator, 6);
     public final static JoystickButton operator_Select = new JoystickButton(operator, 7);
-    public final static JoystickButton operator_Start = new JoystickButton(operator, 8);
+    public final static JoystickButton operator_Start = new JoystickButton(operator, 8);*/
 
     public final static JoystickButton GND = new JoystickButton(operatorBoard, 1);
     public final static JoystickButton Stow = new JoystickButton(operatorBoard, 2);
@@ -267,7 +267,7 @@ public class RobotContainer {
 
      
 
-        operator_B.whileTrue(new align_to_target(s_Swerve, 2, 2, 180));
+        /*operator_B.whileTrue(new align_to_target(s_Swerve, 2, 2, 180));
 
         operator_A.toggleOnTrue(new align_with_driver_input(s_Swerve, 2,180));
         
@@ -277,7 +277,7 @@ public class RobotContainer {
 
         operator_LB.whileTrue(new ReverseIntake(m_Cube_Intake));
 
-        operator_RB.whileTrue(new ForwardIntake(m_Cube_Intake));
+        operator_RB.whileTrue(new ForwardIntake(m_Cube_Intake));*/
     }
 
     public Command getAutonomousCommand() {

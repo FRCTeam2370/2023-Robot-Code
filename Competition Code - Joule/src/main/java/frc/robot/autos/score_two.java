@@ -25,7 +25,9 @@ import frc.robot.commands.stow;
 import frc.robot.commands.Elbow.Move_Elbow;
 import frc.robot.commands.Gripper.CloseGripper;
 import frc.robot.commands.Gripper.OpenGripper;
+import frc.robot.commands.Intake.Five_percent_run;
 import frc.robot.commands.Intake.ForwardIntake;
+import frc.robot.commands.Intake.RaiseIntake;
 import frc.robot.commands.Intake.ReverseIntake;
 import frc.robot.commands.Intake.drop_intake;
 import frc.robot.commands.Intake.stop_intake;
@@ -83,7 +85,7 @@ public class score_two extends SequentialCommandGroup {
       // Pass through these two interior waypoints, making an 's' curve path
       List.of(new Translation2d(0.3, 0)),
       // End 3 meters straight ahead of where we started, facing forward
-      new Pose2d(7, 0.1, new Rotation2d(-3.25)),
+      new Pose2d(7.1, 0.1, new Rotation2d(Math.PI)),
       config3);
 
       /*TrajectoryConfig config4 =
@@ -173,10 +175,10 @@ SwerveControllerCommand swerveControllerCommand =
                   thetaController,
                   s_Swerve::setModuleStates,
                   s_Swerve);*/
-addCommands(new CloseGripper(m_Sub_Gripper),new Top_goal(m_sub_Elbow, m_sub_Shoulder),  new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
-  swerveControllerCommand, new OpenGripper(m_Sub_Gripper), new WaitCommand(1), swerveControllerCommand2,new UltraStow(m_sub_Elbow, m_sub_Shoulder), new drop_intake(m_cube), 
-  new ForwardIntake(m_cube), new WaitCommand(1), new stop_intake(m_cube),
- swerveControllerCommand3, new ReverseIntake(m_cube), new WaitCommand(0.75), new stop_intake(m_cube)
+addCommands(new InstantCommand(() -> s_Swerve.reverseGyro()),new CloseGripper(m_Sub_Gripper),new Top_goal(m_sub_Elbow, m_sub_Shoulder),  new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
+  swerveControllerCommand, new OpenGripper(m_Sub_Gripper), new WaitCommand(1.25), swerveControllerCommand2,new UltraStow(m_sub_Elbow, m_sub_Shoulder), new drop_intake(m_cube), 
+  new ForwardIntake(m_cube), new WaitCommand(1.25), new Five_percent_run(m_cube),
+ swerveControllerCommand3, new WaitCommand(0.1), new ReverseIntake(m_cube), new WaitCommand(1), new stop_intake(m_cube), new RaiseIntake(m_cube)
 
   );
 }

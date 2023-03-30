@@ -115,7 +115,7 @@ SwerveControllerCommand swerveControllerCommand =
               s_Swerve::setModuleStates,
               s_Swerve);
 
-addCommands(new CloseGripper(m_Sub_Gripper),new align_to_target(s_Swerve, 2, 0, 0), new Move_Elbow(m_sub_Elbow, 15000).andThen(new Move_Elbow(m_sub_Elbow, 144115).alongWith(new Move_Shoulder(m_sub_Shoulder, 48863))),new WaitCommand(1),
+addCommands(new InstantCommand(() -> s_Swerve.reverseGyro()),new CloseGripper(m_Sub_Gripper),new align_to_target(s_Swerve, 2, 0, 0), new Move_Elbow(m_sub_Elbow, 15000).andThen(new Move_Elbow(m_sub_Elbow, 144115).alongWith(new Move_Shoulder(m_sub_Shoulder, 48863))),new WaitCommand(1),
 new InstantCommand(() -> s_Swerve.resetOdometry(Trajectory1.getInitialPose())),swerveControllerCommand,new WaitCommand(.25), new OpenGripper(m_Sub_Gripper), new WaitCommand(.5), 
 new ParallelCommandGroup(swerveControllerCommand2, (new WaitCommand(1).andThen(new Move_Elbow(m_sub_Elbow, 60000).alongWith(new Move_Shoulder(m_sub_Shoulder, 4700)).andThen(new Move_Elbow(m_sub_Elbow, 10000))))), new  InstantCommand(() -> s_Swerve.zeroGyro()) ,
 swerveControllerCommand3, new auto_balence(s_Swerve, 0, 0));}

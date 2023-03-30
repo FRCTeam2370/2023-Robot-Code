@@ -46,7 +46,7 @@ import frc.robot.subsystems.sub_sensor;
 public class RobotContainer {
     /* Controllers */
     public final static GenericHID driver = new GenericHID(0);
-    public final static GenericHID operator = new GenericHID(1);
+   // public final static GenericHID operator = new GenericHID(1);
     public final static GenericHID rdriver = new GenericHID(3);
     public final static GenericHID operatorBoard = new GenericHID(4);
     /* Drive Controls */
@@ -89,14 +89,14 @@ public class RobotContainer {
     public final static JoystickButton Rdriver_Select = new JoystickButton(rdriver, 7);
     public final static JoystickButton Rdriver_Start = new JoystickButton(rdriver, 8);
 
-    public final static JoystickButton operator_A = new JoystickButton(operator, 1);
+   /*  public final static JoystickButton operator_A = new JoystickButton(operator, 1);
     public final static JoystickButton operator_B = new JoystickButton(operator, 2);
     public final static JoystickButton operator_X = new JoystickButton(operator, 3);
     public final static JoystickButton operator_Y = new JoystickButton(operator, 4);
     public final static JoystickButton operator_LB = new JoystickButton(operator, 5);
     public final static JoystickButton operator_RB = new JoystickButton(operator, 6);
     public final static JoystickButton operator_Select = new JoystickButton(operator, 7);
-    public final static JoystickButton operator_Start = new JoystickButton(operator, 8);
+    public final static JoystickButton operator_Start = new JoystickButton(operator, 8);*/
 
     public final static JoystickButton GND = new JoystickButton(operatorBoard, 1);
     public final static JoystickButton Stow = new JoystickButton(operatorBoard, 2);
@@ -125,7 +125,7 @@ public class RobotContainer {
     private final exampleAuto mExampleAuto = new exampleAuto(s_Swerve);
     private final Score_one_and_balance_middle m_Balance_middle = new Score_one_and_balance_middle(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
     private final score_one_and_do_nothing mAnd_do_nothing = new score_one_and_do_nothing(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
-    private final score_two mScore_two = new score_two(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper);
+    private final score_two mScore_two = new score_two(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
     public void addAutoOptions(){
         chooser.addOption("score one",m_score_one);
         chooser.addOption("right score and balance", mScore_one_and_balance);
@@ -156,6 +156,7 @@ public class RobotContainer {
         m_Sub_sensor.setDefaultCommand(new limelight_on(m_Sub_sensor));
         m_Sub_Led.setDefaultCommand(new LED_ON(m_Sub_Led));
         configureButtonBindings();
+        addAutoOptions();
     } 
 
     private void configureButtonBindings() {
@@ -266,7 +267,7 @@ public class RobotContainer {
 
      
 
-        operator_B.whileTrue(new align_to_target(s_Swerve, 2, 2, 180));
+        /*operator_B.whileTrue(new align_to_target(s_Swerve, 2, 2, 180));
 
         operator_A.toggleOnTrue(new align_with_driver_input(s_Swerve, 2,180));
         
@@ -276,7 +277,7 @@ public class RobotContainer {
 
         operator_LB.whileTrue(new ReverseIntake(m_Cube_Intake));
 
-        operator_RB.whileTrue(new ForwardIntake(m_Cube_Intake));
+        operator_RB.whileTrue(new ForwardIntake(m_Cube_Intake));*/
     }
 
     public Command getAutonomousCommand() {

@@ -37,7 +37,7 @@ public class LED_load extends CommandBase {
       sub_LED.LEDset(sub_LED.rearLEDs, sub_LED.rearLEDSbuffer, 93, 213, 0);
       RobotContainer.driver.setRumble(RumbleType.kBothRumble, 0);
     }
-    if(sub_sensor.GamePiece == "Cone" && sub_sensor.m_colorSensor.getIR() > 9){
+    if(sub_sensor.GamePiece == "Cone" && sub_sensor.m_colorSensor.getIR() > 20){
       sub_Gripper.CloseGripper();
       RobotContainer.driver.setRumble(RumbleType.kBothRumble, 0);
       sub_LED.LEDset(sub_LED.rearLEDs, sub_LED.rearLEDSbuffer, 245, 242, 49);

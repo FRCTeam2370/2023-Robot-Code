@@ -96,7 +96,7 @@ SwerveControllerCommand swerveControllerCommand =
           s_Swerve::setModuleStates,
           s_Swerve);
 
-addCommands(new CloseGripper(m_Sub_Gripper),new Top_goal(m_sub_Elbow, m_sub_Shoulder),  new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
+addCommands(new InstantCommand(() -> s_Swerve.reverseGyro()),new CloseGripper(m_Sub_Gripper),new Top_goal(m_sub_Elbow, m_sub_Shoulder),  new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
   swerveControllerCommand, new OpenGripper(m_Sub_Gripper), new WaitCommand(1)
 
   );

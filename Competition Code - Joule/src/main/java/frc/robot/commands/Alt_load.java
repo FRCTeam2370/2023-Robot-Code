@@ -18,6 +18,6 @@ public class Alt_load extends SequentialCommandGroup {
   public Alt_load(sub_Elbow elbow, sub_Shoulder shoulder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new Move_Elbow(elbow, 73100).andThen(new Move_Shoulder(shoulder, 15700)));
+    addCommands(new Move_Elbow(elbow, 72100).andThen(new Move_Shoulder(shoulder, 15700)));
   }
 }

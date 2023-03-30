@@ -20,14 +20,18 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Top_goal;
+import frc.robot.commands.UltraStow;
 import frc.robot.commands.stow;
 import frc.robot.commands.Elbow.Move_Elbow;
 import frc.robot.commands.Gripper.CloseGripper;
 import frc.robot.commands.Gripper.OpenGripper;
 import frc.robot.commands.Intake.ForwardIntake;
+import frc.robot.commands.Intake.ReverseIntake;
 import frc.robot.commands.Intake.drop_intake;
+import frc.robot.commands.Intake.stop_intake;
 import frc.robot.commands.Shoulder.Move_Shoulder;
 import frc.robot.subsystems.Cube_Intake;
+import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.sub_Elbow;
 import frc.robot.subsystems.sub_Gripper;
 import frc.robot.subsystems.sub_Shoulder;
@@ -37,7 +41,7 @@ import frc.robot.subsystems.sub_Shoulder;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class score_one extends SequentialCommandGroup {
   /** Creates a new score_one. */
-  public score_one(frc.robot.subsystems.Swerve s_Swerve, sub_Elbow m_sub_Elbow, sub_Shoulder m_sub_Shoulder, sub_Gripper m_Sub_Gripper, Cube_Intake intake) {
+  public score_one(frc.robot.subsystems.Swerve s_Swerve, sub_Elbow m_sub_Elbow, sub_Shoulder m_sub_Shoulder, sub_Gripper m_Sub_Gripper, Cube_Intake m_cube ) {
     TrajectoryConfig config =
     new TrajectoryConfig(
             Constants.AutoConstants.kMaxSpeedMetersPerSecond,
@@ -62,9 +66,9 @@ public class score_one extends SequentialCommandGroup {
         // Start at the origin facing the +X direction
         new Pose2d(0, 0, new Rotation2d(180)),
         // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(-.5, 0)),
+        List.of(new Translation2d(-1, 0)),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(-1.5, 0, new Rotation2d(0)),
+        new Pose2d(-2.0, 0, new Rotation2d(0)),
         config2);
 var thetaController =
   new ProfiledPIDController(
@@ -92,10 +96,9 @@ SwerveControllerCommand swerveControllerCommand =
           s_Swerve::setModuleStates,
           s_Swerve);
 
-addCommands(new CloseGripper(m_Sub_Gripper), new Top_goal(m_sub_Elbow, m_sub_Shoulder),
-  new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
-  swerveControllerCommand, new OpenGripper(m_Sub_Gripper), new WaitCommand(1), swerveControllerCommand2.alongWith(new stow(m_sub_Shoulder, m_sub_Elbow, m_Sub_Gripper)).
-  alongWith(new WaitCommand(1).andThen(new drop_intake(intake)), new ForwardIntake(intake), new WaitCommand(.5), swerveControllerCommand2)  
-);
+addCommands(new InstantCommand(() -> s_Swerve.reverseGyro()),new CloseGripper(m_Sub_Gripper),new Top_goal(m_sub_Elbow, m_sub_Shoulder),  new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
+  swerveControllerCommand, new OpenGripper(m_Sub_Gripper), new WaitCommand(1), swerveControllerCommand2,new UltraStow(m_sub_Elbow, m_sub_Shoulder), new drop_intake(m_cube), new ForwardIntake(m_cube), new WaitCommand(1), new stop_intake(m_cube)
+
+  );
 }
 }

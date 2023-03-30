@@ -28,13 +28,13 @@ public class Cube_Intake extends SubsystemBase {
     IntakeSolenoid.set(Value.kReverse);
   }
   public static void ForwardIntake(){
-    IntakeMotor.set(ControlMode.PercentOutput,20);
+    IntakeMotor.set(ControlMode.PercentOutput,0.8);
   }
   public static void StopIntake(){
     IntakeMotor.set(ControlMode.PercentOutput, 0);
   }
   public static void ReverseIntake(){
-    IntakeMotor.set(ControlMode.PercentOutput, -100);
+    IntakeMotor.set(ControlMode.PercentOutput, -1);
   }
   @Override
   public void periodic() {

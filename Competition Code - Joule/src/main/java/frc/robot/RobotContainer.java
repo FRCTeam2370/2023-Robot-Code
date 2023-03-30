@@ -125,7 +125,7 @@ public class RobotContainer {
     private final exampleAuto mExampleAuto = new exampleAuto(s_Swerve);
     private final Score_one_and_balance_middle m_Balance_middle = new Score_one_and_balance_middle(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
     private final score_one_and_do_nothing mAnd_do_nothing = new score_one_and_do_nothing(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
-    private final score_two mScore_two = new score_two(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper);
+    private final score_two mScore_two = new score_two(s_Swerve, m_sub_Elbow, m_sub_Shoulder, m_Sub_Gripper, m_Cube_Intake);
     public void addAutoOptions(){
         chooser.addOption("score one",m_score_one);
         chooser.addOption("right score and balance", mScore_one_and_balance);
@@ -156,6 +156,7 @@ public class RobotContainer {
         m_Sub_sensor.setDefaultCommand(new limelight_on(m_Sub_sensor));
         m_Sub_Led.setDefaultCommand(new LED_ON(m_Sub_Led));
         configureButtonBindings();
+        addAutoOptions();
     } 
 
     private void configureButtonBindings() {

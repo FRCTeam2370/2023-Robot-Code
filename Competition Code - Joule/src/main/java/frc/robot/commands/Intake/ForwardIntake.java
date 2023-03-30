@@ -27,12 +27,12 @@ public class ForwardIntake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Cube_Intake.StopIntake();
+    //Cube_Intake.StopIntake();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

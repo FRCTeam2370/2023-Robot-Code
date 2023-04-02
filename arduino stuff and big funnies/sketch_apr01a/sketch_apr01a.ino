@@ -27,12 +27,12 @@ void loop() {
     for(int i = 0; i<= howmanybyteswewant; i++){
       datafromcolorsensor[i] = Wire.read();
     }
-  if(cubergb[0] == 0 && cubergb[1] == 0 &&cubergb[2] == 0 && cubeir ==0){
+  if(cubergb[0] == datafromcolorsensor[0] && cubergb[1] == datafromcolorsensor[1] &&cubergb[2] == datafromcolorsensor[2] && cubeir ==datafromcolorsensor[3]){
     digitalWrite(cubepin, HIGH);
     digitalWrite(conepin, LOW);
     digitalWrite(nopin, LOW);
   }
-  else if(conergb[0] == 0 && conergb[1] == 0 && conergb[2] && coneir == 0){
+  else if(conergb[0] == datafromcolorsensor[0] && conergb[1] == datafromcolorsensor[1] && conergb[2] == datafromcolorsensor[2] && coneir == datafromcolorsensor[4]){
         digitalWrite(cubepin, LOW);
     digitalWrite(conepin, HIGH);
     digitalWrite(nopin, LOW);    

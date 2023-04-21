@@ -29,7 +29,7 @@ public class Swerve extends SubsystemBase {
     public static PIDController swerve_X_movenment_PID = new PIDController(0.1 , 0, 0);
     public static PIDController swerve_Y_movenment_PID = new PIDController(0.1, 0, .0);
     public static PIDController swerve_angle_movenment_PID = new PIDController(0.085, 0, 0);
-    public static PIDController swerve_auto_balance_Controller = new PIDController(.025, 0, 0);
+    public static PIDController swerve_auto_balance_Controller = new PIDController(.0225, 0, 0.006);
     public static double angle;
     public static double pitch;
     public static double setSpeed(double p, double postion, double target){
@@ -156,11 +156,11 @@ public static void normalturn(){
         swerveOdometry.update(getYaw(), getModulePositions());  
         angle = gyro.getYaw();
         pitch = gyro.getPitch();
-        for(SwerveModule mod : mSwerveMods){
+     /*   for(SwerveModule mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
-        }
+        } */
     SmartDashboard.putNumber("angle", gyro.getYaw()); }
 
 }

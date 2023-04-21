@@ -38,7 +38,7 @@ public class auto_balence extends CommandBase {
 
     double Yspeed = frc.robot.subsystems.Swerve.swerve_auto_balance_Controller.calculate(Swerve.pitch, X);
     double Zspeed = frc.robot.subsystems.Swerve.swerve_angle_movenment_PID.calculate(frc.robot.subsystems.Swerve.angle%trueanglemodulo, Z);
-    m_Swerve.drive(new Translation2d(Yspeed, 0).times(Constants.Swerve.maxSpeed), Zspeed , !robotcnetricSup, false);
+    m_Swerve.drive(new Translation2d(-Yspeed, 0).times(Constants.Swerve.maxSpeed), 0 , !robotcnetricSup, false);
   }
 
   // Called once the command ends or is interrupted.
@@ -48,6 +48,6 @@ public class auto_balence extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return Swerve.swerve_auto_balance_Controller.atSetpoint() == true ? true : false;
   }
 }
